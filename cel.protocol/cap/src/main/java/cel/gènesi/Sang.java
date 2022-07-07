@@ -1,4 +1,4 @@
-package cel.temps.gènesi;
+package cel.gènesi;
 
 import cel.Anyell;
 

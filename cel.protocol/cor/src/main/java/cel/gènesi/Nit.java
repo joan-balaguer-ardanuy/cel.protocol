@@ -1,10 +1,10 @@
-package cel.temps.gènesi;
+package cel.gènesi;
 
 import java.util.Iterator;
 
 import cel.Anyell;
+import cel.gènesi.Cadena;
 import cel.temps.Cel;
-import cel.temps.gènesi.Cadena;
 
 public class Nit<K, V> extends Cel<K,V> implements Cadena<K,V> {
 
