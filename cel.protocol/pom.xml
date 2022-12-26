@@ -12,5 +12,6 @@
 	</properties>
 	<modules>
 		<module>cap</module>
+		<module>cor</module>
 	</modules>
 </project>
