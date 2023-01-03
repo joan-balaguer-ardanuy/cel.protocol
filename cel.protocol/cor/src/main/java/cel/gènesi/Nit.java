@@ -3,7 +3,7 @@ package cel.gènesi;
 import java.util.Iterator;
 
 import cel.Anyell;
-import cel.temps.Cel;
+import cel.Cel;
 
 public class Nit<K, V> extends Cel<K,V> implements Cadena<K,V> {
 

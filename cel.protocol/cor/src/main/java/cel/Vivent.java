@@ -1,16 +1,18 @@
 package cel;
 
-public class Vivent extends Document implements Servent {
+public class Vivent extends Déu implements Servent {
 
 	private static final long serialVersionUID = 630070369817443908L;
 
 	public Vivent() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public void ordre(Manament manament) {
+	@Override
+	public void ordre(Esdeveniment manament) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
 }

@@ -2,7 +2,7 @@ package cel.gènesi;
 
 import java.util.Iterator;
 
-import cel.temps.Cel;
+import cel.Cel;
 
 public class Dia<K,V> extends Cel<K, V> implements Sang<K, V> {
 

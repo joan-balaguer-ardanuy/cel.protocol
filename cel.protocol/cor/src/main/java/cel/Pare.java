@@ -2,7 +2,7 @@ package cel;
 
 public abstract class Pare
 	<K extends EsperitSant<K,V>,V extends EsperitSant<V,K>> 
-		extends Document 
+		extends Déu 
 			implements EsperitSant<K,V> {
 
 	private static final long serialVersionUID = 8831092807347333251L;
@@ -21,7 +21,7 @@ public abstract class Pare
 		
 	}
 
-	public void ordre(Manament manament) {
+	public void ordre(Esdeveniment manament) {
 		// TODO Auto-generated method stub
 		
 	}

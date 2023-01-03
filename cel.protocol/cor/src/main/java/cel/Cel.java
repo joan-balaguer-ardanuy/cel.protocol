@@ -1,6 +1,7 @@
-package cel.temps;
+package cel;
 
 import cel.Anyell;
+import cel.temps.Temps;
 
 public class Cel<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> implements Anyell<K, V> {
 
