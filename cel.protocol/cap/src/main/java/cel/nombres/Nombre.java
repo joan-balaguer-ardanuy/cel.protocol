@@ -1,4 +1,4 @@
-package cel.nombre;
+package cel.nombres;
 
 public interface Nombre {
 

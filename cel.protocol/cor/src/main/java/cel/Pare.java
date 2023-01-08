@@ -11,31 +11,6 @@ public abstract class Pare
 		// TODO Auto-generated constructor stub
 	}
 
-	public Class<? extends K> getClassePare() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setClassePare(Class<? extends K> classe) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void ordre(Esdeveniment manament) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Class<? extends V> getClasseFill() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setClasseFill(Class<? extends V> classe) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public K getPare() {
 		// TODO Auto-generated method stub
 		return null;
