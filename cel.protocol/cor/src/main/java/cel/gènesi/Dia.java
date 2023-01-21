@@ -4,11 +4,11 @@ import java.util.Iterator;
 
 import cel.Cel;
 
-public class Home<K,V> extends Cel<K, V> implements Sang<K, V> {
+public class Dia<K,V> extends Cel<K, V> implements Sang<K, V> {
 
 	private static final long serialVersionUID = 3590272279824571851L;
 
-	public Home() {
+	public Dia() {
 		// TODO Auto-generated constructor stub
 	}
 

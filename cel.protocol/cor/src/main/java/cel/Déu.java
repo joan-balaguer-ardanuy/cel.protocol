@@ -48,7 +48,7 @@ public abstract class Déu implements Esperit {
 		return super.clone();
 	}
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public void manament(Ordre manament) {
 		// TODO Auto-generated method stub
 		
 	}
