@@ -5,31 +5,33 @@ import java.io.Serializable;
 /**
  * <tt>
  * <center>
- * 3 ¿Poden dos homes<br/>
+ * <h3> Missió del profeta</h3>
+ * <sup>3</sup> ¿Poden dos homes<br/>
  * començar junts un viatge<br/>
  * si abans no s'han posat d'acord?<br/>
- * 4 ¿Rugeix el lleó enmig del bosc<br/>
+ * <sup>4</sup> ¿Rugeix el lleó enmig del bosc<br/>
  * si no ha trobat cap presa?<br/>
  * ¿Crida el seu cadell des de l'amagatall<br/>
  * si no ha caçat res?<br/>
- * 5 ¿Cau l'ocell en un parany<br/>
+ * <sup>5</sup> ¿Cau l'ocell en un parany<br/>
  * sense un esquer que l'hi porti?<br/>
  * ¿Salten de terra els filats<br/>
  * si no hi ha res per capturar?<br/>
- * 6 ¿Toca a la ciutat el corn de guerra<br/>
+ * <sup>6</sup> ¿Toca a la ciutat el corn de guerra<br/>
  * sense que la gent s'alarmi?<br/>
  * ¿Passa cap desgràcia a la ciutat<br/>
  * que no vingui de la mà del Senyor?<br/>
- * 7 Doncs bé, el Senyor, Déu sobirà,<br/>
+ * <sup>7</sup> Doncs bé, el Senyor, Déu sobirà,<br/>
  * no fa res<br/>
  * sense revelar el seu designi secret<br/>
  * als seus servents, els profetes.<br/>
- * 8 Quan un lleó rugeix,<br/>
+ * <sup>8</sup> Quan un lleó rugeix,<br/>
  * qui no s'esglaia?<br/>
  * Quan parla el Senyor, Déu sobirà,<br/>
  * qui no transmetrà el seu missatge? <br/>
  * </center>
  * </tt>
+ * 
  * @author joan
  *
  */
