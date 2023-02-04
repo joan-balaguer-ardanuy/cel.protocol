@@ -39,18 +39,18 @@ public abstract class Aliança
 
 	private static final long serialVersionUID = 5965027698000727917L;
 
-	public K getDéu() {
+	public K obtenirDéu() {
 		return null;
 	}
-	public K setDéu() {
-		return null;
+	public void establirDéu() {
+		
 	}
-	public V getMareDeDéu() {
+	public V obtenirMareDeDéu() {
 		return null;
 	}
 
-	public V setMareDeDéu(V mareDeDéu) {
-		return null;
+	public void establirMareDeDéu(V mareDeDéu) {
+		
 	}
 
 	public Aliança() {

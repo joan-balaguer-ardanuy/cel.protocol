@@ -20,7 +20,21 @@ import cel.Esperit;
  * @param <K> és la CLAU
  */
 public interface QuiEra<K> extends Esperit {
-	K getPare();
-	K setPare(K pare);
+	
+	/**
+	 * Obté el Pare corresponent a aquesta instància.
+	 * @return el Pare corresponent a aquesta instància
+	 */
+	K obtenirPare();
+	
+	/**
+     * Estableix el Pare corresponent a aquesta instància amb el Pare
+     * especificat. (Escriu a través del {@link QuiEra}). El
+     * comportament d'aquesta invocació no està definit si el aquesta instància ha estat
+     * alliberada del {@link QuiEra}.
+     *
+     * @param pare el nou Pare per ser establert en aquesta instància
+     */
+	K establirPare(K pare);
 }
  

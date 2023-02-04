@@ -23,11 +23,13 @@ package cel;
  * 
  * @author joan
  *
+ * @see Missatge
  */
 public interface Esperit extends Missatge {
 
 	/**
-	 * @param ordre
+	 * Manament invocat quan una {@link Ordre} és rebuda.
+	 * @param ordre {@link Ordre} és l'ordre rebuda
 	 */
 	void manament(Ordre ordre);
 }

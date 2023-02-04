@@ -30,11 +30,11 @@ public abstract class Déu implements Esperit {
 
 	private static final long serialVersionUID = 5479249085887728066L;
 
-	public String getNom() {
+	public String obtenirNom() {
 		return null;
 	}
  
-	public String setNom(String nom) {
+	public String establirNom(String nom) {
 		return null;
 	}
 

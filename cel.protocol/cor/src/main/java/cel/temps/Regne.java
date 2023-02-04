@@ -36,4 +36,59 @@ public abstract class Regne
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void establirDéu(K déu) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public K obtenirPassat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void establirPassat(K passat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public K obtenirPare(long N) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean contéPare(K pare) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean alliberaPare(K pare) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public long índexDePare(K pare) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long darrerÍndexDePare(K pare) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void alliberaPare(long N) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

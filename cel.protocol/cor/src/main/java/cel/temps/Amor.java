@@ -34,7 +34,12 @@ public abstract class Amor
 	private static final long serialVersionUID = -7927605437161885044L;
 
 	public Amor() {
-		// TODO Auto-generated constructor stub
+
+	}
+
+	@Override
+	public Reproductor<K, V> comparador() {
+		return null;
 	}
 
 }

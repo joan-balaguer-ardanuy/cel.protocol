@@ -1,5 +1,7 @@
 package cel.temps;
 
+import cel.Esperit;
+
 /**
  * <tt>
  * <center>
@@ -31,7 +33,21 @@ package cel.temps;
  *
  * @param <V> és el VALOR
  */
-public interface QuiVe<V> {
-	V getFill();
-	V setFill(V fill);
+public interface QuiVe<V> extends Esperit {
+	
+	/**
+	 * Retorna el Fill corresponent a aquest {@link QuiVe}.
+	 * @return el Fill corresponent a aquest {@link QuiVe}
+	 */
+	V obtenirFill();
+	
+	/**
+     * Estableix el Fill corresponent a aquesta instància amb el Fill
+     * especificat. (Escriu a través del {@link QuiVe}) El
+     * comportament d'aquesta invocació no està definit si el aquesta instància ha estat
+     * alliberada del {@link QuiVe}.
+     *
+     * @param fill el nou Fill per ser establert en aquestq instància
+     */
+	V establirFill(V fill);
 }

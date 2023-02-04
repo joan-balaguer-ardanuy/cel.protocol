@@ -31,7 +31,7 @@ public class Manament {
 	public final static String GÈNESI = "GÈNESI";
 	
 	/**
-	 * Temps de viure..
+	 * Temps de viure.
 	 */
 	public final static String VIU = "VIU";
 	

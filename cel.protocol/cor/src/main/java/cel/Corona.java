@@ -25,4 +25,19 @@ public abstract class Corona
 
 	public Corona() {
 	}
+
+	@Override
+	public void alliberar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean estàBuit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public abstract Comparador<K, V> comparador();
 }

@@ -1,5 +1,7 @@
 package cel;
 
+import java.util.EventObject;
+
 /**
  * <tt>
  * <center>
@@ -24,13 +26,20 @@ package cel;
  * 
  * @author joan
  *
+ * @see EventObject
  */
-public class Ordre extends java.util.EventObject {
+public class Ordre extends EventObject {
 
+	/**
+	 * -7881773520741798999L
+	 */
 	private static final long serialVersionUID = -7881773520741798999L;
 
+	/**
+	 * Contructor per defecte de l'{@link Ordre} per manada.
+	 * @param font {@link Object} la font que mana l'{@link Ordre}
+	 */
 	public Ordre(Object font) {
 		super(font);
 	}
-
 }

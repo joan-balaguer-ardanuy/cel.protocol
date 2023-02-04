@@ -1,5 +1,9 @@
 package cel.temps;
 
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 /**
  * 
  * <tt>
@@ -79,4 +83,215 @@ public abstract class Temps
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void volta() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void recórrerFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void recórrerPare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void concórrerFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void concórrerPare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void permutarFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void permutarPare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sotmetreFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sotmetrePare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public V obtenirFillPerDefecte(K pare, V fillPerDefecte) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K obtenirParePerDefecte(V fill, K parePerDefecte) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public V establirFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K establirPare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public V establirFillSiAbsent(K pare, V fill) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K establirPareSiAbsent(V fill, K pare) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void establirTotsElsFills(Viu<? extends K, ? extends V> e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void establirTotsElsPares(Viu<? extends V, ? extends K> e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public V reemplaçarFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K reemplaçarPare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean reemplaçarFill(K pare, V anticFill, V nouFill) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean reemplaçarPare(V fill, K anticPare, K nouPare) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void reemplaçarTotsElsFills(BiFunction<? super K, ? super V, ? extends V> funció) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reemplaçarTotsElsPares(BiFunction<? super V, ? super K, ? extends K> funció) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean alliberarFill(K pare, V fill) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean alliberarPare(V fill, K pare) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void perCadaFill(BiConsumer<? super K, ? super V> execució) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void perCadaPare(BiConsumer<? super V, ? super K> execució) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public V processarFillSiAbsent(K pare, Function<? super K, ? extends V> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K processarPareSiAbsent(V fill, Function<? super V, ? extends K> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public V processarFillSiPresent(K pare, BiFunction<? super K, ? super V, ? extends V> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K processarPareSiPresent(V fill, BiFunction<? super V, ? super K, ? extends K> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public V processarFill(K pare, BiFunction<? super K, ? super V, ? extends V> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K processarPare(V fill, BiFunction<? super V, ? super K, ? extends K> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public V unirFill(K pare, V fill, BiFunction<? super V, ? super V, ? extends V> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K unirPare(V fill, K pare, BiFunction<? super K, ? super K, ? extends K> funcióUnificació) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

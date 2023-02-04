@@ -37,4 +37,52 @@ public abstract class Tenebres
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public V obtenirFutur() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void establirFutur(V futur) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public V obtenirFill(long N) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean contéFill() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean alliberaFill(V fill) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public long índexDeFill(V fill) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long darrerÍndexDeFill(V fill) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void alliberaFill(long N) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

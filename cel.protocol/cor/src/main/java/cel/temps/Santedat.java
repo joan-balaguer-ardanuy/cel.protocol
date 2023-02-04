@@ -60,22 +60,22 @@ public abstract class Santedat
 	private static final long serialVersionUID = 5415577903850774847L;
 
 	@Override
-	public Class<? extends K> getClassePare() {
+	public Class<? extends K> obtenirClassePare() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void setClassePare(Class<? extends K> classe) {
+	public void establirClassePare(Class<? extends K> classe) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public Class<? extends V> getClasseFill() {
+	public Class<? extends V> obtenirClasseFill() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void setClasseFill(Class<? extends V> classe) {
+	public void establirClasseFill(Class<? extends V> classe) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -33,22 +33,22 @@ public abstract class Pare
 		// TODO Auto-generated constructor stub
 	}
 
-	public K getPare() {
+	public K obtenirPare() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public K setPare(K pare) {
+	public K establirPare(K pare) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public V getFill() {
+	public V obtenirFill() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public V setFill(V fill) {
+	public V establirFill(V fill) {
 		// TODO Auto-generated method stub
 		return null;
 	}

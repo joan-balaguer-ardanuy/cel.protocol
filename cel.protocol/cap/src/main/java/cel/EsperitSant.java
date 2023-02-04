@@ -35,10 +35,81 @@ import cel.temps.QuiVe;
  *
  * @param <K> és la CLAU
  * @param <V> és el VALOR
+ * 
+ * @see QuiEra
+ * @see QuiVe
+ * @see Esperit
  */
 public interface EsperitSant<K,V> extends QuiEra<K>, QuiVe<V>, Esperit {
-	K getPare();
-	K setPare(K pare);
-	V getFill();
-	V setFill(V fill);
+	
+	/**
+	 * Obté el Pare corresponent a aquesta instància.
+	 * @return el Pare corresponent a aquesta instància
+	 */
+	K obtenirPare();
+	
+	/**
+     * Estableix el Pare corresponent a aquesta instància amb el Pare
+     * especificat. (Escriu a través de la instància) El
+     * comportament d'aquesta invocació no està definida si la instància ha estat
+     * alliberada d'aquesta instància.
+     *
+     * @param pare el nou Pare per ser establert en aquesta instància
+     */
+	K establirPare(K pare);
+	
+	/**
+	 * Retorna el Fill corresponent a aquesta instància.
+	 * @return el Fill corresponent a aquesta insstància
+	 */
+	V obtenirFill();
+	
+	/**
+     * Estableix el Fill corresponent a aquesta instància amb el Fill
+     * especificat. (Escriu a través de la instància) El	
+     * comportament d'aquesta invocació no està definit si la instància ha estat
+     * alliberada d'aquesta instància.
+     *
+     * @param fill el nou Fill per ser establert en aquesta instància
+     */
+	V establirFill(V fill);
+	
+	/**
+	 * Allibera aquesta instància de tota altra instància.
+	 */
+	void alliberar();
+	
+	/**
+	 * Retorna <tt>cert</tt> si la instància no conté cap altra instància,
+	 * <tt>fals</tt> del contrari.
+	 * @return <tt>cert</tt> si la instància no conté cap altra instància,
+	 * <tt>fals</tt> del contrari
+	 */
+	boolean estàBuit();
+	
+	/**
+	 * Retorna el comparador corresponent a aquesta instància.
+	 * @return el comparador corresponent a aquesta instància
+	 */
+	EsperitSant.Comparador<K, V> comparador();
+	
+	/**
+	 * El comparador de informació de l'{@link EsperitSant}.
+	 * 
+	 * @author joan
+	 *
+	 * @param <K> és la CLAU
+	 * @param <V> és el VALOR
+	 */
+	public interface Comparador<K, V> {
+
+		/**
+		 * Compara una instància Pare de classe K amb una instància Fill de classe V.
+		 * L'ordre de la sortida és recursiu.
+		 * 
+		 * @param pare el Pare que es compara
+		 * @param fill el Fill que es compara
+		 */
+		void compara(K pare, V fill);
+	}
 }

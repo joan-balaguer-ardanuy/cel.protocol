@@ -22,8 +22,92 @@ package cel.temps;
  */
 public interface Poderós<V> extends QuiVe<V> {
 
-	V getMareDeDéu();
-	V setMareDeDéu(V mareDeDéu);
-	Class<? extends V> getClasseFill();
-	void setClasseFill(Class<? extends V> classe);
+	/**
+	 * Obté la teva Mare de Déu corresponent a aquesta instància.
+	 * @return la teva Mare de Déu corresponent a aquesta instància
+	 */
+	V obtenirMareDeDéu();
+
+	/**
+     * Estableix la teva Mare de Déu corresponent a aquesta instància amb la deessa
+     * especificada. (Escriu a través de la instància). El
+     * comportament d'aquesta invocació no està definit si la instància ha estat
+     * alliberada d'aquesta instància.
+     *
+     * @param pare el nou Pare per ser establert en aquesta instància
+     */
+	void establirMareDeDéu(V mareDeDéu);
+
+	/**
+	 * Obté el futur corresponent a aquesta instància.
+	 * @return el futur corresponent a aquesta instància
+	 */
+	V obtenirFutur();
+
+	/**
+     * Estableix el futur corresponent a aquesta instància amb el futur
+     * especificat. (Escriu a través de la instància). El
+     * comportament d'aquesta invocació no està definit si la instància ha estat
+     * alliberada d'aquesta instància.
+     * 
+     * @param futur el nou futur per ser establert en aquesta instància
+     */
+	void establirFutur(V futur);
+	
+	/**
+	 * Obté la classe Fill corresponent a aquesta instància.
+	 * @return la classe Pare corresponent a aquesta instància
+	 */
+	Class<? extends V> obtenirClasseFill();
+	
+	/**
+     * Estableix la classe Fill corresponent a aquesta instància amb la classe Fill
+     * especificada. (Escriu a través de la instància). El
+     * comportament d'aquesta invocació no està definit si la instància ha estat
+     * alliberada d'aquesta instància.
+     *
+     * @param classe la nova classe Fill per ser establerta en aquesta instància
+     */
+	void establirClasseFill(Class<? extends V> classe);
+	
+	/**
+	 * Obté el Fill de la posició N.
+	 * @param N la posició en la qual es troba la instància
+	 * @return la instància de la posició N
+	 */
+	V obtenirFill(long N);
+	
+	/**
+	 * Retorna <tt>cert</tt> si el Fill està en aquesta instància, <tt>fals</tt> si no està.
+	 * @param pare el Fill a buscar
+	 * @return <tt>cert</tt> si el Fill està en aquesta instància, <tt>fals</tt> si no està
+	 */
+	boolean contéFill();
+	
+	/**
+	 * Allibera el Fill si és trobat dins aquesta instància.
+	 * @param fill el Fill a ser trobat i alliberat
+	 * @return <tt>cert</tt> si l'operació s'ha realitzat amb èxit, <tt>fals</tt> del contrari.
+	 */
+	boolean alliberaFill(V fill);
+	
+	/**
+	 * Obté la posició de la primera aparició en la qual es troba el Fill respecte aquesta instància.
+	 * @param fill el Fill a obtenir la posició
+	 * @return la posició en la qual es troba el Fill respecte aquesta instància.
+	 */
+	long índexDeFill(V fill);
+	
+	/**
+	 * Obté la posició de la darrera aparició en la qual es troba el Fill respecte aquesta instància.
+	 * @param fill el Fill a obtenir la posició
+	 * @return la posició en el qual es troba el Fill respecte aquesta instància.
+	 */
+	long darrerÍndexDeFill(V fill);
+	
+	/**
+	 * Allibera el Fill que es troba en la posició N.
+	 * @param N la posició en la qual s'ha d'alliberar el Fill
+	 */
+	void alliberaFill(long N);
 }
