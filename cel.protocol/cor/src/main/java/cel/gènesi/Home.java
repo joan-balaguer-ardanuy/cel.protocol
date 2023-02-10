@@ -1,11 +1,11 @@
 package cel.gènesi;
 
-import java.util.Iterator;
-
-import cel.Cel;
+import cel.Anyell;
+import cel.Document;
+import cel.Ordre;
 
 /**
- * <TT>
+ * <tt>
  * <center>
  * <h3>Caín i Abel</h3>
  * <sup>1</sup> L'home s'uní a Eva, la seva dona, que va infantar Caín. Ella deia:<br/>
@@ -37,14 +37,14 @@ import cel.Cel;
  * Llavors el Senyor el va marcar amb un senyal, perquè no el matessin els qui el trobarien.<br/>
  * <sup>16</sup> Caín es retirà de la presència del Senyor i se n'anà a viure al país de Nod, a l'orient de l'Edèn.<br/> 
  * </center>
- * </TT>
+ * </tt>
  * 
  * @author joan
  *
  * @param <K>
  * @param <V>
  */
-public class Home<K,V> extends Cel<K, V> implements Sang<K, V> {
+public class Home<K,V> extends Document<K, V> implements Sang<K, V> {
 
 	private static final long serialVersionUID = 3590272279824571851L;
 
@@ -52,9 +52,46 @@ public class Home<K,V> extends Cel<K, V> implements Sang<K, V> {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Iterator<K> iterator() {
+	@Override
+	public V obtenir(K clau) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public V estableix(K clau, V valor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public V allibera(K clau) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void estableixTot(Sang<? extends K, ? extends V> s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int compareTo(Anyell<V, K> o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public void esdeveniment(Ordre manament) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

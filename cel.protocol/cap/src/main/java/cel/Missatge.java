@@ -37,7 +37,7 @@ import java.io.Serializable;
  * @see Serializable
  * @see Cloneable
  */
-public interface Missatge extends Serializable, Cloneable {
+public interface Missatge extends Cloneable, Serializable {
 
 	/**
 	 * Obté el nom de la instància d'aquest {@link Missatge} a transmetre.
@@ -48,20 +48,18 @@ public interface Missatge extends Serializable, Cloneable {
 	/**
 	 * Estableix el nom de la instància d'aquest {@link Missatge} a transmetre.
 	 * @param nom el nom de la instància d'aquest {@link Missatge} a transmetre
-	 * @return l'antic nom d'aquest {@link Missatge}, nul si no ha estat encara establert
 	 */
-	String establirNom(String nom);
+	void establirNom(String nom);
 	
 	/**
 	 * Obté l'ordre de la instància d'aquest {@link Missatge} a transmetre.
 	 * @return {@link String} l'ordre de la instància d'aquest {@link Missatge}
 	 */
-	String getOrdre();
+	String obtenirOrdre();
 
 	/**
 	 * Estableix l'ordre de la instància d'aquest {@link Missatge} a transmetre.
 	 * @param ordre l'ordre de la instància d'aquest {@link Missatge} a transmetre
-	 * @return l'antiga ordre d'aquest {@link Missatge}, nul si no ha estat encara establerta
 	 */
-	String setOrdre(String ordre);
+	void establirOrdre(String ordre);
 }

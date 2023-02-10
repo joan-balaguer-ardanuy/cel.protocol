@@ -24,33 +24,54 @@ package cel;
  */
 public abstract class Pare
 	<K extends EsperitSant<K,V>,V extends EsperitSant<V,K>> 
-		extends Déu 
+		extends Déu
 			implements EsperitSant<K,V> {
 
 	private static final long serialVersionUID = 8831092807347333251L;
 
-	public Pare() {
-		// TODO Auto-generated constructor stub
-	}
-
+	K pare;
+	V fill;
+	
 	public K obtenirPare() {
-		// TODO Auto-generated method stub
-		return null;
+		return pare;
 	}
-
 	public K establirPare(K pare) {
-		// TODO Auto-generated method stub
-		return null;
+		K antic = this.pare;
+		this.pare = pare;
+		return antic;
 	}
-
 	public V obtenirFill() {
-		// TODO Auto-generated method stub
-		return null;
+		return fill;
 	}
-
 	public V establirFill(V fill) {
-		// TODO Auto-generated method stub
-		return null;
+		V nou = this.fill;
+		this.fill = fill;
+		return nou;
 	}
-
+	
+	public Pare() {
+		super();
+	}
+	public Pare(String nom) {
+		super(nom);
+	}
+	@SuppressWarnings("unchecked")
+	public Pare(String nom, V fill) {
+		super(nom);
+		establirPare((K) this);
+		establirFill(fill);
+	}
+	public Pare(K pare) {
+		super(pare.obtenirNom());
+		establirPare(pare);
+		establirFill(pare.obtenirFill());
+	}
+	public Pare(K pare, V fill) {
+		super(pare.obtenirNom());
+		establirPare(pare);
+		establirFill(fill);
+	}
+	
+	@Override
+	public abstract Object clone();
 }

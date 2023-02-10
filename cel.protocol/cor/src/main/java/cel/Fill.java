@@ -29,8 +29,38 @@ public abstract class Fill
 
 	private static final long serialVersionUID = 3538974726700165148L;
 
-	public Fill() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public K obtenirPassat() {
+		return obtenirFill().obtenirFill();
 	}
-
+	@Override
+	public K establirPassat(K passat) {
+		return obtenirFill().establirFill(passat);
+	}
+	@Override
+	public V obtenirFutur() {
+		return obtenirFill().obtenirPassat();
+	}
+	@Override
+	public V establirFutur(V futur) {
+		return obtenirFill().establirPassat(futur);
+	}
+	
+	public Fill() {
+		super();
+	}
+	public Fill(String nom) {
+		super(nom);
+	}
+	public Fill(String nom, V fill) {
+		super(nom, fill);
+	}
+	public Fill(K pare) {
+		super(pare);
+	}
+	@SuppressWarnings("unchecked")
+	public Fill(K pare, V fill) {
+		super(pare, fill);
+		pare.obtenirFill().establirFill((K) this);
+	}
 }

@@ -1,5 +1,7 @@
 package cel;
 
+import java.util.EventListener;
+
 /**
  * <tt>
  * <center>
@@ -25,11 +27,23 @@ package cel;
  *
  * @see Missatge
  */
-public interface Esperit extends Missatge {
+public interface Esperit extends Missatge, EventListener, Runnable {
 
 	/**
-	 * Manament invocat quan una {@link Ordre} és rebuda.
-	 * @param ordre {@link Ordre} és l'ordre rebuda
+	 * Afegeix un {@link Esperit} escoltador a aquest {@link Esperit}
+	 * @param esperit l'{@link Esperit} escoltador
 	 */
-	void manament(Ordre ordre);
+	void afegirEscoltador(Esperit esperit);
+	
+	/**
+	 * Allibera un {@link Esperit} escoltador a aquest {@link Esperit}
+	 * @param esperit l'{@link Esperit} escoltador
+	 */
+	void alliberarEscoltador(Esperit esperit);
+	
+	/**
+	 * Manament invocat quan una {@link Ordre} és rebuda.
+	 * @param manament {@link Ordre} és l'ordre rebuda
+	 */
+	void esdeveniment(Ordre manament);
 }

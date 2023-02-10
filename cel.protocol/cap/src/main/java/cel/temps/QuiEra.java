@@ -1,7 +1,5 @@
 package cel.temps;
 
-import cel.Esperit;
-
 /**
  * <tt>
  * <center>
@@ -19,7 +17,7 @@ import cel.Esperit;
  *
  * @param <K> és la CLAU
  */
-public interface QuiEra<K> extends Esperit {
+public interface QuiEra<K> extends Passat<K> {
 	
 	/**
 	 * Obté el Pare corresponent a aquesta instància.
@@ -34,6 +32,7 @@ public interface QuiEra<K> extends Esperit {
      * alliberada del {@link QuiEra}.
      *
      * @param pare el nou Pare per ser establert en aquesta instància
+     * @return l'antic Pare que era establert en aquesta instància
      */
 	K establirPare(K pare);
 }

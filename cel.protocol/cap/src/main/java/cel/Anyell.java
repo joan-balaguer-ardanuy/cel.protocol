@@ -4,7 +4,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import cel.temps.Viu;
+import cel.temps.Vida;
 
 /**
  * <tt>
@@ -33,10 +33,10 @@ import cel.temps.Viu;
  * @param <K> és la CLAU
  * @param <V> és el VALOR
  * 
- * @see Viu
+ * @see Vida
  * @see java.util.Map.Entry
  */
-public interface Anyell<K,V> extends Viu<Anyell<K,V>, Anyell<V,K>> {
+public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 
     /**
      * Obté la clau corresponent a aquest {@link Anyell}.
@@ -680,8 +680,8 @@ public interface Anyell<K,V> extends Viu<Anyell<K,V>, Anyell<V,K>> {
 	 * amb la clau
 	 * @param funcióUnificació la funció per reprogramar un valor si és present
 	 * mapat amb la clau
-	 * @return el nou Fill mapat amb l'heretat Pare, o nul si no hi ha
-	 * Fill mapat amb el Pare
+	 * @return el nou valor mapat amb la clau, o nul si no hi ha
+	 * valor mapat amb la clau
 	 */
     V unirValor(K clau, V valor, BiFunction<? super V, ? super V, ? extends V> funcióUnificació);
     

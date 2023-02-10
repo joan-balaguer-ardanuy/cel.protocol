@@ -53,35 +53,104 @@ package cel.temps;
  * @param <V> és el VALOR
  */
 public abstract class Santedat
-	<K extends Viu<K,V>,V extends Viu<V,K>> 
+	<K extends Vida<K,V>,V extends Vida<V,K>> 
 		extends Aliança<K,V> 
-			implements Viu<K,V> {
+			implements Vida<K,V> {
 
 	private static final long serialVersionUID = 5415577903850774847L;
 
-	@Override
-	public Class<? extends K> obtenirClassePare() {
-		// TODO Auto-generated method stub
-		return null;
+	public Santedat() {
+		super();
 	}
-	@Override
-	public void establirClassePare(Class<? extends K> classe) {
-		// TODO Auto-generated method stub
-		
+	public Santedat(String nom) {
+		super(nom);
 	}
-	@Override
-	public Class<? extends V> obtenirClasseFill() {
-		// TODO Auto-generated method stub
-		return null;
+	public Santedat(Class<? extends V> classeFill, String nom) {
+		super(classeFill, nom);
 	}
-	@Override
-	public void establirClasseFill(Class<? extends V> classe) {
-		// TODO Auto-generated method stub
-		
+	public Santedat(K pare) {
+		super(pare);
+	}
+	public Santedat(Class<? extends V> classeFill, K pare) {
+		super(classeFill, pare);
+	}
+	public Santedat(K déu, String nom) {
+		super(déu, nom);
+	}
+	public Santedat(Class<? extends V> classeFill, K déu, String nom) {
+		super(classeFill, déu, nom);
 	}
 	
-	public Santedat() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public void alliberar() {
+		
+	}
+	@Override
+	public boolean ésBuit() {
+		return obtenirPare() == this;
 	}
 
+	@Override
+	public void recórrerFill(K pare, V fill) {
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public void recórrerPare(V fill, K pare) {
+		
+	}
+
+	@Override
+	public void concórrerFill(K pare, V fill) {
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public void concórrerPare(V fill, K pare) {
+		
+	}
+
+	@Override
+	public void permutarFill(K pare, V fill) {
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public void permutarPare(V fill, K pare) {
+		
+	}
+
+	@Override
+	public void sotmetreFill(K pare, V fill) {
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public void sotmetrePare(V fill, K pare) {
+		
+	}
 }

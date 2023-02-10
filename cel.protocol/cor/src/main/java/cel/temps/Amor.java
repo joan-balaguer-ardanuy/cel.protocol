@@ -1,5 +1,9 @@
 package cel.temps;
 
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.function.BiFunction;
+
 /**
  * <tt>
  * <center>
@@ -27,14 +31,99 @@ package cel.temps;
  * @param <V> és el VALOR
  */
 public abstract class Amor
-	<K extends Viu<K,V>,V extends Viu<V,K>> 
-		extends Regne<K, V>
-			implements Viu<K,V> {
+	<K extends Vida<K,V>,V extends Vida<V,K>> 
+		extends Bondat<K, V>
+			implements Vida<K,V> {
 
 	private static final long serialVersionUID = -7927605437161885044L;
 
 	public Amor() {
+		super();
+	}
+	public Amor(String nom) {
+		super(nom);
+	}
+	public Amor(Class<? extends V> classeFill, String nom) {
+		super(classeFill, nom);
+	}
+	public Amor(K pare) {
+		super(pare);
+	}
+	public Amor(Class<? extends V> classeFill, K pare) {
+		super(classeFill, pare);
+	}
+	public Amor(K déu, String nom) {
+		super(déu, nom);
+	}
+	public Amor(Class<? extends V> classeFill, K déu, String nom) {
+		super(classeFill, déu, nom);
+	}
 
+	@Override
+	public V reemplaçarFill(K pare, V fill) {
+		V fillActual;
+        if ((fillActual = pare.obtenirFill()) != null) {
+            fillActual = establirFill(pare, fill);
+        }
+        return fillActual;
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public K reemplaçarPare(V fill, K pare) {
+		return obtenirFill().reemplaçarFill(fill, pare);
+	}
+
+	@Override
+	public boolean reemplaçarFill(K pare, V anticFill, V nouFill) {
+		Object curValue = pare.obtenirFill();
+        if (!Objects.equals(curValue, anticFill) ||
+            (curValue == null && !téPare(pare))) {
+            return false;
+        }
+        establirFill(pare, nouFill);
+        return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public boolean reemplaçarPare(V fill, K anticPare, K nouPare) {
+		return obtenirFill().reemplaçarFill(fill, anticPare, nouPare);
+	}
+
+	@Override
+	public void reemplaçarTotsElsFills(BiFunction<? super K, ? super V, ? extends V> funció) {
+		Objects.requireNonNull(funció);
+        perCadaFill((k,v) -> {
+            while(!reemplaçarFill(k, v, funció.apply(k, v))) {
+                // v changed or k is gone
+                if ( (v = k.obtenirFill()) == null) {
+                    // k is no longer in the map.
+                    break;
+                }
+            }
+        });
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public void reemplaçarTotsElsPares(BiFunction<? super V, ? super K, ? extends K> funció) {
+		obtenirFill().reemplaçarTotsElsFills(funció);
 	}
 
 	@Override
@@ -42,4 +131,39 @@ public abstract class Amor
 		return null;
 	}
 
+	protected class Òrgan implements Reproductor<K,V> {
+
+		K font;
+		
+		public Òrgan(K font) {
+			this.font = font;
+		}
+		
+		@Override
+		public K font() {
+			return font;
+		}
+
+		@Override
+		public void compara(K pare, V fill) {
+			Iterator<K> iteradorPare = pare.iterator();
+			Iterator<V> iteradorFill = fill.iterator();
+			
+			for(;;) {
+				if(iteradorPare.hasNext() && iteradorFill.hasNext()) {
+					K clau = iteradorPare.next();
+					V valor = iteradorFill.next();
+					clau.compareTo(valor);
+					font().afegirPare(clau.comparador().font());
+					
+					if(iteradorFill.hasNext() && iteradorPare.hasNext()) {
+						valor = iteradorFill.next();
+						clau = iteradorPare.next();
+						valor.compareTo(clau);
+						font().establirFill(valor.comparador().font());
+					}
+				}
+			}
+		}
+	}
 }

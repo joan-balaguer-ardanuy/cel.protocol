@@ -1,7 +1,9 @@
 package cel;
 
+import cel.temps.Passat;
 import cel.temps.QuiEra;
 import cel.temps.QuiVe;
+import cel.temps.Regne;
 
 /**
  * <tt>
@@ -15,7 +17,7 @@ import cel.temps.QuiVe;
  *  <sup>9</sup> »Vosaltres, pregueu així:<br/>
  *  Pare nostre del cel,<br/>
  *  santifica el teu nom,<br/>
- *  <sup>10</sup> vingui el teu Regne,<br/>
+ *  <sup>10</sup> vingui el teu {@link Regne},<br/>
  *  que es faci la teva voluntat<br/>
  *  aquí a la terra com es fa en el cel.<br/>
  *  <sup>11</sup> Dóna'ns avui<br/>
@@ -39,57 +41,47 @@ import cel.temps.QuiVe;
  * @see QuiEra
  * @see QuiVe
  * @see Esperit
+ * @see java.util.Map.Entry
  */
 public interface EsperitSant<K,V> extends QuiEra<K>, QuiVe<V>, Esperit {
 	
 	/**
-	 * Obté el Pare corresponent a aquesta instància.
-	 * @return el Pare corresponent a aquesta instància
+	 * Obté el Pare corresponent a aquest {@link EsperitSant}.
+	 * @return el Pare corresponent a aquest {@link EsperitSant}
 	 */
 	K obtenirPare();
 	
 	/**
-     * Estableix el Pare corresponent a aquesta instància amb el Pare
-     * especificat. (Escriu a través de la instància) El
-     * comportament d'aquesta invocació no està definida si la instància ha estat
-     * alliberada d'aquesta instància.
+     * Estableix el Pare corresponent a aquest {@link EsperitSant} amb el Pare
+     * especificat. (Escriu a través de l'{@link EsperitSant}) El
+     * comportament d'aquesta invocació no està definit si el Pare ha estat
+     * alliberat d'aquest {@link EsperitSant}.
      *
-     * @param pare el nou Pare per ser establert en aquesta instància
+     * @param pare el nou Pare per ser establert en aquest {@link EsperitSant}
+     * @return l'antic {@code passat} que era establert en aquest {@link Passat}
      */
 	K establirPare(K pare);
 	
 	/**
-	 * Retorna el Fill corresponent a aquesta instància.
-	 * @return el Fill corresponent a aquesta insstància
+	 * Retorna el Fill corresponent a aquest {@link EsperitSant}.
+	 * @return el Fill corresponent a aquest {@link EsperitSant}
 	 */
 	V obtenirFill();
 	
 	/**
-     * Estableix el Fill corresponent a aquesta instància amb el Fill
-     * especificat. (Escriu a través de la instància) El	
-     * comportament d'aquesta invocació no està definit si la instància ha estat
-     * alliberada d'aquesta instància.
+     * Estableix el Fill corresponent a aquest {@link EsperitSant} amb el Fill
+     * especificat. (Escriu a través de l'{@link EsperitSant}) El	
+     * comportament d'aquesta invocació no està definit si el Fill ha estat
+     * alliberat d'aquest {@link EsperitSant}.
      *
-     * @param fill el nou Fill per ser establert en aquesta instància
+     * @param fill el nou Fill per ser establert en aquest {@link EsperitSant}
+     * @param el nou Fill que serà establert en aquesta instància
      */
 	V establirFill(V fill);
 	
 	/**
-	 * Allibera aquesta instància de tota altra instància.
-	 */
-	void alliberar();
-	
-	/**
-	 * Retorna <tt>cert</tt> si la instància no conté cap altra instància,
-	 * <tt>fals</tt> del contrari.
-	 * @return <tt>cert</tt> si la instància no conté cap altra instància,
-	 * <tt>fals</tt> del contrari
-	 */
-	boolean estàBuit();
-	
-	/**
-	 * Retorna el comparador corresponent a aquesta instància.
-	 * @return el comparador corresponent a aquesta instància
+	 * Retorna el comparador corresponent a aquest {@link EsperitSant}.
+	 * @return el comparador corresponent a aquest {@link EsperitSant}
 	 */
 	EsperitSant.Comparador<K, V> comparador();
 	

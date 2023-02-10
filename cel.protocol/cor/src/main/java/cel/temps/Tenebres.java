@@ -27,62 +27,105 @@ package cel.temps;
  * @param <V> és el VALOR
  */
 public abstract class Tenebres
-	<K extends Viu<K,V>,V extends Viu<V,K>>
+	<K extends Vida<K,V>,V extends Vida<V,K>>
 		extends Amor<K,V>
-			implements Viu<K,V> {
+			implements Vida<K,V> {
 
+	/**
+	 * 9215082810166762734
+	 */
 	private static final long serialVersionUID = 9215082810166762734L;
 
 	public Tenebres() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-
+	public Tenebres(String nom) {
+		super(nom);
+	}
+	public Tenebres(Class<? extends V> classeFill, String nom) {
+		super(classeFill, nom);
+	}
+	public Tenebres(K pare) {
+		super(pare);
+	}
+	public Tenebres(Class<? extends V> classeFill, K pare) {
+		super(classeFill, pare);
+	}
+	public Tenebres(K déu, String nom) {
+		super(déu, nom);
+	}
+	public Tenebres(Class<? extends V> classeFill, K déu, String nom) {
+		super(classeFill, déu, nom);
+	}
+	
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public V obtenirFutur() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean téFill(V fill) {
+		return obtenirFill().téPare(fill);
 	}
-
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public void establirFutur(V futur) {
-		// TODO Auto-generated method stub
-		
+	public boolean alliberarFill(V fill) {
+		return obtenirFill().alliberarPare(fill);
 	}
-
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public V obtenirFill(long N) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean afegirFill(V fill) {
+		return obtenirFill().afegirPare(fill);
 	}
-
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public boolean contéFill() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean téCadaFill(V fill) {
+		return obtenirFill().téCadaPare(fill);
 	}
-
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public boolean alliberaFill(V fill) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean afegirCadaFill(V fill) {
+		return obtenirFill().afegirCadaPare(fill);
 	}
-
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public long índexDeFill(V fill) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean alliberaCadaFill(V fill) {
+		return obtenirFill().alliberaCadaPare(fill);
 	}
-
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
 	@Override
-	public long darrerÍndexDeFill(V fill) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean retenirCadaFill(V fill) {
+		return obtenirFill().retenirCadaPare(fill);
 	}
-
-	@Override
-	public void alliberaFill(long N) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

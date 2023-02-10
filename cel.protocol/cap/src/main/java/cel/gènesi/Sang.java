@@ -48,6 +48,12 @@ import cel.Anyell;
  * @param <K> és la CLAU
  * @param <V> és el VALOR
  */
-public interface Sang<K,V> extends Anyell<K,V>, Iterable<K> {
-
+public interface Sang<K,V> extends Anyell<K,V> {
+	V obtenir(K clau);
+	
+	V estableix(K clau, V valor);
+	
+	V allibera(K clau);
+	
+	void estableixTot(Sang<? extends K, ? extends V> s);
 }

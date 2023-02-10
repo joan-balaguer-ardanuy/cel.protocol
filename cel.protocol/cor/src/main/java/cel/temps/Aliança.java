@@ -1,6 +1,11 @@
 package cel.temps;
 
-import cel.Corona;
+import java.util.Objects;
+import java.util.Random;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
+import cel.Cel;
 
 /**
  * <tt>
@@ -33,28 +38,224 @@ import cel.Corona;
  * @param <V> és el VALOR
  */
 public abstract class Aliança
-	<K extends Viu<K,V>,V extends Viu<V,K>> 
-		extends Corona<K, V> 
-			implements Viu<K, V> {
+	<K extends Vida<K,V>,V extends Vida<V,K>> 
+		extends Cel<K, V> 
+			implements Vida<K, V> {
 
 	private static final long serialVersionUID = 5965027698000727917L;
 
+	K déu;
+	
 	public K obtenirDéu() {
-		return null;
+		return déu;
 	}
-	public void establirDéu() {
-		
+	public K establirDéu(K déu) {
+		K antic = this.déu;
+		this.déu = déu;
+		return antic;
 	}
 	public V obtenirMareDeDéu() {
-		return null;
+		return obtenirFill().obtenirDéu();
+	}
+	public V establirMareDeDéu(V mareDeDéu) {
+		return obtenirFill().establirDéu(mareDeDéu);
 	}
 
-	public void establirMareDeDéu(V mareDeDéu) {
-		
-	}
-
+	/*
+	 * ELS SET SEGELLS
+	 * ===============
+	 * */
+	
 	public Aliança() {
-		
+		super();
+	}
+	public Aliança(String nom) {
+		super(nom);
+	}
+	public Aliança(Class<? extends V> classeFill, String nom) {
+		super(nom, crea(classeFill, nom));
+		establirDéu(obtenirPare());
+		establirMareDeDéu(obtenirFill());
+	}
+	public Aliança(K pare) {
+		super(pare);
+	}
+	public Aliança(Class<? extends V> classeFill, K pare) {
+		super(pare, crea(classeFill, pare.obtenirFill()));
+		establirDéu(pare.obtenirDéu());
+		establirMareDeDéu(pare.obtenirMareDeDéu());
+	}
+	public Aliança(K déu, String nom) {
+		super(nom);
+		establirDéu(déu);
+	}
+	public Aliança(Class<? extends V> classeFill, K déu, String nom) {
+		super(nom, crea(classeFill, déu.obtenirMareDeDéu(), nom));
+		establirDéu(déu);
 	}
 
+	@Override
+	public V processarFillSiAbsent(K pare, Function<? super K, ? extends V> funcióUnificació) {
+		Objects.requireNonNull(funcióUnificació);
+		V fill, nouFill;
+		return ((fill = pare.obtenirFill()) == null && (nouFill = funcióUnificació.apply(pare)) != null
+				&& (fill = establirFillSiAbsent(pare, nouFill)) == null) ? nouFill : fill;
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public K processarPareSiAbsent(V fill, Function<? super V, ? extends K> funcióUnificació) {
+		return obtenirFill().processarFillSiAbsent(fill, funcióUnificació);
+	}
+
+	@Override
+	public V processarFillSiPresent(K pare, BiFunction<? super K, ? super V, ? extends V> funcióUnificació) {
+		Objects.requireNonNull(funcióUnificació);
+		V anticFill;
+		while ((anticFill = pare.obtenirFill()) != null) {
+			V newValue = funcióUnificació.apply(pare, anticFill);
+			if (newValue != null) {
+				if (reemplaçarFill(pare, anticFill, newValue))
+					return newValue;
+			} else if (alliberarFill(pare, anticFill))
+				return null;
+		}
+		return anticFill;
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public K processarPareSiPresent(V fill, BiFunction<? super V, ? super K, ? extends K> funcióUnificació) {
+		return obtenirFill().processarFillSiPresent(fill, funcióUnificació);
+	}
+
+	@Override
+	public V processarFill(K pare, BiFunction<? super K, ? super V, ? extends V> funcióUnificació) {
+		Objects.requireNonNull(funcióUnificació);
+		V anticFill = pare.obtenirFill();
+		for (;;) {
+			V nouFill = funcióUnificació.apply(pare, anticFill);
+			if (nouFill == null) {
+				// alliberar mapatge
+				if (anticFill != null) {
+					// allibera Fill antic
+					if (alliberarFill(pare, anticFill)) {
+						// removed the old value as expected
+						return null;
+					}
+					// un altre Fill ha reemplaçat l'antic. Torna-ho a provar
+					anticFill = pare.obtenirFill();
+				} else {
+					// res a fer. Deixa les coses com estaven
+					return null;
+				}
+			} else {
+				// afegeix o reemplaça l'antic mapatge
+				if (anticFill != null) {
+					// reemplaça
+					if (reemplaçarFill(pare, anticFill, nouFill)) {
+						// reemplaçat com s'esperava.
+						return nouFill;
+					}
+					// un altre Fill ha reemplaçat l'antic. Torna-ho a provar
+					anticFill = pare.obtenirFill();
+				} else {
+					// afegeix (reemplaça su anticFill era nul)
+					if ((anticFill = establirFillSiAbsent(pare, nouFill)) == null) {
+						// replaced
+						return nouFill;
+					}
+					// un altre Fill ha reemplaçat l'antic. Torna-ho a provar
+				}
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public K processarPare(V fill, BiFunction<? super V, ? super K, ? extends K> funcióUnificació) {
+		return obtenirFill().processarFill(fill, funcióUnificació);
+	}
+	
+	@Override
+	public V unirFill(K pare, V fill, BiFunction<? super V, ? super V, ? extends V> funcióUnificació) {
+		Objects.requireNonNull(funcióUnificació);
+		Objects.requireNonNull(fill);
+		V anticFill = pare.obtenirFill();
+		for (;;) {
+			if (anticFill != null) {
+				V newValue = funcióUnificació.apply(anticFill, fill);
+				if (newValue != null) {
+					if (reemplaçarFill(pare, anticFill, newValue))
+						return newValue;
+				} else if (alliberarFill(pare, anticFill)) {
+					return null;
+				}
+				anticFill = pare.obtenirFill();
+			} else {
+				if ((anticFill = establirFillSiAbsent(pare, fill)) == null) {
+					return fill;
+				}
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+     *
+     * @implSpec
+     * Aquesta implementació delega el mètode al Fill
+	 */
+	@Override
+	public K unirPare(V fill, K pare, BiFunction<? super K, ? super K, ? extends K> funcióUnificació) {
+		return obtenirFill().unirFill(fill, pare, funcióUnificació);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object clone() {
+		try {
+			K pare = (K) getClass().getConstructor().newInstance();
+			V fill = (V) obtenirFill().getClass().getConstructor().newInstance();
+			pare.establirNom(obtenirNom());
+			fill.establirNom(obtenirNom());
+			pare.establirPare(pare);
+			fill.establirPare(fill);
+			pare.establirFill(fill);
+			fill.establirFill(pare);
+			pare.establirDéu(obtenirDéu());
+			fill.establirDéu(obtenirMareDeDéu());
+			return pare;
+		} catch (Throwable t) {
+			throw new Error("hyperspace.time.Unification: clone exception.", t);
+		}
+	}
+	
+	/**
+	 * L'aleatorietat.
+	 */
+	transient Random aleatorietat;
+	
+	/**
+	 * L'aleatorietat
+	 * @return l'aleatorietat.
+	 */
+	protected Random aleatorietat() {
+		return aleatorietat == null ? (aleatorietat = new Random()) : aleatorietat;
+	}
 }

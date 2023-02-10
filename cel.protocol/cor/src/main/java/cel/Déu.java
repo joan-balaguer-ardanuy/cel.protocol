@@ -1,5 +1,21 @@
 package cel;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringWriter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlElement;
+
+import cel.arca.Ramat;
+import cel.nombres.Nombre;
+
 /**
  * <tt>
  * <center>
@@ -29,36 +45,182 @@ package cel;
 public abstract class Déu implements Esperit {
 
 	private static final long serialVersionUID = 5479249085887728066L;
-
+	
+	String nom;
+	String ordre;
+	Nombre<Esperit> escoltadors;
+	
+	@Override
+	@XmlElement
 	public String obtenirNom() {
-		return null;
+		return nom;
 	}
- 
-	public String establirNom(String nom) {
-		return null;
-	}
-
 	@Override
-	public String getOrdre() {
-		return null;
+	public void establirNom(String nom) {
+		this.nom = nom;
 	}
-
 	@Override
-	public String setOrdre(String ordre) {
-		return null;
+	@XmlElement
+	public String obtenirOrdre() {
+		return ordre;
 	}
-
+	@Override
+	public void establirOrdre(String ordre) {
+		this.ordre = ordre;
+		donarManament(new Ordre(this));
+	}
 
 	public Déu() {
+		this.ordre = Manament.GÈNESI;
+	}
+	public Déu(String nom) {
+		this.nom = nom;
+		this.ordre = Manament.GÈNESI;
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public void afegirEscoltador(Esperit esperit) {
+		if(escoltadors == null) {
+			escoltadors = new Nombre<>();
+		}
+		escoltadors.establir(esperit);
 	}
 	@Override
-	public void manament(Ordre manament) {
-		// TODO Auto-generated method stub
-		
+	public void alliberarEscoltador(Esperit esperit) {
+		if(escoltadors == null) {
+			return;
+		}
+		escoltadors.alliberar(esperit);
+	}
+	protected void donarManament(Ordre manament) {
+		if(escoltadors != null) {
+			Ramat<Esperit> iterador = escoltadors.ramat();
+			for (Esperit esperit = iterador.següent(); iterador.téMés(); esperit = iterador.següent()) {
+				esperit.esdeveniment(manament);			
+			}
+		}
+	}
+	@Override
+	public abstract Object clone();
+	
+	@Override
+	public void esdeveniment(Ordre manament) {
+		donarManament(manament);
+	}
+	
+	@Override
+	public void run() {
+		establirOrdre(Manament.MOR);
+	}
+	
+	@Override
+	public String toString() {
+		return Déu.corda(this);
+	}
+	
+	/**
+	 * Crea un objecte de classe X.
+	 * @param <X> la classe de paràmetre de l'objecte retornat
+	 * @param classe la classe del objecte retornat.
+	 * @param arguments els arguments de la creació de l'objecte
+	 * @return el nou objecte <X> creat
+	 */
+	protected static <X> X crea(Class<X> classe, Object... arguments) {
+		try {
+			return classe.getDeclaredConstructor(obtenirClasses(arguments)).newInstance(arguments);
+		}
+		catch(Throwable t) {
+			throw new Error(t);
+		}
+	}
+	/**
+	 * Obté les classes dels objectes introduits com a arguments.
+	 * @param objectes els objectes dels quals se'n vol obtenir les classes
+	 * @return les classes dels objectes introduits com a arguments
+	 */
+	private static Class<?>[] obtenirClasses(Object... objectes) {
+		Class<?>[] classes = new Class<?>[objectes.length];
+		for(int i = 0; i < objectes.length; i++) {
+			classes[i] = objectes[i].getClass();
+		}
+		return classes;
+	}
+	/**
+	 * Reprodueix l'objecte com a corda.
+	 * @param object {@link Object} l'objecte a reproduir
+	 * @return la corda reproduïda
+	 */
+	protected static String corda(Object object) {
+		try {
+			// instances new JAXBContext for current class
+			JAXBContext context = JAXBContext.newInstance(object.getClass());
+			// create marshaller
+			Marshaller marshaller = context.createMarshaller();
+			
+			// output pretty printed
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+			// instances new StringWriter
+			StringWriter sw = new StringWriter();
+			// marshall XML message into StringWriter
+			marshaller.marshal(object, sw);
+			// get the XML message as string
+			String strXml = sw.toString();
+			// return string XML message
+			return strXml;
+		} 
+		catch (JAXBException e) {
+			// if something is wrong print stack trace
+			e.printStackTrace();
+			return null;
+		}
+	}
+	/**
+	 * Escriu l'objecte especificat a un arxiu.
+	 * @param object l'objecte que es vol escriure
+	 * @param destinació {@link String} la destinació de l'arxiu
+	 */
+	public static void escriuArxiu(Object object, String destinació) {
+		// parse XML message into string.
+		String str = Déu.corda(object);
+		// declare new buffered writer
+	    BufferedWriter writer;
+		try {
+			// instances buffered writer with new file writer with destination path as argument
+			writer = new BufferedWriter(new FileWriter(destinació));
+			// write the string to the file
+		    writer.write(str);
+		    // close writer
+		    writer.close();
+		} catch (IOException e) {
+			// if something is wrong print stack trace
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Llegeix el feix entrant i l'entèn com a objecte de classe <T>.
+	 * @param <T> la classe d'objecte la qual retornarà
+	 * @param classe la classe d'objecte que es vol llegir
+	 * @param feixEntrada {@link InputStream} el feix entrant
+	 * @return l'objecte llegit.
+	 * @throws JAXBException si falla l'operació
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T llegir(Class<T> classe, InputStream feixEntrada) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(classe);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		return (T) unmarshaller.unmarshal(feixEntrada);
+	}
+	/**
+	 * Escriu l'objecte especificat en el feix sortint.
+	 * @param feixSortida {@link OutputStream} el feix sortint
+	 * @throws JAXBException si falla l'operació
+	 */
+	public final void escriure(Object object, OutputStream feixSortida) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(object.getClass());
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+		marshaller.marshal(object, feixSortida);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import cel.Anyell;
 import cel.EsperitSant;
 
 /**
@@ -30,7 +31,7 @@ import cel.EsperitSant;
  * @param <K> és la CLAU
  * @param <V> és el VALOR
  */
-public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
+public interface Vida<K,V> extends Regne<K>, Poder<V>, EsperitSant<K,V> {
 
 	/**
 	 * Rota o revoluciona aquesta instància.
@@ -128,6 +129,32 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	 * @param pare el Pare per ser mapat amb el Fill heretat
 	 */
 	void sotmetrePare(V fill, K pare);
+	
+	/**
+	 * Obté el Fill el qual l'heretat Pare és mapat.
+	 *
+	 * @param pare el Pare el qual el Fill mapat ha de ser obtingut
+	 * @return el Fill el qual l'heretat Pare és associat
+	 */
+	V obtenirFill(K pare);
+	
+	/**
+	 * Obté el Pare el qual l'heretat Fill és mapat.
+	 * 
+	 * @implSpec Implementació per defecte: la instància delega el mètode al Fill,
+	 * si i sols si K hereta Viu&ltK,V&gt: i V hereta Viu&ltV,K&gt;.
+	 * <pre>
+	 * <tt>
+	 * retorna obtenirFill().obtenirFill(pare, fill);
+	 * </tt>
+	 * </pre>
+	 *
+	 * @param fill el Fill el qual el Pare mapat ha de ser obtingut
+	 * @param parePerDefecte el Pare per defecte del Fill
+	 * @return el Fill el qual l'heretat Pare és associat, o el
+	 * {@code fillPerDefecte} si aquesta instància no conté cap Fill associat al Pare
+	 */
+	K obtenirPare(V fill);
 	
 	/**
 	 * Obté el Fill el qual l'heretat Pare és mapat, o
@@ -231,7 +258,7 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	K establirPareSiAbsent(V fill, K pare);
 	
 	/**
-	 * Estableix tots les mapatges Pare-Fill des de la instància <tt>e</tt> a aquesta instància.
+	 * Estableix tote els {@link Anyell} Pare-Fill des de la instància <tt>e</tt> a aquesta instància.
 	 * L'esdeveniment d'aquesta execució és equivalent a executar {@link #estableixFill(Object,Object) estableixFill(pare, fill)}
 	 * una vegada per cada instància des del Pare pare el Fill fill en l'heretada instància, El comportament
 	 * d'aquesta execució no està definit si l'heretada instància és modificada mentre l'execució està sent executada.
@@ -239,10 +266,10 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	 * @param e instància a ser heretada en aquesta instància.
 	 * @since 1
 	 */
-	void establirTotsElsFills(Viu<? extends K, ? extends V> e);
+	void establirTotsElsFills(Vida<? extends K, ? extends V> e);
 	
 	/**
-	 * Estableix tots les mapatges Fill-Pare des de la instància <tt>e</tt> a aquesta instància.
+	 * Estableix tots ELS {@link Anyell} Fill-Pare des de la instància <tt>e</tt> a aquesta instància.
 	 * L'esdeveniment d'aquesta execució és equivalent a executar {@link #estableixPare(Object,Object) estableixPare(fill, pare)}
 	 * una vegada per cada instància des del Fill fill el Pare pare en l'heretada instància, El comportament
 	 * d'aquesta execució no està definit si l'heretada instància és modificada mentre l'execució està sent executada.
@@ -250,7 +277,7 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	 * @param e instància a ser heretada en aquesta instància.
 	 * @since 1
 	 */
-	void establirTotsElsPares(Viu<? extends V, ? extends K> e);
+	void establirTotsElsPares(Vida<? extends V, ? extends K> e);
 	
 	/**
 	 * Reemplaça la instància per l'especificat Fill si i sols si està actualment
@@ -270,7 +297,7 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	 * @param pare el Pare amb el qual l'heretat Fill és mapat.
 	 * @param fill el Fill a ser mapat amb l'heretat Pare
 	 * @return el Fill prèviament mapat amb l'heretat Pare, o <tt>nul</tt> si no
-	 * hi havien mapatges pel Pare-
+	 * hi havien {@link Anyell} pel Pare-
 	 */
 	V reemplaçarFill(K pare, V fill);
 	
@@ -288,7 +315,7 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	 * @param pare el Pare amb el qual l'heretat Fill és mapat.
 	 * @param fill el Fill a ser mapat amb l'heretat Pare
 	 * @return el Fill prèviament mapat amb l'heretat Pare, o <tt>nul</tt> si no
-	 * hi havien mapatges pel Pare-
+	 * hi havien {@link Anyell} pel Pare-
 	 */
 	K reemplaçarPare(V fill, K pare);
 	
@@ -437,9 +464,9 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	
 	/**
 	 * Si l'heretat Pare no està ja mapat amb el Fill, intenta processar el seu Fill
-	 * implementant la funció de mapatge establert i la introdueix en aquesta instància,
+	 * implementant la funció d'{@link Anyell} establert i la introdueix en aquesta instància,
 	 * 
-	 * <p>Si la funció retorna {@code null} cap mapatge és enregistrat.</p>
+	 * <p>Si la funció retorna {@code null} cap {@link Anyell} és enregistrat.</p>
 	 * 
 	 * @implSpec La implementació per defecte és equivalent als següents passos
 	 *           per aquesta instància, després aquesta rectorna l'actual Fill o
@@ -463,9 +490,9 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	
 	/**
 	 * Si l'heretat Fill no està ja mapat amb el Pare, intenta processar el seu Pare
-	 * implementant la funció de mapatge establert i la introdueix en aquesta instància,
+	 * implementant la funció d'{@link Anyell} establert i la introdueix en aquesta instància,
 	 * 
-	 * <p>Si la funció retorna {@code null} cap mapatge és enregistrat.</p>
+	 * <p>Si la funció retorna {@code null} cap {@link Anyell} és enregistrat.</p>
 	 * 
 	 * @implSpec Implementació per defecte: la instància delega el mètode al Fill,
 	 * si i sols si K hereta Viu&ltK,V&gt: i V hereta Viu&ltV,K&gt;..
@@ -654,7 +681,7 @@ public interface Viu<K,V> extends Bo<K>, Poderós<V>, EsperitSant<K,V> {
 	 */
 	K unirPare(V fill, K pare, BiFunction<? super K, ? super K, ? extends K> funcióUnificació);
 
-	Viu.Reproductor<K,V> comparador();
+	Vida.Reproductor<K,V> comparador();
 	
 	interface Reproductor<K,V> extends Comparador<K,V> {
 		
