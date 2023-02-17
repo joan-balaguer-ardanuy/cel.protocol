@@ -20,37 +20,61 @@ import cel.Ordre;
  * </tt>
  * @author joan
  *
- * @param <K>
- * @param <V>
+ * @param <K> és la CLAU
+ * @param <V> és el VALOR
  */
-public class Dona<K, V> extends Document<K,V> implements Cadena<K,V> {
+public abstract class Dona<K, V> extends Document<K,V> implements Cadena<K,V> {
 
 	private static final long serialVersionUID = -7241496523177296358L;
 
 	public Dona() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-
-	public Iterator<Anyell<K, V>> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+	public Dona(String nom) {
+		super(nom);
+	}
+	public Dona(Class<? extends Document<V, K>> classeFill, String nom, K clau, V valor) {
+		super(classeFill, nom, clau, valor);
+	}
+	public Dona(Document<K, V> pare) {
+		super(pare);
+	}
+	public Dona(Class<? extends Document<V, K>> classeFill, Document<K, V> pare, K clau, V valor) {
+		super(classeFill, pare, clau, valor);
+	}
+	public Dona(Document<K, V> déu, String nom) {
+		super(déu, nom);
+	}
+	public Dona(Class<? extends Document<V, K>> classeFill, Document<K, V> déu, String nom, K clau, V valor) {
+		super(classeFill, déu, nom, clau, valor);
 	}
 
 	@Override
-	public int compareTo(Anyell<V, K> o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean conté(Anyell<K, V> entrada) {
+		return téPare(entrada);
 	}
-
 	@Override
-	public void esdeveniment(Ordre manament) {
-		// TODO Auto-generated method stub
-		
+	public Anyell<K, V> obtenir(K clau) {
+		return obtenirParePerClau(clau);
 	}
-
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
+	public boolean establir(Anyell<K, V> entrada) {
+		return establirFill(entrada, entrada.obtenirFill()) != null;
+	}
+	@Override
+	public boolean alliberar(Anyell<K, V> entrada) {
+		return alliberarFill(entrada, entrada.obtenirFill());
+	}
+	@Override
+	public boolean contéTot(Anyell<K, V> entrada) {
+		return téCadaPare(entrada);
+	}
+	@Override
+	public void establirTot(Anyell<K, V> entrada) {
+		establirCadaValor(entrada);
+	}
+	@Override
+	public boolean retenirTot(Anyell<K, V> entrada) {
+		return retenirCadaPare(entrada);
 	}
 }

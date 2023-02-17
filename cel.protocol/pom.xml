@@ -26,5 +26,7 @@
 	<modules>
 		<module>cap</module>
 		<module>cor</module>
+		<module>cel.temps</module>
+		<module>temps</module>
 	</modules>
 </project>

@@ -1,7 +1,5 @@
 package cel.temps;
 
-import cel.EsperitSant;
-
 /**
  * <tt>
  * <center>
@@ -69,14 +67,14 @@ public interface Poder<V> extends QuiVe<V>, Comparable<V> {
 	V establirMareDeDéu(V mareDeDéu);
 	
 	/**
-	 * Allibera aquest {@link EsperitSant} de tota altra instància.
+	 * Allibera aquest {@link Poder} de tota altra instància.
 	 */
 	void alliberar();
 	
 	/**
-	 * Retorna <tt>cert</tt> si l'{@link EsperitSant} no té cap altra instància Pare,
+	 * Retorna <tt>cert</tt> si el {@link Poder} no té cap altra instància Fill,
 	 * <tt>fals</tt> del contrari.
-	 * @return <tt>cert</tt> si l'{@link EsperitSant} no té cap altra instància Pare,
+	 * @return <tt>cert</tt> si el {@link Poder} no té cap altra instància Fill,
 	 * <tt>fals</tt> del contrari
 	 */
 	boolean ésBuit();

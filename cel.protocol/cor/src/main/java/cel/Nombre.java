@@ -1,4 +1,4 @@
-package cel.nombres;
+package cel;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -50,9 +50,11 @@ import cel.arca.Ramat;
  * 
  * @author joan
  *
- * @param <E> és l'ELEMENT
+ * @param <E> és l'ENTRADA
  */
-public class Nombre<E> implements Animal<E>, Serializable {
+public class Nombre<E> 
+	extends Paraula 	
+		implements Animal<E>, Serializable {
 
 	/**
 	 * 1922671536784361380L
@@ -97,11 +99,11 @@ public class Nombre<E> implements Animal<E>, Serializable {
 		return antic;
 	}
 	@Override
-	public E obtenirElement() {
+	public E obtenirEntrada() {
 		return element;
 	}
 	@Override
-	public E establirElement(E element) {
+	public E establirEntrada(E element) {
 		E antic = this.element;
 		this.element = element;
 		return antic;
@@ -109,83 +111,53 @@ public class Nombre<E> implements Animal<E>, Serializable {
 	
 	public Nombre() {
 		super();
+		déu = pare = passat = this;
+	}
+	public Nombre(Animal<E> pare) {
+		super();
+		establirDéu(pare.obtenirDéu());
+		establirPare(pare);
+		establirPassat(pare.obtenirPassat());
+		obtenirPassat().establirPare(this);
+		pare.establirPassat(this);
 	}
 	
-	@Override
-	public boolean téPare(Animal<E> pare) {
-		for(Animal<E> animal : this)  {
-			if(animal == pare) {
-				return true;
-			}
-		}
-		return false;
-	}
-	@Override
-	public boolean alliberarPare(Animal<E> pare) {
-		for(Animal<E> animal : this)  {
-			if(animal == pare) {
-				pare.alliberar();
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean afegirPare(Animal<E> pare) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean téCadaPare(Animal<E> pare) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean afegirCadaPare(Animal<E> pare) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean alliberaCadaPare(Animal<E> pare) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean retenirCadaPare(Animal<E> pare) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Ramat<E> ramat() {
-		return null;
-	}
 	@Override
 	public boolean establir(E e) {
-		return false;
+		crea(getClass(), this, e);
+		return true;
+	}
+	
+	@Override
+	public Ramat<E> pastor() {
+		return new Pastor(obtenirPare());
+	}
+	@Override
+	public Ramat<E> conductor() {
+		return new Conductor(obtenirPassat());
 	}
 	@Override
 	public Iterator<Animal<E>> iterator() {
-		return new IteradorPare(obtenirPare());
+		return new Iterador(obtenirPare());
 	}
-	private final class IteradorPare implements Iterator<Animal<E>>{
+	private final class Iterador implements Iterator<Animal<E>> {
 
 		/**
 		 * L'animal actual.
 		 */
-		protected Animal<E> actual;
+		private Animal<E> actual;
 		
 		/**
 		 * El següent animal.
 		 */
-		protected Animal<E> següent;
+		private Animal<E> següent;
 		
 		/**
-		 * Si aquest pastor té un animal més
+		 * Si aquest iterador té un animal més
 		 */
-		protected boolean téMés;
+		private boolean téMés;
 		
-		public IteradorPare(Animal<E> animal) {
+		public Iterador(Animal<E> animal) {
 			següent = actual = animal;
 			téMés = true;
 		}
@@ -212,55 +184,6 @@ public class Nombre<E> implements Animal<E>, Serializable {
 			if (!a.ésBuit()) {
 				actual = a;
 				següent = a.obtenirPare();
-			} else {
-				téMés = false;
-			}
-		}
-	}
-	private final class IteradorPassat implements Iterator<Animal<E>>{
-
-		/**
-		 * L'animal actual.
-		 */
-		protected Animal<E> actual;
-		
-		/**
-		 * El següent animal.
-		 */
-		protected Animal<E> següent;
-		
-		/**
-		 * Si aquest pastor té un animal més
-		 */
-		protected boolean téMés;
-		
-		public IteradorPassat(Animal<E> animal) {
-			següent = actual = animal;
-			téMés = true;
-		}
-		
-		@Override
-		public boolean hasNext() {
-			return téMés;
-		}
-
-		@Override
-		public Animal<E> next() {
-			Animal<E> e = següent;
-			actual = e;
-			següent = e.obtenirPassat();
-			if(e == Nombre.this)
-				téMés = false;
-			else téMés = true;
-			return e;
-		}
-		@Override
-		public void remove() {
-			Animal<E> a = següent;
-			actual.alliberar();
-			if (!a.ésBuit()) {
-				actual = a;
-				següent = a.obtenirPassat();
 			} else {
 				téMés = false;
 			}
@@ -310,7 +233,7 @@ public class Nombre<E> implements Animal<E>, Serializable {
 			if(e == Nombre.this)
 				téMés = false;
 			else téMés = true;
-			return e.obtenirElement();
+			return e.obtenirEntrada();
 		}
 	}
 	protected final class Conductor implements Ramat<E> {
@@ -357,7 +280,7 @@ public class Nombre<E> implements Animal<E>, Serializable {
 			if(e == Nombre.this)
 				téMés = false;
 			else téMés = true;
-			return e.obtenirElement();
+			return e.obtenirEntrada();
 		}
 	}
 }

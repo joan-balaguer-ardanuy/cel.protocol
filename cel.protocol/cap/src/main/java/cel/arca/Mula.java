@@ -93,7 +93,116 @@ package cel.arca;
  * 
  * @author joan
  *
+  @param <E> és l'ENTRADA
  */
-public interface Mula extends Cavall, Ase {
+public interface Mula<E> extends Cavall<E>, Ase<E> {
+	
+	/**
+	 * Obté, però no allibera, la primera entrada d'aquesta {@link Mula}-
+	 * @return el cap d'aquesta {@link Mula}
+	 */
+	default E obtenirPrimera() {
+		return escoltar();
+	}
 
+	/**
+	 * Obté, però no allibera, la darrera entrada d'aquesta {@link Mula}-
+	 * @return la cua d'aquesta {@link Mula}
+	 */
+	default E obtenirDarrera() {
+		return obtenirPassat().obtenirEntrada();
+	}
+	
+	/**
+	 * Estableix l'especificada entrada al principi d'aquesta {@link Mula}.
+	 * @param e l'entrada per establir
+	 */
+	default void establirPrimera(E e) {
+		obtenirPare().establir(e);
+	}
+	
+	/**
+	 * Estableix l'especificada entrada al final d'aquesta {@link Mula}.
+	 * @param e l'entrada per establir
+	 */
+	default void establirDarrera(E e) {
+		establir(e);
+	}
+	
+	/**
+	 * Allibera la primera entrada d'aquesta {@link Mula}.
+	 */
+	default void alliberaPrimera() {
+		obtenirPare().alliberar();
+	}
+	
+	/**
+	 * Allibera la darrera entrada d'aquesta {@link Mula}.
+	 */
+	default void alliberaDarrera() {
+		obtenirPassat().alliberar();
+	}
+	
+	/**
+	 * Obté i allibera la primera entrada d'aquesta {@link Mula}.
+	 * @return l'entrada alliberada
+	 */
+	default E recuperarPrimera() {
+		return recuperar();
+	}
+
+	/**
+	 * Obté i allibera la darrera entrada d'aquesta {@link Mula}.
+	 * @return l'entrada alliberada
+	 */
+	default E recuperarDarrera() {
+		Animal<E> animal = obtenirPassat();
+		animal.alliberar();
+		return animal.obtenirEntrada();
+	}
+	
+	/**
+	 * Allibera la priemra aparició de l'entrada especificada d'aquest {@link Mula}.
+	 * Si la {@link Mula} no conté l'entrada, aquesta no és canviada. Més formalment,
+	 * allibera la darrera entrada {@code e} tal que {@code o == e} (si l'element
+	 * existeix). Retorna {@code cert} si aquesta {@link Mula} contenia l'entrada
+	 * especificada (o igual que, si aquesta {@link Mula} ha canviat com a resultat
+	 * de la invocació).
+	 * @param e l'entrada per ser alliberada d'aquesta {@link Mula}, si és present
+	 * @return {@code cert} si una entrada ha sigut alliberada com a resultat d'aquesta
+	 * invocació.
+	 */
+	default boolean alliberaPrimeraAparició(E e) {
+		Ramat<E> ramat = pastor();
+		for(E entrada = ramat.següent(); ramat.téMés(); entrada = ramat.següent()) {
+			if(entrada == e) {
+				ramat.alliberar();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
+	/**
+	 * Allibera la darrera aparició de l'entrada especificada d'aquest {@link Mula}.
+	 * Si la {@link Mula} no conté l'entrada, aquesta no és canviada. Més formalment,
+	 * allibera la darrera entrada {@code e} tal que {@code o == e} (si l'element
+	 * existeix). Retorna {@code cert} si aquesta {@link Mula} contenia l'entrada
+	 * especificada (o igual que, si aquesta {@link Mula} ha canviat com a resultat
+	 * de la invocació).
+	 * @param e l'entrada per ser alliberada d'aquesta {@link Mula}, si és present
+	 * @return {@code cert} si una entrada ha sigut alliberada com a resultat d'aquesta
+	 * invocació.
+	 */
+	default boolean alliberaDarreraAparició(E e) {
+		Ramat<E> ramat = conductor();
+		for(E entrada = ramat.següent(); ramat.téMés(); entrada = ramat.següent()) {
+			if(entrada == e) {
+				ramat.alliberar();
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -228,7 +228,7 @@ public abstract class Aliança
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object clone() {
+	public K clone() {
 		try {
 			K pare = (K) getClass().getConstructor().newInstance();
 			V fill = (V) obtenirFill().getClass().getConstructor().newInstance();

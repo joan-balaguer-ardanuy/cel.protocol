@@ -116,7 +116,7 @@ public abstract class Tenebres
 	 */
 	@Override
 	public boolean alliberaCadaFill(V fill) {
-		return obtenirFill().alliberaCadaPare(fill);
+		return obtenirFill().alliberarCadaPare(fill);
 	}
 	/**
 	 * {@inheritDoc}

@@ -108,152 +108,257 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 
 	@Override
 	public V obtenirValor(K clau) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				return anyell.obtenirValor();
+			}
+		}
 		return null;
 	}
 	@Override
 	public K obtenirClau(V valor) {
-		return null;
+		return obtenirFill().alliberarValor(valor);
 	}
 	@Override
-	public boolean contéClau(Object clau) {
+	public boolean contéClau(K clau) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				return true;
+			}
+		}
 		return false;
 	}
 	@Override
-	public boolean contéValor(Object valor) {
-		return false;
+	public boolean contéValor(V valor) {
+		return obtenirFill().contéClau(valor);
 	}
 	@Override
 	public V obtenirValorPerDefecte(K clau, V valorPerDefecte) {
-		return null;
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				return anyell.obtenirValor();
+			}
+		}
+		return valorPerDefecte;
 	}
 	@Override
 	public K obtenirClauPerDefecte(V valor, K clauPerDefecte) {
-		return null;
+		return obtenirFill().obtenirValorPerDefecte(valor, clauPerDefecte);
 	}
 	@Override
-	public Anyell<K, V> obtenirParePerClau(K clau) {
+	public Anyell<K,V> obtenirParePerClau(K clau) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				return anyell;
+			}
+		}
 		return null;
 	}
 	@Override
 	public Anyell<V, K> obtenirFillPerValor(V valor) {
-		return null;
-	}
-	@Override
-	public long índexDeClau(K clau) {
-		return 0;
-	}
-	@Override
-	public long índexDeValor(V valor) {
-		return 0;
+		return obtenirFill().obtenirParePerClau(valor);
 	}
 	@Override
 	public V establirValor(K clau, V valor) {
+		establirClau(clau);
+		establirValor(valor);
+		if(ésBuit()) {
+			crea(getClass(), obtenirPare(), clau, valor);
+			return null;
+		} else {
+			for(Anyell<K,V> anyell : this) {
+				if(clau == anyell.obtenirClau()) {
+					return anyell.establirValor(valor);
+				}
+			}
+		}
+		crea(getClass(), obtenirPare(), clau, valor);
 		return null;
 	}
 	@Override
 	public K establirClau(V valor, K clau) {
-		return null;
+		return obtenirFill().establirValor(valor, clau);
+	}
+	@Override
+	public void establirCadaValor(Anyell<? extends K, ? extends V> a) {
+		for(Anyell<? extends K, ? extends V> anyell : a) {
+			establirValor(anyell.obtenirClau(), anyell.obtenirValor());
+		}
+	}
+	@Override
+	public void establirCadaClau(Anyell<? extends V, ? extends K> a) {
+		obtenirFill().establirCadaValor(a);
 	}
 	@Override
 	public V establirValorSiAbsent(K clau, V valor) {
-		return null;
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				return null;
+			}
+		}
+		return establirValor(clau, valor);
 	}
 	@Override
 	public K establirClauSiAbsent(V valor, K clau) {
-		return null;
+		return obtenirFill().establirValorSiAbsent(valor, clau);
 	}
 	@Override
 	public V reemplaçarValor(K clau, V valor) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				return anyell.establirValor(valor);
+			}
+		}
 		return null;
 	}
 	@Override
 	public K reemplaçarClau(V valor, K clau) {
-		return null;
+		return obtenirFill().reemplaçarValor(valor, clau);
 	}
 	@Override
 	public boolean reemplaçarValor(K clau, V valorAntic, V valorNou) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				if(valorAntic == anyell.obtenirValor()) {
+					anyell.establirValor(valorNou);
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	@Override
 	public boolean reemplaçarClau(V valor, K clauAntiga, K clauNova) {
-		return false;
+		return obtenirFill().reemplaçarValor(valor, clauAntiga, clauNova);
 	}
 	@Override
 	public void reemplaçarTotsElsValors(BiFunction<? super K, ? super V, ? extends V> funció) {
-		
+		for(Anyell<K,V> anyell : this) {
+			anyell.establirValor(funció.apply(anyell.obtenirClau(), anyell.obtenirValor()));
+		}
 	}
 	@Override
 	public void reemplaçarTotesLesClaus(BiFunction<? super V, ? super K, ? extends K> funció) {
-		
+		obtenirFill().reemplaçarTotsElsValors(funció);
 	}
 	@Override
 	public V alliberarValor(K clau) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				anyell.alliberar();
+				return anyell.obtenirValor();
+			}
+		}
 		return null;
 	}
 	@Override
 	public K alliberarClau(V valor) {
-		return null;
+		return obtenirFill().alliberarValor(valor);
 	}
 	@Override
 	public boolean alliberarValor(K clau, V valor) {
+		for(Anyell<K,V> anyell : this) {
+			if(clau == anyell.obtenirClau()) {
+				if(valor == anyell.obtenirValor()) {
+					anyell.alliberar();
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	@Override
 	public boolean alliberarClau(V valor, K clau) {
-		return false;
+		return obtenirFill().alliberarValor(valor, clau);
 	}
 	@Override
 	public void perCadaValor(BiConsumer<? super K, ? super V> acció) {
-		
+		for(Anyell<K,V> anyell : this) {
+			acció.accept(anyell.obtenirClau(), anyell.obtenirValor());
+		}
 	}
 	@Override
-	public void perCadaClau(BiConsumer<? super V, ? super K> acciÓ) {
-		
+	public void perCadaClau(BiConsumer<? super V, ? super K> acció) {
+		obtenirFill().perCadaValor(acció);
 	}
 	@Override
 	public V processarValorSiAbsent(K clau, Function<? super K, ? extends V> funcióUnificació) {
-		return null;
+		for(Anyell<K,V> anyell : this)  {
+			if(clau == anyell.obtenirClau()) {
+				return null;
+			}
+		}
+		V valorNou;
+		V valorAntic = null;
+		if((valorNou = funcióUnificació.apply(clau)) != null) {
+			valorAntic = establirValor(clau, valorNou);
+		}
+		return valorAntic;
 	}
 	@Override
 	public K processarClauSiAbsent(V valor, Function<? super V, ? extends K> funcióUnificació) {
-		return null;
+		return obtenirFill().processarValorSiAbsent(valor, funcióUnificació);
 	}
 	@Override
 	public V processarValorSiPresent(K clau, BiFunction<? super K, ? super V, ? extends V> funcióUnificació) {
+		for(Anyell<K,V> anyell : this)  {
+			if(clau == anyell.obtenirClau()) {
+				V valorNou;
+				V valorAntic = null;
+				if((valorNou = funcióUnificació.apply(clau, anyell.obtenirValor())) != null) {
+					valorAntic = establirValor(clau, valorNou);
+				}
+				return valorAntic;
+			}
+		}
 		return null;
 	}
 	@Override
 	public K processarClauSiPresent(V valor, BiFunction<? super V, ? super K, ? extends K> funcióUnificació) {
-		return null;
+		return obtenirFill().processarValorSiPresent(valor, funcióUnificació);
 	}
 	@Override
 	public V processarValor(K clau, BiFunction<? super K, ? super V, ? extends V> funcióUnificació) {
+		for(Anyell<K,V> anyell : this)  {
+			if(clau == anyell.obtenirClau()) {
+				V newValue;
+				if((newValue = funcióUnificació.apply(clau, anyell.obtenirValor())) == null) {
+					anyell.alliberar();
+					return anyell.obtenirValor();
+				}
+				else return anyell.establirValor(newValue);
+			}
+		}
 		return null;
 	}
 	@Override
 	public K processarClau(V valor, BiFunction<? super V, ? super K, ? extends K> funcióUnificació) {
-		return null;
+		return obtenirFill().processarValor(valor, funcióUnificació);
 	}
 	@Override
 	public V unirValor(K clau, V valor, BiFunction<? super V, ? super V, ? extends V> funcióUnificació) {
+		for(Anyell<K,V> entry : this)  {
+			if(clau == entry.obtenirClau()) {
+				return entry.establirValor(funcióUnificació.apply(entry.obtenirValor(), valor));
+			}
+		}
 		return null;
 	}
 	@Override
 	public K unirClau(V valor, K clau, BiFunction<? super K, ? super K, ? extends K> funcióUnificació) {
-		return null;
+		return obtenirFill().unirValor(valor, clau, funcióUnificació);
 	}
 	@Override
 	public Iterator<Anyell<K, V>> iterator() {
 		return null;
 	}
 	@Override
-	public Object clone() {
-		return null;
+	public Anyell<K, V> clone() {
+		Anyell<K, V> anyell = super.clone();
+		anyell.establirClau(obtenirClau());
+		anyell.establirValor(obtenirValor());
+		return anyell;
 	}
 	@Override
 	public abstract int compareTo(Anyell<V, K> o);
-	@Override
-	public abstract void esdeveniment(Ordre manament);
-	@Override
-	public abstract void run();
 }

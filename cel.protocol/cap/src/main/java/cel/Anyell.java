@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 import cel.temps.Vida;
 
-/**
+/** 
  * <tt>
  * <center>
  * <h3>Litúrgia celestial: Els màrtirs de l'Anyell</h3>
@@ -124,7 +124,7 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
      * @return {@code cert} si aquest {@link Anyell} conté un mapatge per a l'especificada
      *         clau
      */
-	boolean contéClau(Object clau);
+	boolean contéClau(K clau);
     
 	/**
      * Retorna {@code cert} si aquest {@link Anyell} conté un mapatge per l'especificat
@@ -136,7 +136,7 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
      * @return {@code cert} si aquest {@link Anyell} conté un mapatge per a l'especificat
      *         valor
      */
-	boolean contéValor(Object valor);
+	boolean contéValor(V valor);
 	
 	/**
      * Retorna el valor al qual l'especificada clau és mapada, o retorna
@@ -179,20 +179,6 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
      *         {@code nul} si aquest {@link Anyell} no conté mapatge per el valor
      */
 	Anyell<V,K> obtenirFillPerValor(V valor);
-	
-	/**
-	 * Obté la posició de la primera aparició en la qual es troba la clau respecte aquesta instància.
-	 * @param clau la clau a obtenir la posició
-	 * @return la posició en el qual es troba la clau respecte aquesta instància.
-	 */
-	long índexDeClau(K clau);
-	
-	/**
-	 * Obté la posició de la primera aparició en la qual es troba el valor respecte aquesta instància.
-	 * @param valor el valor a obtenir la posició
-	 * @return la posició en el qual es troba el valor respecte aquesta instància.
-	 */
-	long índexDeValor(V valor);
 
 	/**
 	 * Mapa el valor amb la clau en aquest {@link Anyell}. 
@@ -258,7 +244,34 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 * <tt>nul</tt> si no hi havia instància per el valor.
 	 */
 	K establirClauSiAbsent(V valor, K clau);
-	
+
+    /**
+     * Estableix tots els mapatges des de l'{@link Anyell} especificat a aquest
+     * {@link Anyell}. L'efecte d'aquesta invocació és equivalent a fer la
+     * invoació {@link #establirValor(Object,Object) establirValor(k, v)} en aquest
+     * {@link Anyell} una vegada per cada mapatge des de la clau {@code k} al
+     * valor {@code v} en l'{@link Anyell} especificat. El comportament d'aquesta
+     * operació no està definit si l'{@link Anyell} especificat és modificat
+     * mentre la operació està en progrés.
+     *
+     * @param a mapatges per ser establerts en aquest {@link Anyell}
+     */
+    void establirCadaValor(Anyell<? extends K, ? extends V> a);
+    
+
+    /**
+     * Estableix tots els mapates des de l'{@link Anyell} especificat a aquest
+     * {@link Anyell}. L'efecte d'aquesta invocació és equivalent a fer la
+     * invoació {@link #establirClau(Object,Object) establirValor(v, k)} en aquest
+     * {@link Anyell} una vegada per cada mapatge des del valor{@code v} a la
+     * clau {@code k} en l'{@link Anyell} especificat. El comportament d'aquesta
+     * operació no està definit si l'{@link Anyell} especificat és modificat
+     * mentre la operació està en progrés.
+     *
+     * @param a mapatges per ser establerts en aquest {@link Anyell}
+     */
+    void establirCadaClau(Anyell<? extends V, ? extends K> a);
+    
 	/**
 	 * Reemplaça la instància per l'especificat valor si i sols si està actualment
 	 * mapat a alguna clau
@@ -274,8 +287,8 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 * }
 	 * </pre>
 	 *
-	 * @param pare el Pare amb el qual l'heretat Fill és mapat.
-	 * @param fill el Fill a ser mapat amb l'heretat Pare
+	 * @param clau la clau amb la qual el valor és mapat.
+	 * @param valor el valor a ser mapat amb la clau
 	 * @return el Fill prèviament mapat amb l'heretat Pare, o <tt>nul</tt> si no
 	 * hi havien mapatges pel Pare-
 	 */
@@ -472,7 +485,7 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 * }
 	 * </pre>
 	 *
-	 * @param execution {@link BiConsumer} l'execució a processar
+	 * @param acció {@link BiConsumer} l'execució a processar
 	 */
     void perCadaValor(BiConsumer<? super K, ? super V> acció);
 
@@ -489,9 +502,9 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 * }
 	 * </pre>
 	 *
-	 * @param execution {@link BiConsumer} l'execució a processar
+	 * @param acció {@link BiConsumer} l'execució a processar
 	 */
-    void perCadaClau(BiConsumer<? super V, ? super K> acciÓ);
+    void perCadaClau(BiConsumer<? super V, ? super K> acció);
 	
 	/**
 	 * Si la clau no està ja mapada amb el valor, intenta processar el seu valor

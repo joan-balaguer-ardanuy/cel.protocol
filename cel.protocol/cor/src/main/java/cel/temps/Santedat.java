@@ -92,7 +92,12 @@ public abstract class Santedat
 
 	@Override
 	public void recórrerFill(K pare, V fill) {
-		
+		pare.establirPare(obtenirPare());
+		fill.establirPare(obtenirFill().obtenirPare());
+		fill.establirFill(obtenirPare().obtenirPassat());
+		obtenirPare().establirPassat(pare);
+		establirPare(pare);
+		obtenirFill().establirPare(fill);
 	}
 
 	/**
@@ -103,12 +108,17 @@ public abstract class Santedat
 	 */
 	@Override
 	public void recórrerPare(V fill, K pare) {
-		
+		obtenirFill().recórrerFill(fill, pare);
 	}
 
 	@Override
 	public void concórrerFill(K pare, V fill) {
-		
+		obtenirPassat().establirPare(pare);
+		obtenirFutur().establirPare(fill);
+		fill.establirFill(obtenirPassat());
+		pare.establirPare(obtenirPare().obtenirPassat());
+		fill.establirPare(obtenirFill());
+		establirPassat(pare);
 	}
 
 	/**
@@ -119,12 +129,43 @@ public abstract class Santedat
 	 */
 	@Override
 	public void concórrerPare(V fill, K pare) {
-		
+		obtenirFill().concórrerFill(fill, pare);
 	}
 
 	@Override
 	public void permutarFill(K pare, V fill) {
-		
+		if(pare == obtenirPare()) {
+			obtenirPassat().establirPare(pare);
+			obtenirFutur().establirPare(fill);
+			establirPare(pare.obtenirPare());
+			obtenirFill().establirPare(fill.obtenirPare());
+			obtenirPare().establirPassat(fill.establirFill(obtenirPassat()));
+			establirPassat(pare);
+			pare.establirPare(obtenirPare().obtenirPassat());
+			fill.establirPare(obtenirFill());
+		} else if(pare == obtenirPassat()) {
+			pare.establirPare(obtenirPare());
+			fill.establirPare(obtenirFill().obtenirPare());
+			establirPassat(fill.obtenirFill());
+			obtenirPassat().establirPare(obtenirPare().establirPassat(pare));
+			obtenirFutur().establirPare(obtenirFill());
+			fill.establirFill(obtenirPare().obtenirPassat());
+			establirPare(pare);
+			obtenirFill().establirPare(fill); 
+		} else {
+			K parePare = pare.establirPare(obtenirPare());
+			V fillPare = fill.establirPare(obtenirFill().obtenirPare());
+			K fillFill = fill.establirFill(obtenirPassat());
+			fillPare.establirFill(obtenirPare().obtenirPassat());
+			obtenirPare().establirPassat(pare);
+			establirPare(parePare);
+			obtenirFill().establirPare(fillPare);
+			obtenirPassat().establirPare(pare);
+			obtenirFutur().establirPare(fill);
+			establirPassat(fillFill);
+			obtenirPassat().establirPare(obtenirPare().obtenirPassat());
+			obtenirFutur().establirPare(obtenirFill());
+		}
 	}
 
 	/**

@@ -51,9 +51,9 @@ import cel.Anyell;
 public interface Sang<K,V> extends Anyell<K,V> {
 	V obtenir(K clau);
 	
-	V estableix(K clau, V valor);
+	V establir(K clau, V valor);
 	
-	V allibera(K clau);
+	V alliberar(K clau);
 	
-	void estableixTot(Sang<? extends K, ? extends V> s);
+	void establirTot(Sang<? extends K, ? extends V> s);
 }

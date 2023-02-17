@@ -30,16 +30,16 @@ import java.util.EventListener;
 public interface Esperit extends Missatge, EventListener, Runnable {
 
 	/**
-	 * Afegeix un {@link Esperit} escoltador a aquest {@link Esperit}
-	 * @param esperit l'{@link Esperit} escoltador
+	 * Afegeix un {@link Esperit} testimoni a aquest {@link Esperit}
+	 * @param esperit l'{@link Esperit} testimoni
 	 */
-	void afegirEscoltador(Esperit esperit);
+	void afegirTestimoni(Esperit esperit);
 	
 	/**
-	 * Allibera un {@link Esperit} escoltador a aquest {@link Esperit}
-	 * @param esperit l'{@link Esperit} escoltador
+	 * Allibera un {@link Esperit} testimoni a aquest {@link Esperit}
+	 * @param esperit l'{@link Esperit} testimoni
 	 */
-	void alliberarEscoltador(Esperit esperit);
+	void alliberarTestimoni(Esperit esperit);
 	
 	/**
 	 * Manament invocat quan una {@link Ordre} és rebuda.

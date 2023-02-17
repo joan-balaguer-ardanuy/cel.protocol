@@ -46,14 +46,14 @@ public interface Regne<K> extends QuiEra<K>, Iterable<K> {
 	K establirDéu(K déu);
 	
 	/**
-	 * Allibera aquest {@link EsperitSant} de tota altra instància.
+	 * Allibera aquest {@link Regne} de tota altra instància.
 	 */
 	void alliberar();
 	
 	/**
-	 * Retorna <tt>cert</tt> si l'{@link EsperitSant} no té cap altra instància Pare,
+	 * Retorna <tt>cert</tt> si el {@link Regne} no té cap altra instància Pare,
 	 * <tt>fals</tt> del contrari.
-	 * @return <tt>cert</tt> si l'{@link EsperitSant} no té cap altra instància Pare,
+	 * @return <tt>cert</tt> si l {@link Regne} no té cap altra instància Pare,
 	 * <tt>fals</tt> del contrari
 	 */
 	boolean ésBuit();
@@ -127,7 +127,7 @@ public interface Regne<K> extends QuiEra<K>, Iterable<K> {
 	 * @return {@code cert} si aquest {@link Regne} ha canviat com a resultat de la
 	 * invocació
 	 */
-	boolean alliberaCadaPare(K pare);
+	boolean alliberarCadaPare(K pare);
 	
 	/**
 	 * Reté només els {@code pares} en aquest {@link Regne} que són tinguts en

@@ -1,3 +1,4 @@
+
 package cel.gènesi;
 
 import cel.Anyell;
@@ -41,57 +42,49 @@ import cel.Ordre;
  * 
  * @author joan
  *
- * @param <K>
- * @param <V>
+ * @param <K> és la CLAU
+ * @param <V> és el VALOR
  */
-public class Home<K,V> extends Document<K, V> implements Sang<K, V> {
+public abstract class Home<K,V> extends Document<K, V> implements Sang<K, V> {
 
 	private static final long serialVersionUID = 3590272279824571851L;
 
 	public Home() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+	public Home(String nom) {
+		super(nom);
+	}
+	public Home(Class<? extends Document<V, K>> classeFill, String nom, K clau, V valor) {
+		super(classeFill, nom, clau, valor);
+	}
+	public Home(Document<K, V> pare) {
+		super(pare);
+	}
+	public Home(Class<? extends Document<V, K>> classeFill, Document<K, V> pare, K clau, V valor) {
+		super(classeFill, pare, clau, valor);
+	}
+	public Home(Document<K, V> déu, String nom) {
+		super(déu, nom);
+	}
+	public Home(Class<? extends Document<V, K>> classeFill, Document<K, V> déu, String nom, K clau, V valor) {
+		super(classeFill, déu, nom, clau, valor);
 	}
 
 	@Override
 	public V obtenir(K clau) {
-		// TODO Auto-generated method stub
-		return null;
+		return obtenirValor(clau);
 	}
-
 	@Override
-	public V estableix(K clau, V valor) {
-		// TODO Auto-generated method stub
-		return null;
+	public V establir(K clau, V valor) {
+		return establirValor(clau, valor);
 	}
-
 	@Override
-	public V allibera(K clau) {
-		// TODO Auto-generated method stub
-		return null;
+	public V alliberar(K clau) {
+		return alliberarValor(clau);
 	}
-
 	@Override
-	public void estableixTot(Sang<? extends K, ? extends V> s) {
-		// TODO Auto-generated method stub
-		
+	public void establirTot(Sang<? extends K, ? extends V> s) {
+		establirCadaValor(s);
 	}
-
-	@Override
-	public int compareTo(Anyell<V, K> o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public void esdeveniment(Ordre manament) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

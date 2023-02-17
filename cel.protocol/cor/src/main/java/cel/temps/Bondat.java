@@ -98,7 +98,7 @@ public abstract class Bondat
 		return modificat;
 	}
 	@Override
-	public boolean alliberaCadaPare(K pare) {
+	public boolean alliberarCadaPare(K pare) {
 		boolean modificat = false;
         Iterator<K> it = iterator();
         while (it.hasNext()) {

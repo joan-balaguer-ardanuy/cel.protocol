@@ -20,6 +20,13 @@ import cel.Anyell;
  * @param <K> és la CLAU
  * @param <V> és el VALOR
  */
-public interface Cadena<K,V> extends Anyell<K,V>, Iterable<Anyell<K,V>> {
+public interface Cadena<K,V> extends Anyell<K,V> {
 
+	boolean conté(Anyell<K,V> entrada);
+	Anyell<K,V> obtenir(K clau);
+	boolean establir(Anyell<K,V> entrada);
+	boolean alliberar(Anyell<K,V> entrada);
+	boolean contéTot(Anyell<K,V> entrada);
+	void establirTot(Anyell<K,V> entrada);
+	boolean retenirTot(Anyell<K,V> entrada);
 }

@@ -5,11 +5,11 @@
 		<artifactId>protocol</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>cor</artifactId>
+	<artifactId>temps</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>cel</groupId>
-			<artifactId>cap</artifactId>
+			<artifactId>cor</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
