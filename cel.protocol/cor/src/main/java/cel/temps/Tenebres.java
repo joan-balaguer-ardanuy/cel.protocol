@@ -128,4 +128,10 @@ public abstract class Tenebres
 	public boolean retenirCadaFill(V fill) {
 		return obtenirFill().retenirCadaPare(fill);
 	}
+	@Override
+	public void run() {
+		super.run();
+		// executa el Fill
+		execute(obtenirFill());
+	}
 }

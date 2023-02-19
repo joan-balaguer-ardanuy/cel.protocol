@@ -1,10 +1,7 @@
 package cel.gènesi;
 
-import java.util.Iterator;
-
 import cel.Anyell;
 import cel.Document;
-import cel.Ordre;
 
 /**
  * <tt>

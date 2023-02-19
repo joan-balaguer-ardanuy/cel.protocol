@@ -93,7 +93,7 @@ public abstract class Aliança
 		super(nom, crea(classeFill, déu.obtenirMareDeDéu(), nom));
 		establirDéu(déu);
 	}
-
+	
 	@Override
 	public V processarFillSiAbsent(K pare, Function<? super K, ? extends V> funcióUnificació) {
 		Objects.requireNonNull(funcióUnificació);

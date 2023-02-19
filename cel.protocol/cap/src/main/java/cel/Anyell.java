@@ -724,7 +724,10 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 */
     K unirClau(V valor, K clau, BiFunction<? super K, ? super K, ? extends K> funcióUnificació);
     
-    interface Generador<K,V> {
+    @Override
+    Anyell.Generador<K,V> comparador();
+    
+    interface Generador<K,V> extends Reproductor<Anyell<K,V>,Anyell<V,K>> {
     	void establir(K clau, V valor);
     }
 }

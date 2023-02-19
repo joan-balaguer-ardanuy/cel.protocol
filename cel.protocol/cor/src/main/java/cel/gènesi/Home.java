@@ -1,9 +1,7 @@
 
 package cel.gènesi;
 
-import cel.Anyell;
 import cel.Document;
-import cel.Ordre;
 
 /**
  * <tt>

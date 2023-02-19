@@ -686,5 +686,9 @@ public interface Vida<K,V> extends Regne<K>, Poder<V>, EsperitSant<K,V> {
 	interface Reproductor<K,V> extends Comparador<K,V> {
 		
 		K font();
+		
+		void establirPare(K pare);
+		
+		void establirFill(V fill);
 	}
 }

@@ -49,6 +49,14 @@ import cel.Anyell;
  * @param <V> és el VALOR
  */
 public interface Sang<K,V> extends Anyell<K,V> {
+	
+	K getKey();
+	K setKey(K keyh);
+	V getValue();
+	V setValue(V value);
+	
+	Anyell<K,V> getEntry();
+	
 	V obtenir(K clau);
 	
 	V establir(K clau, V valor);

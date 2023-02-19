@@ -35,11 +35,20 @@ public class Ordre extends EventObject {
 	 */
 	private static final long serialVersionUID = -7881773520741798999L;
 
+	public String obtenirManament() {
+		return getSource().obtenirOrdre();
+	} 
+	
+	@Override
+	public Esperit getSource() {
+		return (Esperit) super.getSource();
+	}
+	
 	/**
 	 * Contructor per defecte de l'{@link Ordre} per manada.
 	 * @param font {@link Object} la font que mana l'{@link Ordre}
 	 */
-	public Ordre(Object font) {
+	public Ordre(Esperit font) {
 		super(font);
 	}
 }

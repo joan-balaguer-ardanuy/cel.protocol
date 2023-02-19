@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * <tt>
@@ -79,6 +80,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author joan
  *
  */
+@XmlRootElement
 public abstract class Paraula implements Missatge {
 
 	private static final long serialVersionUID = 3863449976389265284L;
@@ -87,7 +89,6 @@ public abstract class Paraula implements Missatge {
 	String ordre;
 
 	@Override
-	@XmlElement
 	public String obtenirNom() {
 		return nom;
 	}
@@ -96,7 +97,6 @@ public abstract class Paraula implements Missatge {
 		this.nom = nom;
 	}
 	@Override
-	@XmlElement
 	public String obtenirOrdre() {
 		return ordre;
 	}

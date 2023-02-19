@@ -117,7 +117,7 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	}
 	@Override
 	public K obtenirClau(V valor) {
-		return obtenirFill().alliberarValor(valor);
+		return obtenirFill().obtenirValor(valor);
 	}
 	@Override
 	public boolean contéClau(K clau) {
@@ -160,18 +160,16 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	}
 	@Override
 	public V establirValor(K clau, V valor) {
-		establirClau(clau);
-		establirValor(valor);
-		if(ésBuit()) {
-			crea(getClass(), obtenirPare(), clau, valor);
-			return null;
-		} else {
-			for(Anyell<K,V> anyell : this) {
-				if(clau == anyell.obtenirClau()) {
-					return anyell.establirValor(valor);
-				}
-			}
-		}
+//		if(ésBuit()) {
+//			crea(getClass(), obtenirPare(), clau, valor);
+//			return null;
+//		} else {
+//			for(Anyell<K,V> anyell : this) {
+//				if(clau == anyell.obtenirClau()) {
+//					return anyell.establirValor(valor);
+//				}
+//			}
+//		}
 		crea(getClass(), obtenirPare(), clau, valor);
 		return null;
 	}
@@ -349,10 +347,6 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		return obtenirFill().unirValor(valor, clau, funcióUnificació);
 	}
 	@Override
-	public Iterator<Anyell<K, V>> iterator() {
-		return null;
-	}
-	@Override
 	public Anyell<K, V> clone() {
 		Anyell<K, V> anyell = super.clone();
 		anyell.establirClau(obtenirClau());
@@ -360,5 +354,38 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		return anyell;
 	}
 	@Override
-	public abstract int compareTo(Anyell<V, K> o);
+	public abstract int compareTo(Anyell<V,K> o);
+	
+	Anyell.Generador<K,V> comparador;
+	
+	@Override
+	public Anyell.Generador<K,V> comparador() {
+		return comparador == null ? comparador = new Matriu(obtenirClau(), obtenirValor()) : comparador;
+	}
+	public Anyell.Generador<K,V> comparador(K clau, V valor) {
+		return comparador == null ? comparador = new Matriu(clau, valor) : comparador;
+	}
+	
+	private class Matriu extends Òrgan implements Generador<K,V> {
+
+		@SuppressWarnings("unchecked")
+		public Matriu(K clau, V valor) {
+			super((Anyell<K,V>) crea(Document.this.getClass(), obtenirNom(), clau, valor));
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void establir(K clau, V valor) {
+			Anyell<K,V> anyell = (Anyell<K,V>) crea(Document.this.getClass(), font(), obtenirNom(), clau, valor);
+			font().establirFill(anyell, anyell.obtenirFill());
+		}
+		@Override
+		public void establirPare(Anyell<K, V> pare) {
+			establir(pare.obtenirClau(), pare.obtenirValor());
+		}
+		@Override
+		public void establirFill(Anyell<V, K> fill) {
+			establir(fill.obtenirValor(), fill.obtenirClau());
+		}
+	}
 }

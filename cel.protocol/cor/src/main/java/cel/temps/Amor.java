@@ -125,13 +125,14 @@ public abstract class Amor
 	public void reemplaçarTotsElsPares(BiFunction<? super V, ? super K, ? extends K> funció) {
 		obtenirFill().reemplaçarTotsElsFills(funció);
 	}
-
+	
 	@Override
-	public Reproductor<K, V> comparador() {
-		return null;
-	}
+	public abstract Vida.Reproductor<K, V> comparador();
+//	{
+//		return comparador == null ? comparador = new Òrgan((K) crea(getClass(), obtenirFill().getClass(), obtenirNom())) : comparador;
+//	}
 
-	protected class Òrgan implements Reproductor<K,V> {
+	protected abstract class Òrgan implements Reproductor<K,V> {
 
 		K font;
 		
@@ -143,6 +144,10 @@ public abstract class Amor
 		public K font() {
 			return font;
 		}
+		
+		public abstract void establirPare(K clau);
+		
+		public abstract void establirFill(V fill);
 
 		@Override
 		public void compara(K pare, V fill) {
@@ -154,15 +159,17 @@ public abstract class Amor
 					K clau = iteradorPare.next();
 					V valor = iteradorFill.next();
 					clau.compareTo(valor);
-					font().afegirPare(clau.comparador().font());
+					establirPare(clau.comparador().font());
 					
 					if(iteradorFill.hasNext() && iteradorPare.hasNext()) {
 						valor = iteradorFill.next();
 						clau = iteradorPare.next();
 						valor.compareTo(clau);
-						font().establirFill(valor.comparador().font());
+						establirFill(valor.comparador().font());
 					}
+					else return;
 				}
+				else return;
 			}
 		}
 	}

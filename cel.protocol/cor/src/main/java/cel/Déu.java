@@ -81,6 +81,29 @@ public abstract class Déu
 	}
 	@Override
 	public void run() {
-		establirOrdre(Manament.MOR);
+		switch (obtenirOrdre()) {
+		case Manament.VIU:
+			establirOrdre(Manament.MOR);
+			break;
+		default:
+			establirOrdre(Manament.VIU);
+			break;
+		}
 	}
+
+	@Override
+	public Thread newThread(Runnable r) {
+		return new Thread(r);
+	}
+
+	@Override
+	public void execute(Runnable command) {
+		try {
+			newThread(command).start();
+		}
+		catch (Throwable t) {
+			throw new Error(t);
+		}
+	}
+	
 }

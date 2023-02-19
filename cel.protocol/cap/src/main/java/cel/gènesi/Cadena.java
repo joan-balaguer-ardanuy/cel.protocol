@@ -22,6 +22,13 @@ import cel.Anyell;
  */
 public interface Cadena<K,V> extends Anyell<K,V> {
 
+	K getKey();
+	K setKey(K keyh);
+	V getValue();
+	V setValue(V value);
+	
+	Anyell<K,V> getEntry();
+	
 	boolean conté(Anyell<K,V> entrada);
 	Anyell<K,V> obtenir(K clau);
 	boolean establir(Anyell<K,V> entrada);

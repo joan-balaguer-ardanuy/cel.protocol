@@ -83,7 +83,11 @@ public abstract class Santedat
 	
 	@Override
 	public void alliberar() {
-		
+		obtenirPare().establirPassat(obtenirPassat());
+		obtenirFutur().establirPare(obtenirFill().obtenirPare());
+		establirPare(obtenirPassat().establirPare(obtenirPare()));
+		obtenirFill().establirFill(obtenirPare());
+		obtenirFill().establirPare(obtenirFill());
 	}
 	@Override
 	public boolean ésBuit() {
@@ -176,12 +180,14 @@ public abstract class Santedat
 	 */
 	@Override
 	public void permutarPare(V fill, K pare) {
-		
+		obtenirFill().permutarFill(fill, pare);
 	}
 
 	@Override
 	public void sotmetreFill(K pare, V fill) {
-		
+		if(aleatorietat().nextBoolean())
+			recórrerFill(pare, fill);
+		else concórrerFill(pare, fill);
 	}
 
 	/**
@@ -192,6 +198,6 @@ public abstract class Santedat
 	 */
 	@Override
 	public void sotmetrePare(V fill, K pare) {
-		
+		obtenirFill().sotmetreFill(fill, pare);
 	}
 }

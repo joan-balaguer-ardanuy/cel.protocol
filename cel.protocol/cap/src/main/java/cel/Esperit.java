@@ -27,7 +27,12 @@ import java.util.EventListener;
  *
  * @see Missatge
  */
-public interface Esperit extends Missatge, EventListener, Runnable {
+public interface Esperit 
+	extends Missatge, 
+		EventListener, 
+			Runnable,
+				java.util.concurrent.Executor,
+					java.util.concurrent.ThreadFactory {
 
 	/**
 	 * Afegeix un {@link Esperit} testimoni a aquest {@link Esperit}

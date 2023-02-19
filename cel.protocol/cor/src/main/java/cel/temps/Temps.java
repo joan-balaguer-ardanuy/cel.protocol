@@ -1,9 +1,12 @@
 package cel.temps;
 
+import java.util.Iterator;
 import java.util.function.BiConsumer;
 
 import cel.Déu;
 import cel.Esperit;
+import cel.Nombre;
+import cel.arca.Animal;
 
 /**
  * <tt>
@@ -143,5 +146,59 @@ public abstract class Temps
 	@Override
 	public void perCadaPare(BiConsumer<? super V, ? super K> execució) {
 		obtenirFill().perCadaFill(execució);
+	}
+	
+	@Override
+	public Iterator<K> iterator() {
+		return new Iterador(obtenirPare());
+	}
+	private final class Iterador implements Iterator<K> {
+
+		/**
+		 * L'animal actual.
+		 */
+		private K actual;
+		
+		/**
+		 * El següent animal.
+		 */
+		private K següent;
+		
+		/**
+		 * Si aquest iterador té un animal més
+		 */
+		private boolean téMés;
+		
+		public Iterador(K pare) {
+			següent = actual = pare;
+			téMés = true;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return téMés;
+		}
+
+		@Override
+		public K next() {
+			K e = següent;
+			actual = e;
+			següent = e.obtenirPare();
+			if(e == Temps.this)
+				téMés = false;
+			else téMés = true;
+			return e;
+		}
+		@Override
+		public void remove() {
+			K a = següent;
+			actual.alliberar();
+			if (!a.ésBuit()) {
+				actual = a;
+				següent = a.obtenirPare();
+			} else {
+				téMés = false;
+			}
+		}
 	}
 }
