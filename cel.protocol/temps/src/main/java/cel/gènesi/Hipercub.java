@@ -20,8 +20,8 @@ public class Hipercub extends Home<Character,Integer> {
 		return obtenirClau();
 	}
 	@Override
-	public Character setKey(Character keyh) {
-		return establirClau(keyh);
+	public Character setKey(Character key) {
+		return establirClau(key);
 	}
 	@Override
 	@XmlElement
@@ -62,7 +62,7 @@ public class Hipercub extends Home<Character,Integer> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		
+		System.out.println("Hipercub.class: " + manament.getSource().getClass());
 		switch (manament.obtenirManament()) {
 		case Manament.VIU:
 			Hipercub hipercub = (Hipercub) manament.getSource();
@@ -85,11 +85,11 @@ public class Hipercub extends Home<Character,Integer> {
 	}
 	@Override
 	public void run() {
-		super.run();
 		try {
 			Thread.sleep(obtenirValor());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		super.run();
 	}
 }

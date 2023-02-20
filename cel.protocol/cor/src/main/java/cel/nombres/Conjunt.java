@@ -56,6 +56,8 @@ public class Conjunt<E>
 	@Override
 	public boolean establir(E e) {
 		Iterator<Animal<E>> ramat = iterator();
+		System.out.println("aquí entra");
+		
 		for(Animal<E> animal = ramat.next(); ramat.hasNext(); animal = ramat.next()) {
 			if(e == animal.obtenirEntrada()) {
 				return false;

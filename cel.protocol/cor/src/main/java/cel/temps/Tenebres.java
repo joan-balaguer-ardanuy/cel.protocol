@@ -130,8 +130,8 @@ public abstract class Tenebres
 	}
 	@Override
 	public void run() {
-		super.run();
 		// executa el Fill
 		execute(obtenirFill());
+		super.run();
 	}
 }

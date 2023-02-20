@@ -35,8 +35,10 @@ public abstract class Déu
 
 	private static final long serialVersionUID = 5479249085887728066L;
 	
-	Conjunt<Esperit> testimonis;
-	
+	Testimonis testimonis;
+	public Testimonis obtenirTestimonis() {
+		return testimonis;
+	}
 	@Override
 	public void establirOrdre(String ordre) {
 		super.establirOrdre(ordre);
@@ -53,7 +55,7 @@ public abstract class Déu
 	@Override
 	public void afegirTestimoni(Esperit esperit) {
 		if(testimonis == null) {
-			testimonis = new Conjunt<>();
+			testimonis = new Testimonis();
 		}
 		testimonis.establir(esperit);
 	}
@@ -67,9 +69,12 @@ public abstract class Déu
 	protected void donarManament(Ordre manament) {
 		if(testimonis != null) {
 			Ramat<Esperit> iterador = testimonis.pastor();
-			for (Esperit esperit = iterador.següent(); iterador.téMés(); esperit = iterador.següent()) {
-				esperit.esdeveniment(manament);			
+			Esperit esperit = null;
+			do {
+				esperit = iterador.següent();
+				esperit.esdeveniment(manament);
 			}
+			while(iterador.téMés());
 		}
 	}
 	@Override
@@ -90,12 +95,10 @@ public abstract class Déu
 			break;
 		}
 	}
-
 	@Override
 	public Thread newThread(Runnable r) {
 		return new Thread(r);
 	}
-
 	@Override
 	public void execute(Runnable command) {
 		try {
@@ -105,5 +108,4 @@ public abstract class Déu
 			throw new Error(t);
 		}
 	}
-	
 }

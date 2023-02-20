@@ -51,7 +51,7 @@ import cel.Anyell;
 public interface Sang<K,V> extends Anyell<K,V> {
 	
 	K getKey();
-	K setKey(K keyh);
+	K setKey(K key);
 	V getValue();
 	V setValue(V value);
 	

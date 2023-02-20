@@ -233,6 +233,7 @@ public class Nombre<E>
 			if(e == Nombre.this)
 				téMés = false;
 			else téMés = true;
+//			System.out.println("ENTRADA: " + e.obtenirEntrada());
 			return e.obtenirEntrada();
 		}
 	}

@@ -20,8 +20,8 @@ public class Hipercadena extends Dona<Integer,Character> {
 		return obtenirClau();
 	}
 	@Override
-	public Integer setKey(Integer keyh) {
-		return establirClau(keyh);
+	public Integer setKey(Integer key) {
+		return establirClau(key);
 	}
 	@Override
 	@XmlElement
@@ -82,5 +82,14 @@ public class Hipercadena extends Dona<Integer,Character> {
 			comparador(o.obtenirValor(), o.obtenirClau());
 		}
 		return resultat;
+	}
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(obtenirValor());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		super.run();
 	}
 }

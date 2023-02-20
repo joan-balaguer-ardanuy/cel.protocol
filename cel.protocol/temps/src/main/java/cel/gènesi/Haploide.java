@@ -14,7 +14,8 @@ import cel.Ordre;
  */
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
-public class Haploide extends Dona<Hipercadena, Hipercub> implements Cadena<Hipercadena, Hipercub> {
+public class Haploide 
+	extends Dona<Hipercadena, Hipercub> {
 
 	private static final long serialVersionUID = 6303009614734978313L;
 
@@ -24,8 +25,8 @@ public class Haploide extends Dona<Hipercadena, Hipercub> implements Cadena<Hipe
 		return obtenirClau();
 	}
 	@Override
-	public Hipercadena setKey(Hipercadena keyh) {
-		return establirClau(keyh);
+	public Hipercadena setKey(Hipercadena key) {
+		return establirClau(key);
 	}
 	@Override
 	@XmlElement
@@ -50,36 +51,53 @@ public class Haploide extends Dona<Hipercadena, Hipercub> implements Cadena<Hipe
 	}
 	public Haploide(String nom, Hipercadena clau, Hipercub valor) {
 		super(Genomapa.class, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Haploide(Haploide pare) {
 		super(pare);
 	}
 	public Haploide(Haploide pare, Hipercadena clau, Hipercub valor) {
 		super(Genomapa.class, pare, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Haploide(Haploide déu, String nom) {
 		super(déu, nom);
 	}
 	public Haploide(Haploide déu, String nom, Hipercadena clau, Hipercub valor) {
 		super(Genomapa.class, déu, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		Hipercadena hipercadena = (Hipercadena) manament.getSource();
-		switch (manament.obtenirManament()) {
-		case Manament.VIU:
-			obtenirClau().comparador().compara(hipercadena,obtenirValor());
-			Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
-			establirValor((Hipercadena)anyell, (Hipercub)anyell.obtenirFill());
-			execute(anyell);
-			break;
-		case Manament.MOR:
-			hipercadena.alliberar();
-			obtenirValor().establirValor(hipercadena.obtenirValor(), hipercadena.obtenirClau());
-			break;
-		default:
-			return;
+		if(manament.getSource() instanceof Hipercadena) {
+			Hipercadena hipercadena = (Hipercadena) manament.getSource();
+			switch (manament.obtenirManament()) {
+				case Manament.VIU:
+					obtenirClau().comparador().compara(hipercadena,obtenirValor());
+					Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
+					establirValor((Hipercadena)anyell, (Hipercub)anyell.obtenirFill());
+					break;
+				case Manament.MOR:
+					hipercadena.alliberar();
+					obtenirValor().establirValor(hipercadena.obtenirValor(), hipercadena.obtenirClau());
+					break;
+				default:
+					return;
+			}
+		}
+		else if(manament.getSource() instanceof Haploide) {
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				Haploide haploide = (Haploide) manament.getSource();
+				permutarFill(haploide, haploide.obtenirFill());
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	@Override
@@ -91,7 +109,7 @@ public class Haploide extends Dona<Hipercadena, Hipercub> implements Cadena<Hipe
 	}
 	@Override
 	public void run() {
-		super.run();
 		getKey().run();
+		super.run();
 	}
 }
