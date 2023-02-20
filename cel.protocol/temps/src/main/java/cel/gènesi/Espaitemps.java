@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
+import cel.Manament;
 import cel.Ordre;
 
 @XmlRootElement
@@ -44,33 +45,69 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	}
 	public Espaitemps(String nom, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Espaitemps(Espaitemps pare) {
 		super(pare);
 	}
 	public Espaitemps(Espaitemps pare, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, pare, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Espaitemps(Espaitemps déu, String nom) {
 		super(déu, nom);
 	}
 	public Espaitemps(Espaitemps déu, String nom, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, déu, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
+	public int compareTo(Anyell<Interestellar, Supercúmul> o) {
+		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		Anyell<ViaLàctia,Andròmeda> anyell = obtenirClau().comparador().font();
+		comparador((Supercúmul) anyell, (Interestellar) anyell.obtenirFill());
+		return 0;
+	}
+	@Override
 	public void esdeveniment(Ordre manament) {
-		// TODO Auto-generated method stub
 		super.esdeveniment(manament);
+		if(manament.getSource() instanceof Supercúmul) {
+			Supercúmul supercúmul = (Supercúmul) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				obtenirClau().comparador().compara(supercúmul, obtenirValor());
+				Anyell<ViaLàctia,Andròmeda> anyell = obtenirClau().comparador().font();
+				establir((Supercúmul) anyell, (Interestellar) anyell.obtenirFill());
+				break;
+			case Manament.MOR:
+				supercúmul.alliberar();
+				obtenirValor().establirValor(supercúmul.obtenirValor(), supercúmul.obtenirClau());
+				break;
+			default:
+				return;
+			}
+		}
+		else if(manament.getSource() instanceof Espaitemps) {
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				Espaitemps espaitemps = (Espaitemps) manament.getSource();
+				permutarFill(espaitemps, espaitemps.obtenirFill());
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+//		getKey().run();
+		for(Anyell<ViaLàctia,Andròmeda> anyell : getKey()) {
+			anyell.run();
+		}
 		super.run();
-	}
-	@Override
-	public int compareTo(Anyell<Interestellar, Supercúmul> o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

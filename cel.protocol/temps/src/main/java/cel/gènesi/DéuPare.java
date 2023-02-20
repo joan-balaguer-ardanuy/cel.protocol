@@ -5,11 +5,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
+import cel.Manament;
 import cel.Ordre;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
-public class BigBang extends Home<Aaron,TimeMaster> {
+public class DéuPare extends Home<Aaron,TimeMaster> {
 
 	private static final long serialVersionUID = -2458979709062312538L;
 
@@ -33,42 +34,81 @@ public class BigBang extends Home<Aaron,TimeMaster> {
 	}
 	@Override
 	@XmlElement
-	public BigBang getEntry() {
-		return obtenirPassat() == obtenirDéu() ? null : (BigBang) obtenirPassat();
+	public DéuPare getEntry() {
+		return obtenirPassat() == obtenirDéu() ? null : (DéuPare) obtenirPassat();
 	}
 	
-	public BigBang() {
+	public DéuPare() {
 		super();
 	}
-	public BigBang(String nom) {
+	public DéuPare(String nom) {
 		super(nom);
 	}
-	public BigBang(String nom, Aaron clau, TimeMaster valor) {
-		super(BigBong.class, nom, clau, valor);
+	public DéuPare(String nom, Aaron clau, TimeMaster valor) {
+		super(MareDeDéu.class, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
-	public BigBang(BigBang pare) {
+	public DéuPare(DéuPare pare) {
 		super(pare);
 	}
-	public BigBang(BigBang pare, Aaron clau, TimeMaster valor) {
-		super(BigBong.class, pare, clau, valor);
+	public DéuPare(DéuPare pare, Aaron clau, TimeMaster valor) {
+		super(MareDeDéu.class, pare, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
-	public BigBang(BigBang déu, String nom) {
+	public DéuPare(DéuPare déu, String nom) {
 		super(déu, nom);
 	}
-	public BigBang(BigBang déu, String nom, Aaron clau, TimeMaster valor) {
-		super(BigBong.class, déu, nom, clau, valor);
+	public DéuPare(DéuPare déu, String nom, Aaron clau, TimeMaster valor) {
+		super(MareDeDéu.class, déu, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
+	public int compareTo(Anyell<TimeMaster, Aaron> o) {
+		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		Anyell<Espaitemps,Hiperespai> anyell = obtenirClau().comparador().font();
+		comparador((Aaron) anyell, (TimeMaster) anyell.obtenirFill());
+		return 0;
+	}
+	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
+		if(manament.getSource() instanceof Aaron) {
+			Aaron aaron = (Aaron) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				obtenirClau().comparador().compara(aaron, obtenirValor());
+				Anyell<Espaitemps,Hiperespai> anyell = obtenirClau().comparador().font();
+				establir((Aaron) anyell, (TimeMaster) anyell.obtenirFill());
+				break;
+			case Manament.MOR:
+				aaron.alliberar();
+				obtenirValor().establirValor(aaron.obtenirValor(), aaron.obtenirClau());
+				break;
+			default:
+				return;
+			}
+		}
+		else if(manament.getSource() instanceof DéuPare) {
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				DéuPare déuPare = (DéuPare) manament.getSource();
+				permutarFill(déuPare, déuPare.obtenirFill());
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	@Override
 	public void run() {
+//		getKey().run();
+		for(Anyell<Espaitemps,Hiperespai> anyell : getKey()) {
+			anyell.run();
+		}
 		super.run();
-	}
-	@Override
-	public int compareTo(Anyell<TimeMaster, Aaron> o) {
-		return 0;
 	}
 }

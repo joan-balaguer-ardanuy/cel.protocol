@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
+import cel.Manament;
 import cel.Ordre;
 
 @XmlRootElement
@@ -45,31 +46,69 @@ public class Terra extends Home<Operó,Poliploide> {
 	}
 	public Terra(String nom, Operó clau, Poliploide valor) {
 		super(Mar.class, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Terra(Terra pare) {
 		super(pare);
 	}
 	public Terra(Terra pare, Operó clau, Poliploide valor) {
 		super(Mar.class, pare, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Terra(Terra déu, String nom) {
 		super(déu, nom);
 	}
 	public Terra(Terra déu, String nom, Operó clau, Poliploide valor) {
 		super(Mar.class, déu, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
-	
+
+	@Override
+	public int compareTo(Anyell<Poliploide, Operó> o) {
+		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		Anyell<Ribosoma,Tetraploide> anyell = obtenirClau().comparador().font();
+		comparador((Operó) anyell, (Poliploide) anyell.obtenirFill());
+		return 0;
+	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
+		if(manament.getSource() instanceof Operó) {
+			Operó operó = (Operó) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				obtenirClau().comparador().compara(operó, obtenirValor());
+				Anyell<Ribosoma,Tetraploide> anyell = obtenirClau().comparador().font();
+				establir((Operó) anyell, (Poliploide) anyell.obtenirFill());
+				break;
+			case Manament.MOR:
+				operó.alliberar();
+				obtenirValor().establirValor(operó.obtenirValor(), operó.obtenirClau());
+				break;
+			default:
+				return;
+			}
+		}
+		else if(manament.getSource() instanceof Terra) {
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				Terra terra = (Terra) manament.getSource();
+				permutarFill(terra, terra.obtenirFill());
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	@Override
 	public void run() {
+//		getKey().run();
+		for(Anyell<Ribosoma,Tetraploide> anyell : getKey()) {
+			anyell.run();
+		}
 		super.run();
 	}
-	@Override
-	public int compareTo(Anyell<Poliploide, Operó> o) {
-		return 0;
-	}
-
 }

@@ -1,12 +1,5 @@
 package cel.gènesi;
 
-import java.util.Iterator;
-
-import cel.Anyell;
-import cel.Esperit;
-import cel.Testimonis;
-import cel.arca.Ramat;
-
 public class Execució {
 
 	public static void main(String[] args) {
@@ -38,7 +31,17 @@ public class Execució {
 		hipercub.establirValor('Z', (int) 'Z');
 		hipercub.establirValor('Ç', (int) 'Ç');
 		
-		Genomapa genomapa = new Genomapa("Déu", hipercub, (Hipercadena) hipercub.obtenirFill());
-		genomapa.execute(genomapa);
+		Genomapa genomapa = new Genomapa(hipercub.obtenirNom(), hipercub, (Hipercadena) hipercub.obtenirFill());
+		Cromosoma cromosoma = new Cromosoma(genomapa.obtenirNom(), genomapa, (Haploide) genomapa.obtenirFill());
+		Ribosoma ribosoma = new Ribosoma(cromosoma.obtenirNom(), cromosoma, (Diploide) cromosoma.obtenirFill());
+		Operó operó = new Operó(ribosoma.obtenirNom(), ribosoma, (Tetraploide) ribosoma.obtenirFill());
+		Terra terra = new Terra(operó.obtenirNom(), operó, (Poliploide) operó.obtenirFill());
+		Sol sol = new Sol(terra.obtenirNom(), terra, (Mar) terra.obtenirFill());
+		ViaLàctia viaLàctia = new ViaLàctia(sol.obtenirNom(), sol, (AlfaCentauri) sol.obtenirFill());
+		Supercúmul supercúmul = new Supercúmul(viaLàctia.obtenirNom(), viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+		Espaitemps espaitemps = new Espaitemps(supercúmul.obtenirNom(), supercúmul, (Interestellar) supercúmul.obtenirFill());
+		Aaron aaron = new Aaron(espaitemps.obtenirNom(), espaitemps, (Hiperespai) espaitemps.obtenirFill());
+		DéuPare déuPare = new DéuPare(aaron.obtenirNom(), aaron, (TimeMaster) aaron.obtenirFill());
+		déuPare.execute(déuPare);
 	}
 }

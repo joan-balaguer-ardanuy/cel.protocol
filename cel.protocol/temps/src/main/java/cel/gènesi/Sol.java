@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
+import cel.Manament;
 import cel.Ordre;
 
 @XmlRootElement
@@ -45,33 +46,69 @@ public class Sol extends Home<Terra,Mar> {
 	}
 	public Sol(String nom, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Sol(Sol pare) {
 		super(pare);
 	}
 	public Sol(Sol pare, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, pare, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Sol(Sol déu, String nom) {
 		super(déu, nom);
 	}
 	public Sol(Sol déu, String nom, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, déu, nom, clau, valor);
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
-	
+
+	@Override
+	public int compareTo(Anyell<Mar, Terra> o) {
+		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		Anyell<Operó,Poliploide> anyell = obtenirClau().comparador().font();
+		comparador((Terra) anyell, (Mar) anyell.obtenirFill());
+		return 0;
+	}
 	@Override
 	public void esdeveniment(Ordre manament) {
-		// TODO Auto-generated method stub
 		super.esdeveniment(manament);
+		if(manament.getSource() instanceof Terra) {
+			Terra terra = (Terra) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				obtenirClau().comparador().compara(terra, obtenirValor());
+				Anyell<Operó,Poliploide> anyell = obtenirClau().comparador().font();
+				establir((Terra) anyell, (Mar) anyell.obtenirFill());
+				break;
+			case Manament.MOR:
+				terra.alliberar();
+				obtenirValor().establirValor(terra.obtenirValor(), terra.obtenirClau());
+				break;
+			default:
+				return;
+			}
+		}
+		else if(manament.getSource() instanceof Sol) {
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				Sol sol = (Sol) manament.getSource();
+				permutarFill(sol, sol.obtenirFill());
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+//		getKey().run();
+		for(Anyell<Operó,Poliploide> anyell : getKey()) {
+			anyell.run();
+		}
 		super.run();
-	}
-	@Override
-	public int compareTo(Anyell<Mar, Terra> o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

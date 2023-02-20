@@ -66,6 +66,13 @@ public class Genomapa
 		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
+	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
+		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		Anyell<Character,Integer> anyell = obtenirClau().comparador().font();
+		comparador((Hipercub) anyell, (Hipercadena) anyell.obtenirFill());
+		return 0;
+	}
+	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
 		if(manament.getSource() instanceof Hipercub) {
@@ -96,15 +103,11 @@ public class Genomapa
 		}
 	}
 	@Override
-	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Character,Integer> anyell = obtenirClau().comparador().font();
-		comparador((Hipercub) anyell, (Hipercadena) anyell.obtenirFill());
-		return 0;
-	}
-	@Override
 	public void run() {
-		getKey().run();
+//		getKey().run();
+		for(Anyell<Character, Integer> anyell : getKey()) {
+			anyell.run();
+		}
 		super.run();
 	}
 }
