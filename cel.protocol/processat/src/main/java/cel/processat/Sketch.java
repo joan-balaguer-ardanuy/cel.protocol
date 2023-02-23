@@ -2,6 +2,7 @@ package cel.processat;
 
 import cel.Esperit;
 import cel.Ordre;
+import cel.Paritat;
 import processing.core.*;
 
 public class Sketch extends PApplet implements Esperit {
@@ -48,11 +49,6 @@ public class Sketch extends PApplet implements Esperit {
 	}
 
 	@Override
-	public void establirNom(String nom) {
-		
-	}
-
-	@Override
 	public String obtenirOrdre() {
 		return null;
 	}
@@ -89,6 +85,18 @@ public class Sketch extends PApplet implements Esperit {
 
 	@Override
 	public void esdeveniment(Ordre manament) {
+		
+	}
+
+	@Override
+	public Paritat obtenirParitat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void establirParitat(Paritat paritat) {
+		// TODO Auto-generated method stub
 		
 	}
 }

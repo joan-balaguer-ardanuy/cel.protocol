@@ -59,7 +59,7 @@ public interface Sang<K,V> extends Anyell<K,V> {
 	
 	V obtenir(K clau);
 	
-	V establir(K clau, V valor);
+	Anyell<K,V> establir(K clau, V valor);
 	
 	V alliberar(K clau);
 	

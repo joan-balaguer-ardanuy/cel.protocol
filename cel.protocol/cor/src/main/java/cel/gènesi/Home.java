@@ -1,6 +1,7 @@
 
 package cel.gènesi;
 
+import cel.Anyell;
 import cel.Document;
 import cel.Paritat;
 
@@ -75,7 +76,7 @@ public abstract class Home<K,V> extends Document<K, V> implements Sang<K, V> {
 		return obtenirValor(clau);
 	}
 	@Override
-	public V establir(K clau, V valor) {
+	public Anyell<K,V> establir(K clau, V valor) {
 		return establirValor(clau, valor);
 	}
 	@Override
