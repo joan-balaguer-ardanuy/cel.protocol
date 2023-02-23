@@ -187,11 +187,10 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 *
 	 * @param clau la clau amb el qual el valor ha de ser associat
 	 * @param valor el valor per ser mapat amb la clau
-	 * @return el valor previ associat amb la clau, o <tt>nul</tt>
-	 * si no hi ha instància associada a la clau.
+	 * @return l'{@link Anyell} associada amb la clau
 	 * @since 1
 	 */
-	V establirValor(K clau, V valor);
+	Anyell<K,V> establirValor(K clau, V valor);
 
 	/**
 	 * Mapa la clau amb el valor en aquest {@link Anyell}. 
@@ -200,11 +199,10 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 *
 	 * @param valor el valor amb el qual la clau ha de ser associada
 	 * @param clau la clau per ser mapada amb el valor
-	 * @return la clau prèvia associada amb el valor, o <tt>nul</tt>
-	 * si no hi ha instància associada al valor.
+	 * @return l'{@link Anyell} associat amb el valor
 	 * @since 1
 	 */
-	K establirClau(V valor, K clau);
+	Anyell<V,K> establirClau(V valor, K clau);
 	
 	/**
 	 * Si la clau no està ja mapada amb un valor l'associa amb el valor establert i retorna
@@ -222,10 +220,9 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 * 
 	 * @param clau la clau amb la qual el valor ha de ser associat
 	 * @param valor el valor per ser mapat amb la clau
-	 * @return el valor previ associat amb la clau, o
-	 * <tt>nul</tt> si no hi havia instància per la clau.
+	 * @return l'{@link Anyell} associat amb la clau.
 	 */
-	V establirValorSiAbsent(K clau, V valor);
+	Anyell<K,V> establirValorSiAbsent(K clau, V valor);
 	
 	/**
 	 * Si el valor no està ja mapat amb una clau l'associa amb la clau establerta i retorna
@@ -240,10 +237,9 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
 	 * 
 	 * @param valor el valor amb el qual la clau ha de ser associada
 	 * @param clau la clau per ser mapada amb el valor
-	 * @return la clau prèvia associada amb el valor, o
-	 * <tt>nul</tt> si no hi havia instància per el valor.
+	 * @return l'{@link Anyell} associat amb el valor.
 	 */
-	K establirClauSiAbsent(V valor, K clau);
+	Anyell<V,K> establirClauSiAbsent(V valor, K clau);
 
     /**
      * Estableix tots els mapatges des de l'{@link Anyell} especificat a aquest
@@ -728,6 +724,6 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
     Anyell.Generador<K,V> comparador();
     
     interface Generador<K,V> extends Reproductor<Anyell<K,V>,Anyell<V,K>> {
-    	void establir(K clau, V valor);
+    	void establir(V clau, K valor);
     }
 }

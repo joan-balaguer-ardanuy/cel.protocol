@@ -38,6 +38,9 @@ public interface Vida<K,V> extends Regne<K>, Poder<V>, EsperitSant<K,V> {
 	 */
 	void volta();
     
+	boolean sócDéu();
+	boolean sócFinal();
+	
 	/**
 	 * Recorre el Fill heretat amb el Pare dins aquesta instància.
 	 * 
@@ -685,7 +688,7 @@ public interface Vida<K,V> extends Regne<K>, Poder<V>, EsperitSant<K,V> {
 	
 	interface Reproductor<K,V> extends Comparador<K,V> {
 		
-		K font();
+		V font();
 		
 		void establirPare(K pare);
 		

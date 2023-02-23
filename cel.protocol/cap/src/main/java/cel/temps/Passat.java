@@ -1,5 +1,7 @@
 package cel.temps;
 
+import cel.Missatge;
+
 /**
  * <tt>
  * <center>
@@ -20,7 +22,7 @@ package cel.temps;
  *
  * @param <K>
  */
-public interface Passat<K> {
+public interface Passat<K> extends Missatge {
 
 	/**
 	 * Obté el {@code passat} corresponent a aquest {@link Passat}.

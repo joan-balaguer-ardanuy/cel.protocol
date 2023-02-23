@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 import cel.Déu;
 import cel.Esperit;
 import cel.Nombre;
+import cel.Paritat;
 import cel.arca.Animal;
 
 /**
@@ -85,11 +86,11 @@ public abstract class Temps
 	public Temps() {
 		super();
 	}
-	public Temps(String nom) {
-		super(nom);
+	public Temps(Paritat paritat) {
+		super(paritat);
 	}
-	public Temps(Class<? extends V> classeFill, String nom) {
-		super(classeFill, nom);
+	public Temps(Class<? extends V> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Temps(K pare) {
 		super(pare);
@@ -97,11 +98,11 @@ public abstract class Temps
 	public Temps(Class<? extends V> classeFill, K pare) {
 		super(classeFill, pare);
 	}
-	public Temps(K déu, String nom) {
-		super(déu, nom);
+	public Temps(K déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Temps(Class<? extends V> classeFill, K déu, String nom) {
-		super(classeFill, déu, nom);
+	public Temps(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(classeFill, déu, paritat);
 	}
 
 	@Override
@@ -175,12 +176,12 @@ public abstract class Temps
 		}
 		
 		@Override
-		public boolean hasNext() {
+		public synchronized boolean hasNext() {
 			return téMés;
 		}
 
 		@Override
-		public K next() {
+		public synchronized K next() {
 			K e = següent;
 			actual = e;
 			següent = e.obtenirPare();
@@ -190,7 +191,7 @@ public abstract class Temps
 			return e;
 		}
 		@Override
-		public void remove() {
+		public synchronized void remove() {
 			K a = següent;
 			actual.alliberar();
 			if (!a.ésBuit()) {

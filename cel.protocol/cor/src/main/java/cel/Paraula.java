@@ -84,17 +84,12 @@ public abstract class Paraula implements Missatge {
 
 	private static final long serialVersionUID = 3863449976389265284L;
 	
-	String nom;
+	Paritat paritat;
 	String ordre;
 
 	@Override
-	public String obtenirNom() {
-		return nom;
-	}
-	@Override
-	public void establirNom(String nom) {
-		this.nom = nom;
-	}
+	public abstract String obtenirNom();
+	
 	@Override
 	public String obtenirOrdre() {
 		return ordre;
@@ -103,13 +98,22 @@ public abstract class Paraula implements Missatge {
 	public void establirOrdre(String ordre) {
 		this.ordre = ordre;
 	}
-
+	@Override
+	public Paritat obtenirParitat() {
+		return paritat;
+	}
+	@Override
+	public void establirParitat(Paritat paritat) {
+		this.paritat = paritat;
+	}
+	
 	public Paraula() {
 		this.ordre = Manament.GÈNESI;
+		this.paritat = Paritat.YY;
 	}
-	public Paraula(String nom) {
-		this.nom = nom;
+	public Paraula(Paritat paritat) {
 		this.ordre = Manament.GÈNESI;
+		this.paritat = paritat;
 	}
 
 	@Override

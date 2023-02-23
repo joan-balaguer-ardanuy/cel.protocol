@@ -30,30 +30,30 @@ public abstract class Fill
 	private static final long serialVersionUID = 3538974726700165148L;
 
 	@Override
-	public K obtenirPassat() {
+	public synchronized K obtenirPassat() {
 		return obtenirFill().obtenirFill();
 	}
 	@Override
-	public K establirPassat(K passat) {
+	public synchronized K establirPassat(K passat) {
 		return obtenirFill().establirFill(passat);
 	}
 	@Override
-	public V obtenirFutur() {
+	public synchronized V obtenirFutur() {
 		return obtenirFill().obtenirPassat();
 	}
 	@Override
-	public V establirFutur(V futur) {
+	public synchronized V establirFutur(V futur) {
 		return obtenirFill().establirPassat(futur);
 	}
 	
 	public Fill() {
 		super();
 	}
-	public Fill(String nom) {
-		super(nom);
+	public Fill(Paritat paritat) {
+		super(paritat);
 	}
-	public Fill(String nom, V fill) {
-		super(nom, fill);
+	public Fill(Paritat paritat, V fill) {
+		super(paritat, fill);
 	}
 	public Fill(K pare) {
 		super(pare);

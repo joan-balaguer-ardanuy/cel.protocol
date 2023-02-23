@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,11 @@ public class Hipercadena extends Dona<Integer,Character> {
 
 	private static final long serialVersionUID = 5271465276828675216L;
 	
+	@Override
+	@XmlElement
+	public String obtenirNom() {
+		return getValue().toString();
+	}
 	@Override
 	@XmlElement
 	public Integer getKey() {
@@ -41,11 +47,11 @@ public class Hipercadena extends Dona<Integer,Character> {
 	public Hipercadena() {
 		super();
 	}
-	public Hipercadena(String nom) {
-		super(nom);
+	public Hipercadena(Paritat paritat) {
+		super(paritat);
 	}
-	public Hipercadena(String nom, Integer clau, Character valor) {
-		super(Hipercub.class, nom, clau, valor);
+	public Hipercadena(Paritat paritat, Integer clau, Character valor) {
+		super(Hipercub.class, paritat, clau, valor);
 	}
 	public Hipercadena(Hipercadena pare) {
 		super(pare);
@@ -53,40 +59,41 @@ public class Hipercadena extends Dona<Integer,Character> {
 	public Hipercadena(Hipercadena pare, Integer clau, Character valor) {
 		super(Hipercub.class, pare, clau, valor);
 	}
-	public Hipercadena(Hipercadena déu, String nom) {
-		super(déu, nom);
+	public Hipercadena(Hipercadena déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Hipercadena(Hipercadena déu, String nom, Integer clau, Character valor) {
-		super(Hipercub.class, déu, nom, clau, valor);
+	public Hipercadena(Hipercadena déu, Paritat paritat, Integer clau, Character valor) {
+		super(Hipercub.class, déu, paritat, clau, valor);
 	}
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
+		Hipercadena hipercadena = (Hipercadena) manament.getSource();
 		switch (manament.obtenirManament()) {
-		case Manament.VIU:
-			Hipercadena hipercadena = (Hipercadena) manament.getSource();
-			permutarFill(hipercadena, hipercadena.obtenirFill());
-			break;
-
-		default:
-			break;
+			case Manament.VIU:
+				hipercadena.comparador(hipercadena.getValue(), hipercadena.getKey()).compara(hipercadena, obtenirFill());
+				Anyell<Character,Integer> anyell = hipercadena.comparador().font();
+				donarManament(new Ordre(anyell));
+				break;
+			default:
+				return;
 		}
 	}
 
 	@Override
-	public int compareTo(Anyell<Character, Integer> o) {
-		int resultat = Integer.compare(obtenirClau(), o.obtenirValor());
-		if(resultat < 0) {
-			comparador(obtenirClau(), obtenirValor());
+	public synchronized int compareTo(Anyell<Character, Integer> o) {
+		if(obtenirClau() < o.obtenirValor()) {
+			comparador(obtenirValor(), obtenirClau());
+			return -1;
 		} else {
-			comparador(o.obtenirValor(), o.obtenirClau());
+			comparador(o.obtenirClau(), o.obtenirValor());
+			return 1;
 		}
-		return resultat;
 	}
 	@Override
 	public void run() {
 		try {
-			Thread.sleep(obtenirValor());
+			Thread.sleep(obtenirClau());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

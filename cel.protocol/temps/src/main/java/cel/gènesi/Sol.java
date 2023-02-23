@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,10 @@ public class Sol extends Home<Terra,Mar> {
 
 	private static final long serialVersionUID = 7129534749982938093L;
 	
+	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public Terra getKey() {
@@ -41,11 +46,11 @@ public class Sol extends Home<Terra,Mar> {
 	public Sol() {
 		super();
 	}
-	public Sol(String nom) {
-		super(nom);
+	public Sol(Paritat paritat) {
+		super(paritat);
 	}
-	public Sol(String nom, Terra clau, Mar valor) {
-		super(AlfaCentauri.class, nom, clau, valor);
+	public Sol(Paritat paritat, Terra clau, Mar valor) {
+		super(AlfaCentauri.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,11 +62,11 @@ public class Sol extends Home<Terra,Mar> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Sol(Sol déu, String nom) {
-		super(déu, nom);
+	public Sol(Sol déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Sol(Sol déu, String nom, Terra clau, Mar valor) {
-		super(AlfaCentauri.class, déu, nom, clau, valor);
+	public Sol(Sol déu, Paritat paritat, Terra clau, Mar valor) {
+		super(AlfaCentauri.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -69,46 +74,31 @@ public class Sol extends Home<Terra,Mar> {
 	@Override
 	public int compareTo(Anyell<Mar, Terra> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Operó,Poliploide> anyell = obtenirClau().comparador().font();
-		comparador((Terra) anyell, (Mar) anyell.obtenirFill());
+		Anyell<Poliploide,Operó> anyell = obtenirClau().comparador().font();
+		comparador((Mar) anyell, (Terra) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Terra) {
-			Terra terra = (Terra) manament.getSource();
+		if(manament.getSource() instanceof Sol) {
+			Sol operó = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirClau().comparador().compara(terra, obtenirValor());
-				Anyell<Operó,Poliploide> anyell = obtenirClau().comparador().font();
-				establir((Terra) anyell, (Mar) anyell.obtenirFill());
+				operó.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
 			case Manament.MOR:
-				terra.alliberar();
-				obtenirValor().establirValor(terra.obtenirValor(), terra.obtenirClau());
+				operó.alliberar();
+				establirValor(operó.obtenirClau(), operó.obtenirValor());
 				break;
 			default:
 				return;
 			}
 		}
-		else if(manament.getSource() instanceof Sol) {
-			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Sol sol = (Sol) manament.getSource();
-				permutarFill(sol, sol.obtenirFill());
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Operó,Poliploide> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

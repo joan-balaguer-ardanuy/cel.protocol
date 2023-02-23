@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,10 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 
 	private static final long serialVersionUID = -5755798448107627330L;
 
+	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public Ribosoma getKey() {
@@ -41,11 +46,11 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	public Operó() {
 		super();
 	}
-	public Operó(String nom) {
-		super(nom);
+	public Operó(Paritat paritat) {
+		super(paritat);
 	}
-	public Operó(String nom, Ribosoma clau, Tetraploide valor) {
-		super(Poliploide.class, nom, clau, valor);
+	public Operó(Paritat paritat, Ribosoma clau, Tetraploide valor) {
+		super(Poliploide.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,11 +62,11 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Operó(Operó déu, String nom) {
-		super(déu, nom);
+	public Operó(Operó déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Operó(Operó déu, String nom, Ribosoma clau, Tetraploide valor) {
-		super(Poliploide.class, déu, nom, clau, valor);
+	public Operó(Operó déu, Paritat paritat, Ribosoma clau, Tetraploide valor) {
+		super(Poliploide.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -69,46 +74,31 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	@Override
 	public int compareTo(Anyell<Tetraploide, Ribosoma> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Cromosoma,Diploide> anyell = obtenirClau().comparador().font();
-		comparador((Ribosoma) anyell, (Tetraploide) anyell.obtenirFill());
+		Anyell<Diploide,Cromosoma> anyell = obtenirClau().comparador().font();
+		comparador((Tetraploide) anyell, (Ribosoma) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
+		if(manament.getSource() instanceof Operó) {
+			Operó operó = (Operó) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirClau().comparador().compara(ribosoma, obtenirValor());
-				Anyell<Cromosoma,Diploide> anyell = obtenirClau().comparador().font();
-				establir((Ribosoma) anyell, (Tetraploide) anyell.obtenirFill());
+				operó.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
 			case Manament.MOR:
-				ribosoma.alliberar();
-				obtenirValor().establirValor(ribosoma.obtenirValor(), ribosoma.obtenirClau());
+				operó.alliberar();
+				establirValor(operó.obtenirClau(), operó.obtenirValor());
 				break;
 			default:
 				return;
 			}
 		}
-		else if(manament.getSource() instanceof Operó) {
-			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Operó oberó = (Operó) manament.getSource();
-				permutarFill(oberó, oberó.obtenirFill());
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Cromosoma,Diploide> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

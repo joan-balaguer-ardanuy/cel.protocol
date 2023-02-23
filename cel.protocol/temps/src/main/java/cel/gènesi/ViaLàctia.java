@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,10 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 
 	private static final long serialVersionUID = -1257304010498648715L;
 
+	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public Sol getKey() {
@@ -41,11 +46,11 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	public ViaLàctia() {
 		super();
 	}
-	public ViaLàctia(String nom) {
-		super(nom);
+	public ViaLàctia(Paritat paritat) {
+		super(paritat);
 	}
-	public ViaLàctia(String nom, Sol clau, AlfaCentauri valor) {
-		super(Andròmeda.class, nom, clau, valor);
+	public ViaLàctia(Paritat paritat, Sol clau, AlfaCentauri valor) {
+		super(Andròmeda.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,11 +62,11 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public ViaLàctia(ViaLàctia déu, String nom) {
-		super(déu, nom);
+	public ViaLàctia(ViaLàctia déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public ViaLàctia(ViaLàctia déu, String nom, Sol clau, AlfaCentauri valor) {
-		super(Andròmeda.class, déu, nom, clau, valor);
+	public ViaLàctia(ViaLàctia déu, Paritat paritat, Sol clau, AlfaCentauri valor) {
+		super(Andròmeda.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -69,46 +74,31 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	@Override
 	public int compareTo(Anyell<AlfaCentauri, Sol> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Terra,Mar> anyell = obtenirClau().comparador().font();
-		comparador((Sol) anyell, (AlfaCentauri) anyell.obtenirFill());
+		Anyell<Mar,Terra> anyell = obtenirClau().comparador().font();
+		comparador((AlfaCentauri) anyell, (Sol) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Sol) {
-			Sol sol = (Sol) manament.getSource();
+		if(manament.getSource() instanceof ViaLàctia) {
+			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirClau().comparador().compara(sol, obtenirValor());
-				Anyell<Terra,Mar> anyell = obtenirClau().comparador().font();
-				establir((Sol) anyell, (AlfaCentauri) anyell.obtenirFill());
+				viaLàctia.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
 			case Manament.MOR:
-				sol.alliberar();
-				obtenirValor().establirValor(sol.obtenirValor(), sol.obtenirClau());
+				viaLàctia.alliberar();
+				establirValor(viaLàctia.obtenirClau(), viaLàctia.obtenirValor());
 				break;
 			default:
 				return;
 			}
 		}
-		else if(manament.getSource() instanceof ViaLàctia) {
-			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
-				permutarFill(viaLàctia, viaLàctia.obtenirFill());
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Terra,Mar> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

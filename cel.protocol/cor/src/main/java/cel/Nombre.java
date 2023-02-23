@@ -52,7 +52,7 @@ import cel.arca.Ramat;
  *
  * @param <E> és l'ENTRADA
  */
-public class Nombre<E> 
+public abstract class Nombre<E> 
 	extends Paraula 	
 		implements Animal<E>, Serializable {
 
@@ -67,6 +67,9 @@ public class Nombre<E>
 	Class<? extends Animal<E>> classe;
 	
 	E element;
+
+	@Override
+	public abstract String obtenirNom();
 	
 	@Override
 	public Animal<E> obtenirDéu() {

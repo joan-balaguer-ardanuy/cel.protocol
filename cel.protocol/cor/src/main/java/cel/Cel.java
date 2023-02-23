@@ -40,11 +40,11 @@ public abstract class Cel
 	public Cel() {
 		super();
 	}
-	public Cel(String nom) {
-		super(nom);
+	public Cel(Paritat paritat) {
+		super(paritat);
 	}
-	public Cel(String nom, V fill) {
-		super(nom, fill);
+	public Cel(Paritat paritat, V fill) {
+		super(paritat, fill);
 		fill.establirFill(obtenirPare());
 		fill.establirPare(fill);
 	}

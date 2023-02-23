@@ -129,4 +129,9 @@ public class Entrada<K,V> extends Nombre<Serp<K,V>> implements Serp<K,V> {
 		crea(getClass(), this, clau, valor); 
 		return null;
 	}
+
+	@Override
+	public String obtenirNom() {
+		return "Déu";
+	}
 }

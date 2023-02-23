@@ -64,5 +64,10 @@ public class Cua<E>
 		super(pare);
 		establirEntrada(entrada);
 	}
+	@Override
+	public String obtenirNom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,16 @@ public class Genomapa
 	extends Home<Hipercub,Hipercadena> {
 
 	private static final long serialVersionUID = -8323794104627311597L;
+	
+	@Override
+	@XmlElement
+	public String obtenirNom() {
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Character,Integer> anyell : getKey()) {
+			stringBuilder.append(anyell.obtenirClau());
+		}
+		return stringBuilder.toString();
+	}
 	@Override
 	@XmlElement
 	public Hipercub getKey() {
@@ -41,11 +52,11 @@ public class Genomapa
 	public Genomapa() {
 		super();
 	}
-	public Genomapa(String nom) {
-		super(nom);
+	public Genomapa(Paritat paritat) {
+		super(paritat);
 	}
-	public Genomapa(String nom, Hipercub clau, Hipercadena valor) {
-		super(Haploide.class, nom, clau, valor);
+	public Genomapa(Paritat paritat, Hipercub clau, Hipercadena valor) {
+		super(Haploide.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,57 +68,42 @@ public class Genomapa
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Genomapa(Genomapa déu, String nom) {
-		super(déu, nom);
+	public Genomapa(Genomapa déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Genomapa(Genomapa déu, String nom, Hipercub clau, Hipercadena valor) {
-		super(Haploide.class, déu, nom, clau, valor);
+	public Genomapa(Genomapa déu, Paritat paritat, Hipercub clau, Hipercadena valor) {
+		super(Haploide.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
-	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
+	public synchronized int compareTo(Anyell<Hipercadena, Hipercub> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Character,Integer> anyell = obtenirClau().comparador().font();
-		comparador((Hipercub) anyell, (Hipercadena) anyell.obtenirFill());
+		Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
+		comparador((Hipercadena) anyell, (Hipercub) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercub) {
-			Hipercub hipercub = (Hipercub) manament.getSource();
+		if(manament.getSource() instanceof Genomapa) {
+			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirClau().comparador().compara(hipercub, obtenirValor());
-				Anyell<Character,Integer> anyell = obtenirClau().comparador().font();
-				establir((Hipercub) anyell, (Hipercadena) anyell.obtenirFill());
+				genomapa.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
 			case Manament.MOR:
-				hipercub.alliberar();
-				obtenirValor().establirValor(hipercub.obtenirValor(), hipercub.obtenirClau());
+				genomapa.alliberar();
+				establirValor(genomapa.obtenirClau(), genomapa.obtenirValor());
 				break;
 			default:
 				return;
 			}
 		}
-		else if(manament.getSource() instanceof Genomapa) {
-			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Genomapa genomapa = (Genomapa) manament.getSource();
-				permutarFill(genomapa, genomapa.obtenirFill());
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Character, Integer> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

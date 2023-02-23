@@ -1,5 +1,7 @@
 package cel.temps;
 
+import cel.Paritat;
+
 /**
  * <tt>
  * <center>
@@ -39,11 +41,11 @@ public abstract class Tenebres
 	public Tenebres() {
 		super();
 	}
-	public Tenebres(String nom) {
-		super(nom);
+	public Tenebres(Paritat paritat) {
+		super(paritat);
 	}
-	public Tenebres(Class<? extends V> classeFill, String nom) {
-		super(classeFill, nom);
+	public Tenebres(Class<? extends V> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Tenebres(K pare) {
 		super(pare);
@@ -51,11 +53,11 @@ public abstract class Tenebres
 	public Tenebres(Class<? extends V> classeFill, K pare) {
 		super(classeFill, pare);
 	}
-	public Tenebres(K déu, String nom) {
-		super(déu, nom);
+	public Tenebres(K déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Tenebres(Class<? extends V> classeFill, K déu, String nom) {
-		super(classeFill, déu, nom);
+	public Tenebres(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(classeFill, déu, paritat);
 	}
 	
 	/**
@@ -130,8 +132,8 @@ public abstract class Tenebres
 	}
 	@Override
 	public void run() {
-		// executa el Fill
-		execute(obtenirFill());
+		if(sócDéu() ? true : !sócFinal())
+			obtenirFill().run();
 		super.run();
 	}
 }

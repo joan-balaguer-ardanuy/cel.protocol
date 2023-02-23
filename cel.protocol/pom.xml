@@ -28,5 +28,6 @@
 		<module>cor</module>
 		<module>cel.temps</module>
 		<module>temps</module>
+		<module>processat</module>
 	</modules>
 </project>

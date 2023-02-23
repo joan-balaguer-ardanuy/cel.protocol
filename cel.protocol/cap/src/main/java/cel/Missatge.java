@@ -44,12 +44,19 @@ public interface Missatge extends Cloneable, Serializable {
 	 * @return {@link String} el nom de la instància d'aquest {@link Missatge}
 	 */
 	String obtenirNom();
+
+	/**
+	 * Obté la paritat de la instància d'aquest {@link Missatge} a transmetre.
+	 * @return {@link Paritat} la paritat de la instància d'aquest {@link Missatge}
+	 */
+	Paritat obtenirParitat();
 	
 	/**
-	 * Estableix el nom de la instància d'aquest {@link Missatge} a transmetre.
-	 * @param nom el nom de la instància d'aquest {@link Missatge} a transmetre
+	 * Estableix la paritat de la instància d'aquest {@link Missatge} a transmetre.
+	 * @param paritat {@link Paritat} la paritat del missatge
+	 * @return {@link Paritat} la paritat de la instància d'aquest {@link Missatge}
 	 */
-	void establirNom(String nom);
+	void establirParitat(Paritat paritat);
 	
 	/**
 	 * Obté l'ordre de la instància d'aquest {@link Missatge} a transmetre.

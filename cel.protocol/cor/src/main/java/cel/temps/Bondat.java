@@ -2,6 +2,8 @@ package cel.temps;
 
 import java.util.Iterator;
 
+import cel.Paritat;
+
 /**
  * <tt>
  * <center>
@@ -37,11 +39,11 @@ public abstract class Bondat
 	public Bondat() {
 		super();
 	}
-	public Bondat(String nom) {
-		super(nom);
+	public Bondat(Paritat paritat) {
+		super(paritat);
 	}
-	public Bondat(Class<? extends V> classeFill, String nom) {
-		super(classeFill, nom);
+	public Bondat(Class<? extends V> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Bondat(K pare) {
 		super(pare);
@@ -49,11 +51,11 @@ public abstract class Bondat
 	public Bondat(Class<? extends V> classeFill, K pare) {
 		super(classeFill, pare);
 	}
-	public Bondat(K déu, String nom) {
-		super(déu, nom);
+	public Bondat(K déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Bondat(Class<? extends V> classeFill, K déu, String nom) {
-		super(classeFill, déu, nom);
+	public Bondat(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(classeFill, déu, paritat);
 	}
 
 	@Override

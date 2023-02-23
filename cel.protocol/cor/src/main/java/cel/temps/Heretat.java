@@ -1,5 +1,7 @@
 package cel.temps;
 
+import cel.Paritat;
+
 /**
  * <tt>
  * <center>
@@ -43,11 +45,11 @@ public abstract class Heretat
 	public Heretat() {
 		super();
 	}
-	public Heretat(String nom) {
-		super(nom);
+	public Heretat(Paritat paritat) {
+		super(paritat);
 	}
-	public Heretat(Class<? extends V> classeFill, String nom) {
-		super(classeFill, nom);
+	public Heretat(Class<? extends V> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Heretat(K pare) {
 		super(pare);
@@ -55,11 +57,11 @@ public abstract class Heretat
 	public Heretat(Class<? extends V> classeFill, K pare) {
 		super(classeFill, pare);
 	}
-	public Heretat(K déu, String nom) {
-		super(déu, nom);
+	public Heretat(K déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Heretat(Class<? extends V> classeFill, K déu, String nom) {
-		super(classeFill, déu, nom);
+	public Heretat(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(classeFill, déu, paritat);
 	}
 
 	@Override

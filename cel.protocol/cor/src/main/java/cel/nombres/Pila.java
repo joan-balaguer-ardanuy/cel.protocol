@@ -33,4 +33,8 @@ public class Pila<E>
 		super(pare);
 		establirEntrada(entrada);
 	}
+	@Override
+	public String obtenirNom() {
+		return "Déu";
+	}
 }

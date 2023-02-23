@@ -32,18 +32,18 @@ public abstract class Pare
 	K pare;
 	V fill;
 	
-	public K obtenirPare() {
+	public synchronized K obtenirPare() {
 		return pare;
 	}
-	public K establirPare(K pare) {
+	public synchronized K establirPare(K pare) {
 		K antic = this.pare;
 		this.pare = pare;
 		return antic;
 	}
-	public V obtenirFill() {
+	public synchronized V obtenirFill() {
 		return fill;
 	}
-	public V establirFill(V fill) {
+	public synchronized V establirFill(V fill) {
 		V nou = this.fill;
 		this.fill = fill;
 		return nou;
@@ -52,22 +52,22 @@ public abstract class Pare
 	public Pare() {
 		super();
 	}
-	public Pare(String nom) {
-		super(nom);
+	public Pare(Paritat paritat) {
+		super(paritat);
 	}
 	@SuppressWarnings("unchecked")
-	public Pare(String nom, V fill) {
-		super(nom);
+	public Pare(Paritat paritat, V fill) {
+		super(paritat);
 		establirPare((K) this);
 		establirFill(fill);
 	}
 	public Pare(K pare) {
-		super(pare.obtenirNom());
+		super(pare.obtenirParitat());
 		establirPare(pare);
 		establirFill(pare.obtenirFill());
 	}
 	public Pare(K pare, V fill) {
-		super(pare.obtenirNom());
+		super(pare.obtenirParitat());
 		establirPare(pare);
 		establirFill(fill);
 	}

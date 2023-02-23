@@ -30,4 +30,8 @@ public class Testimonis extends Nombre<Esperit> {
 			throw new Error(t);
 		}
 	}
+	@Override
+	public String obtenirNom() {
+		return "Déu";
+	}
 }

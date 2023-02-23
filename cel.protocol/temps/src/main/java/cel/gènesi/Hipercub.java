@@ -7,13 +7,19 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
 public class Hipercub extends Home<Character,Integer> {
 
 	private static final long serialVersionUID = 7927408443586096486L;
-
+	
+	@Override
+	@XmlElement
+	public String obtenirNom() {
+		return getKey().toString();
+	}
 	@Override
 	@XmlElement
 	public Character getKey() {
@@ -41,11 +47,11 @@ public class Hipercub extends Home<Character,Integer> {
 	public Hipercub() {
 		super();
 	}
-	public Hipercub(String nom) {
-		super(nom);
+	public Hipercub(Paritat paritat) {
+		super(paritat);
 	}
-	public Hipercub(String nom, Character clau, Integer valor) {
-		super(Hipercadena.class, nom, clau, valor);
+	public Hipercub(Paritat paritat, Character clau, Integer valor) {
+		super(Hipercadena.class, paritat, clau, valor);
 	}
 	public Hipercub(Hipercub pare) {
 		super(pare);
@@ -53,20 +59,23 @@ public class Hipercub extends Home<Character,Integer> {
 	public Hipercub(Hipercub pare, Character clau, Integer valor) {
 		super(Hipercadena.class, pare, clau, valor);
 	}
-	public Hipercub(Hipercub déu, String nom) {
-		super(déu, nom);
+	public Hipercub(Hipercub déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Hipercub(Hipercub déu, String nom, Character clau, Integer valor) {
-		super(Hipercadena.class, déu, nom, clau, valor);
+	public Hipercub(Hipercub déu, Paritat paritat, Character clau, Integer valor) {
+		super(Hipercadena.class, déu, paritat, clau, valor);
 	}
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		System.out.println("Hipercub.class: " + manament.getSource().getClass());
+		Hipercub hipercub = (Hipercub) manament.getSource();
 		switch (manament.obtenirManament()) {
 		case Manament.VIU:
-			Hipercub hipercub = (Hipercub) manament.getSource();
-			permutarFill(hipercub, hipercub.obtenirFill());
+			hipercub.permutarFill(obtenirPassat(), obtenirFutur());
+			break;
+		case Manament.MOR:
+			hipercub.alliberar();
+			establirValor(hipercub.obtenirClau(), hipercub.obtenirValor());
 			break;
 		default:
 			return;
@@ -74,14 +83,14 @@ public class Hipercub extends Home<Character,Integer> {
 	}
 	
 	@Override
-	public int compareTo(Anyell<Integer,Character> o) {
-		int resultat = Character.compare(obtenirClau(), o.obtenirValor());
-		if(resultat > 0) {
-			comparador(obtenirClau(), obtenirValor());
+	public synchronized int compareTo(Anyell<Integer,Character> o) {
+		if(obtenirValor() > o.obtenirClau()) {
+			comparador(obtenirValor(), obtenirClau());
+			return 1;
 		} else {
-			comparador(o.obtenirValor(), o.obtenirClau());
-		}		
-		return resultat;
+			comparador(o.obtenirClau(), o.obtenirValor());
+			return -1;
+		}
 	}
 	@Override
 	public void run() {

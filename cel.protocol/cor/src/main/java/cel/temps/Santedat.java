@@ -1,5 +1,7 @@
 package cel.temps;
 
+import cel.Paritat;
+
 /**
  * <tt>
  * <center>
@@ -62,11 +64,11 @@ public abstract class Santedat
 	public Santedat() {
 		super();
 	}
-	public Santedat(String nom) {
-		super(nom);
+	public Santedat(Paritat paritat) {
+		super(paritat);
 	}
-	public Santedat(Class<? extends V> classeFill, String nom) {
-		super(classeFill, nom);
+	public Santedat(Class<? extends V> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Santedat(K pare) {
 		super(pare);
@@ -74,15 +76,15 @@ public abstract class Santedat
 	public Santedat(Class<? extends V> classeFill, K pare) {
 		super(classeFill, pare);
 	}
-	public Santedat(K déu, String nom) {
-		super(déu, nom);
+	public Santedat(K déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Santedat(Class<? extends V> classeFill, K déu, String nom) {
-		super(classeFill, déu, nom);
+	public Santedat(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(classeFill, déu, paritat);
 	}
 	
 	@Override
-	public void alliberar() {
+	public synchronized void alliberar() {
 		obtenirPare().establirPassat(obtenirPassat());
 		obtenirFutur().establirPare(obtenirFill().obtenirPare());
 		establirPare(obtenirPassat().establirPare(obtenirPare()));
@@ -95,7 +97,7 @@ public abstract class Santedat
 	}
 
 	@Override
-	public void recórrerFill(K pare, V fill) {
+	public synchronized void recórrerFill(K pare, V fill) {
 		pare.establirPare(obtenirPare());
 		fill.establirPare(obtenirFill().obtenirPare());
 		fill.establirFill(obtenirPare().obtenirPassat());
@@ -116,7 +118,7 @@ public abstract class Santedat
 	}
 
 	@Override
-	public void concórrerFill(K pare, V fill) {
+	public synchronized void concórrerFill(K pare, V fill) {
 		obtenirPassat().establirPare(pare);
 		obtenirFutur().establirPare(fill);
 		fill.establirFill(obtenirPassat());
@@ -137,7 +139,7 @@ public abstract class Santedat
 	}
 
 	@Override
-	public void permutarFill(K pare, V fill) {
+	public synchronized void permutarFill(K pare, V fill) {
 		if(pare == obtenirPare()) {
 			obtenirPassat().establirPare(pare);
 			obtenirFutur().establirPare(fill);
@@ -157,18 +159,33 @@ public abstract class Santedat
 			establirPare(pare);
 			obtenirFill().establirPare(fill); 
 		} else {
-			K parePare = pare.establirPare(obtenirPare());
+//			K parePare = ;
 			V fillPare = fill.establirPare(obtenirFill().obtenirPare());
 			K fillFill = fill.establirFill(obtenirPassat());
 			fillPare.establirFill(obtenirPare().obtenirPassat());
 			obtenirPare().establirPassat(pare);
-			establirPare(parePare);
+			establirPare(pare.establirPare(obtenirPare()));
 			obtenirFill().establirPare(fillPare);
 			obtenirPassat().establirPare(pare);
 			obtenirFutur().establirPare(fill);
 			establirPassat(fillFill);
 			obtenirPassat().establirPare(obtenirPare().obtenirPassat());
 			obtenirFutur().establirPare(obtenirFill());
+//			K oldParent = pare.obtenirPare();
+//			V oldParentChild = fill.obtenirPare();
+//			K oldChild = fill.obtenirFill();
+//			pare.establirPare(obtenirPare()); 
+//			fill.establirPare(obtenirFill().obtenirPare());
+//			fill.establirFill(obtenirPassat());
+//			oldParentChild.establirFill(obtenirPare().obtenirPassat());
+//			obtenirPare().establirPassat(pare);
+//			establirPare(oldParent);
+//			obtenirFill().establirPare(oldParentChild);
+//			obtenirPassat().establirPare(pare);
+//			obtenirFutur().establirPare(fill);
+//			establirPassat(oldChild);
+//			obtenirPassat().establirPare(obtenirPare().obtenirPassat());
+//			obtenirFutur().establirPare(obtenirFill());
 		}
 	}
 
@@ -184,7 +201,7 @@ public abstract class Santedat
 	}
 
 	@Override
-	public void sotmetreFill(K pare, V fill) {
+	public synchronized void sotmetreFill(K pare, V fill) {
 		if(aleatorietat().nextBoolean())
 			recórrerFill(pare, fill);
 		else concórrerFill(pare, fill);

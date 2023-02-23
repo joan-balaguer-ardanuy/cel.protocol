@@ -6,6 +6,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import cel.Cel;
+import cel.Ordre;
+import cel.Paritat;
 
 /**
  * <tt>
@@ -69,11 +71,11 @@ public abstract class Aliança
 	public Aliança() {
 		super();
 	}
-	public Aliança(String nom) {
-		super(nom);
+	public Aliança(Paritat paritat) {
+		super(paritat);
 	}
-	public Aliança(Class<? extends V> classeFill, String nom) {
-		super(nom, crea(classeFill, nom));
+	public Aliança(Class<? extends V> classeFill, Paritat paritat) {
+		super(paritat, crea(classeFill, paritat));
 		establirDéu(obtenirPare());
 		establirMareDeDéu(obtenirFill());
 	}
@@ -85,15 +87,29 @@ public abstract class Aliança
 		establirDéu(pare.obtenirDéu());
 		establirMareDeDéu(pare.obtenirMareDeDéu());
 	}
-	public Aliança(K déu, String nom) {
-		super(nom);
+	public Aliança(K déu, Paritat paritat) {
+		super(paritat);
 		establirDéu(déu);
 	}
-	public Aliança(Class<? extends V> classeFill, K déu, String nom) {
-		super(nom, crea(classeFill, déu.obtenirMareDeDéu(), nom));
+	public Aliança(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(paritat, crea(classeFill, déu.obtenirMareDeDéu(), paritat));
 		establirDéu(déu);
+	}
+	@Override
+	public boolean sócDéu() {
+		return this == obtenirDéu();
+	}
+	@Override
+	public boolean sócFinal() {
+		return obtenirPassat() == obtenirDéu();
 	}
 	
+	@Override
+	protected void donarManament(Ordre manament) {
+		super.donarManament(manament);
+		if(!sócDéu())
+			déu.esdeveniment(manament);
+	}
 	@Override
 	public V processarFillSiAbsent(K pare, Function<? super K, ? extends V> funcióUnificació) {
 		Objects.requireNonNull(funcióUnificació);
@@ -232,8 +248,8 @@ public abstract class Aliança
 		try {
 			K pare = (K) getClass().getConstructor().newInstance();
 			V fill = (V) obtenirFill().getClass().getConstructor().newInstance();
-			pare.establirNom(obtenirNom());
-			fill.establirNom(obtenirNom());
+			pare.establirParitat(obtenirParitat());
+			fill.establirParitat(obtenirParitat());
 			pare.establirPare(pare);
 			fill.establirPare(fill);
 			pare.establirFill(fill);

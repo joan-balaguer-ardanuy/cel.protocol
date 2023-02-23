@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,10 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 
 	private static final long serialVersionUID = -7857749006423635285L;
 	
+	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public AlfaCentauri getKey() {
@@ -41,11 +46,11 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	public Andròmeda() {
 		super();
 	}
-	public Andròmeda(String nom) {
-		super(nom);
+	public Andròmeda(Paritat paritat) {
+		super(paritat);
 	}
-	public Andròmeda(String nom, AlfaCentauri clau, Sol valor) {
-		super(ViaLàctia.class, nom, clau, valor);
+	public Andròmeda(Paritat paritat, AlfaCentauri clau, Sol valor) {
+		super(ViaLàctia.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,11 +62,11 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Andròmeda(Andròmeda déu, String nom) {
-		super(déu, nom);
+	public Andròmeda(Andròmeda déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Andròmeda(Andròmeda déu,	String nom, AlfaCentauri clau, Sol valor) {
-		super(ViaLàctia.class, déu, nom, clau, valor);
+	public Andròmeda(Andròmeda déu,	Paritat paritat, AlfaCentauri clau, Sol valor) {
+		super(ViaLàctia.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -69,46 +74,41 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	@Override
 	public int compareTo(Anyell<Sol,AlfaCentauri> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Mar,Terra> anyell = obtenirClau().comparador().font();
-		comparador((AlfaCentauri) anyell, (Sol) anyell.obtenirFill());
+		Anyell<Terra,Mar> anyell = obtenirClau().comparador().font();
+		comparador((Sol) anyell, (AlfaCentauri) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof AlfaCentauri) {
-			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
+		if(manament.getSource() instanceof Sol) {
+			Sol sol = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				obtenirClau().comparador().compara(alfaCentauri, obtenirValor());
-				Anyell<Mar,Terra> anyell = obtenirClau().comparador().font();
-				establirValor((AlfaCentauri) anyell, (Sol) anyell.obtenirFill());
-				break;
-			case Manament.MOR:
-				alfaCentauri.alliberar();
-				obtenirValor().establirValor(alfaCentauri.obtenirValor(), alfaCentauri.obtenirClau());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					execute(establirClau(sol, (AlfaCentauri) sol.obtenirFill()));
+				}
 				break;
 			default:
-				return;
+				break;
 			}
 		}
 		else if(manament.getSource() instanceof Andròmeda) {
+			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Andròmeda andròmeda = (Andròmeda) manament.getSource();
-				permutarFill(andròmeda, andròmeda.obtenirFill());
-				break;
-			default:
-				break;
+				case Manament.VIU:
+					andròmeda.comparador(andròmeda.getValue(), andròmeda.getKey()).compara(andròmeda, obtenirFill());
+					Anyell<Sol,AlfaCentauri> anyell = andròmeda.comparador().font();
+					donarManament(new Ordre(anyell));
+					break;
+				default:
+					return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Mar,Terra> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

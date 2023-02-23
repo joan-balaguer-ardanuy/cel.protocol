@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,10 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 
 	private static final long serialVersionUID = -7763397311549664178L;
 
+	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public Interestellar getKey() {
@@ -41,11 +46,11 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	public Hiperespai() {
 		super();
 	}
-	public Hiperespai(String nom) {
-		super(nom);
+	public Hiperespai(Paritat paritat) {
+		super(paritat);
 	}
-	public Hiperespai(String nom, Interestellar clau, Supercúmul valor) {
-		super(Espaitemps.class, nom, clau, valor);
+	public Hiperespai(Paritat paritat, Interestellar clau, Supercúmul valor) {
+		super(Espaitemps.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,11 +62,11 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Hiperespai(Hiperespai déu, String nom) {
-		super(déu, nom);
+	public Hiperespai(Hiperespai déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Hiperespai(Hiperespai déu, String nom, Interestellar clau, Supercúmul valor) {
-		super(Espaitemps.class, déu, nom, clau, valor);
+	public Hiperespai(Hiperespai déu, Paritat paritat, Interestellar clau, Supercúmul valor) {
+		super(Espaitemps.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -69,46 +74,41 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	@Override
 	public int compareTo(Anyell<Supercúmul, Interestellar> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Andròmeda,ViaLàctia> anyell = obtenirClau().comparador().font();
-		comparador((Interestellar) anyell, (Supercúmul) anyell.obtenirFill());
+		Anyell<ViaLàctia,Andròmeda> anyell = obtenirClau().comparador().font();
+		comparador((Supercúmul) anyell, (Interestellar) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Interestellar) {
-			Interestellar interestel_lar = (Interestellar) manament.getSource();
+		if(manament.getSource() instanceof Supercúmul) {
+			Supercúmul supercúmul = (Supercúmul) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				obtenirClau().comparador().compara(interestel_lar, obtenirValor());
-				Anyell<Andròmeda,ViaLàctia> anyell = obtenirClau().comparador().font();
-				establirValor((Interestellar) anyell, (Supercúmul) anyell.obtenirFill());
-				break;
-			case Manament.MOR:
-				interestel_lar.alliberar();
-				obtenirValor().establirValor(interestel_lar.obtenirValor(), interestel_lar.obtenirClau());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					execute(establirClau(supercúmul, (Interestellar) supercúmul.obtenirFill()));
+				}
 				break;
 			default:
-				return;
+				break;
 			}
 		}
 		else if(manament.getSource() instanceof Hiperespai) {
+			Hiperespai interestellar = (Hiperespai) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Hiperespai hiperespai = (Hiperespai) manament.getSource();
-				permutarFill(hiperespai, hiperespai.obtenirFill());
-				break;
-			default:
-				break;
+				case Manament.VIU:
+					interestellar.comparador(interestellar.getValue(), interestellar.getKey()).compara(interestellar, obtenirFill());
+					Anyell<Supercúmul,Interestellar> anyell = interestellar.comparador().font();
+					donarManament(new Ordre(anyell));
+					break;
+				default:
+					return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Andròmeda,ViaLàctia> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

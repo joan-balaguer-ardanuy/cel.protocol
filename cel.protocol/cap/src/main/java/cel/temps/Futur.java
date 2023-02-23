@@ -1,5 +1,7 @@
 package cel.temps;
 
+import cel.Missatge;
+
 /**
  * <tt>
  * <center>
@@ -29,7 +31,7 @@ package cel.temps;
  *
  * @param <V> és el VALOR
  */
-public interface Futur<V> {
+public interface Futur<V> extends Missatge {
 
 	/**
 	 * Obté el {@code futur} corresponent a aquest {@link Futur}.

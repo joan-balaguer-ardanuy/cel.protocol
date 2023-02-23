@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -15,6 +16,9 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	private static final long serialVersionUID = -8176742109161023223L;
 
 	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}	@Override
 	@XmlElement
 	public Tetraploide getKey() {
 		return obtenirClau();
@@ -41,11 +45,11 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	public Poliploide() {
 		super();
 	}
-	public Poliploide(String nom) {
-		super(nom);
+	public Poliploide(Paritat paritat) {
+		super(paritat);
 	}
-	public Poliploide(String nom, Tetraploide clau, Ribosoma valor) {
-		super(Operó.class, nom, clau, valor);
+	public Poliploide(Paritat paritat, Tetraploide clau, Ribosoma valor) {
+		super(Operó.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,58 +61,53 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Poliploide(Poliploide déu, String nom) {
-		super(déu, nom);
+	public Poliploide(Poliploide déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Poliploide(Poliploide déu, String nom, Tetraploide clau, Ribosoma valor) {
-		super(Operó.class, déu, nom, clau, valor);
+	public Poliploide(Poliploide déu, Paritat paritat, Tetraploide clau, Ribosoma valor) {
+		super(Operó.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
+	public int compareTo(Anyell<Ribosoma, Tetraploide> o) {
+		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		Anyell<Cromosoma,Diploide> anyell = obtenirClau().comparador().font();
+		comparador((Ribosoma) anyell, (Tetraploide) anyell.obtenirFill());
+		return 0;
+	}
+	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Tetraploide) {
-			Tetraploide tetraploide = (Tetraploide) manament.getSource();
+		if(manament.getSource() instanceof Ribosoma) {
+			Ribosoma ribosoma = (Ribosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				obtenirClau().comparador().compara(tetraploide, obtenirValor());
-				Anyell<Diploide,Cromosoma> anyell = obtenirClau().comparador().font();
-				establirValor((Tetraploide) anyell, (Ribosoma) anyell.obtenirFill());
-				break;
-			case Manament.MOR:
-				tetraploide.alliberar();
-				obtenirValor().establirValor(tetraploide.obtenirValor(), tetraploide.obtenirClau());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					execute(establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill()));
+				}
 				break;
 			default:
-				return;
+				break;
 			}
 		}
 		else if(manament.getSource() instanceof Poliploide) {
+			Poliploide tretraploide = (Poliploide) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Poliploide poliploide = (Poliploide) manament.getSource();
-				permutarFill(poliploide, poliploide.obtenirFill());
-				break;
-			default:
-				break;
+				case Manament.VIU:
+					tretraploide.comparador(tretraploide.getValue(), tretraploide.getKey()).compara(tretraploide, obtenirFill());
+					Anyell<Ribosoma,Tetraploide> anyell = tretraploide.comparador().font();
+					donarManament(new Ordre(anyell));
+					break;
+				default:
+					return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Diploide,Cromosoma> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
-	}
-	@Override
-	public int compareTo(Anyell<Ribosoma, Tetraploide> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Diploide,Cromosoma> anyell = obtenirClau().comparador().font();
-		comparador((Tetraploide) anyell, (Ribosoma) anyell.obtenirFill());
-		return 0;
 	}
 }

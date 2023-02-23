@@ -48,7 +48,6 @@ public class Conjunt<E>
 	public Conjunt() {
 		super();
 	}
-
 	public Conjunt(Animal<E> pare, E entrada) {
 		super(pare);
 		establirEntrada(entrada);
@@ -64,5 +63,9 @@ public class Conjunt<E>
 			}
 		}
 		return super.establir(e);
+	}
+	@Override
+	public String obtenirNom() {
+		return "Déu";
 	}	
 }

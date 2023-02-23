@@ -64,4 +64,9 @@ public class Llista<E>
 		establirEntrada(entrada);
 	}
 
+	@Override
+	public String obtenirNom() {
+		return "Déu";
+	}
+
 }

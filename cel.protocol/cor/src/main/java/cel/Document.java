@@ -1,6 +1,5 @@
 package cel;
 
-import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -81,11 +80,11 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	public Document() {
 		super();
 	}
-	public Document(String nom) {
-		super(nom);
+	public Document(Paritat paritat) {
+		super(paritat);
 	}
-	public Document(Class<? extends Document<V,K>> classeFill, String nom, K clau, V valor) {
-		super(classeFill, nom);
+	public Document(Class<? extends Document<V,K>> classeFill, Paritat paritat, K clau, V valor) {
+		super(classeFill, paritat);
 		establirClau(clau);
 		establirValor(valor);
 	}
@@ -97,11 +96,11 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		establirClau(clau);
 		establirValor(valor);
 	}
-	public Document(Document<K,V> déu, String nom) {
-		super(déu, nom);
+	public Document(Document<K,V> déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Document(Class<? extends Document<V,K>> classeFill, Document<K,V> déu, String nom, K clau, V valor) {
-		super(classeFill, déu, nom);
+	public Document(Class<? extends Document<V,K>> classeFill, Document<K,V> déu, Paritat paritat, K clau, V valor) {
+		super(classeFill, déu, paritat);
 		establirClau(clau);
 		establirValor(valor);
 	}
@@ -158,23 +157,13 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	public Anyell<V, K> obtenirFillPerValor(V valor) {
 		return obtenirFill().obtenirParePerClau(valor);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
-	public V establirValor(K clau, V valor) {
-//		if(ésBuit()) {
-//			crea(getClass(), obtenirPare(), clau, valor);
-//			return null;
-//		} else {
-//			for(Anyell<K,V> anyell : this) {
-//				if(clau == anyell.obtenirClau()) {
-//					return anyell.establirValor(valor);
-//				}
-//			}
-//		}
-		crea(getClass(), obtenirPare(), clau, valor);
-		return null;
+	public synchronized Anyell<K,V> establirValor(K clau, V valor) {
+		return (Anyell<K,V>) crea(getClass(), obtenirPare(), clau, valor);
 	}
 	@Override
-	public K establirClau(V valor, K clau) {
+	public Anyell<V,K> establirClau(V valor, K clau) {
 		return obtenirFill().establirValor(valor, clau);
 	}
 	@Override
@@ -188,7 +177,7 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		obtenirFill().establirCadaValor(a);
 	}
 	@Override
-	public V establirValorSiAbsent(K clau, V valor) {
+	public Anyell<K,V> establirValorSiAbsent(K clau, V valor) {
 		for(Anyell<K,V> anyell : this) {
 			if(clau == anyell.obtenirClau()) {
 				return null;
@@ -197,7 +186,7 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		return establirValor(clau, valor);
 	}
 	@Override
-	public K establirClauSiAbsent(V valor, K clau) {
+	public Anyell<V,K> establirClauSiAbsent(V valor, K clau) {
 		return obtenirFill().establirValorSiAbsent(valor, clau);
 	}
 	@Override
@@ -289,7 +278,9 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		V valorNou;
 		V valorAntic = null;
 		if((valorNou = funcióUnificació.apply(clau)) != null) {
-			valorAntic = establirValor(clau, valorNou);
+			valorAntic = obtenirValor(clau);
+			alliberarValor(clau);
+			establirValor(clau, valorNou);
 		}
 		return valorAntic;
 	}
@@ -304,7 +295,9 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 				V valorNou;
 				V valorAntic = null;
 				if((valorNou = funcióUnificació.apply(clau, anyell.obtenirValor())) != null) {
-					valorAntic = establirValor(clau, valorNou);
+					valorAntic = obtenirValor(clau);
+					alliberarValor(clau);
+					establirValor(clau, valorNou);
 				}
 				return valorAntic;
 			}
@@ -360,32 +353,33 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	
 	@Override
 	public Anyell.Generador<K,V> comparador() {
-		return comparador == null ? comparador = new Matriu(obtenirClau(), obtenirValor()) : comparador;
+		return comparador == null ? comparador = new Matriu(obtenirValor(), obtenirClau()) : comparador;
 	}
-	public Anyell.Generador<K,V> comparador(K clau, V valor) {
-		return comparador == null ? comparador = new Matriu(clau, valor) : comparador;
+	public Anyell.Generador<K,V> comparador(V valor, K clau) {
+		return comparador == null ? comparador = new Matriu(valor, clau) : comparador;
 	}
 	
 	private class Matriu extends Òrgan implements Generador<K,V> {
 
 		@SuppressWarnings("unchecked")
-		public Matriu(K clau, V valor) {
-			super((Anyell<K,V>) crea(Document.this.getClass(), obtenirNom(), clau, valor));
+		public Matriu(V valor, K clau) {
+			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), obtenirParitat(), valor, clau));
 		}
 
-		@SuppressWarnings("unchecked")
+//		@SuppressWarnings("unchecked")
 		@Override
-		public void establir(K clau, V valor) {
-			Anyell<K,V> anyell = (Anyell<K,V>) crea(Document.this.getClass(), font(), obtenirNom(), clau, valor);
-			font().establirFill(anyell, anyell.obtenirFill());
+		public void establir(V valor, K clau) {
+//			Anyell<K,V> anyell = (Anyell<K,V>) crea(Document.this.getClass(), font(), obtenirNom(), clau, valor);
+//			font().establirFill(anyell, anyell.obtenirFill());
+			font().establirValor(valor, clau);
 		}
 		@Override
 		public void establirPare(Anyell<K, V> pare) {
-			establir(pare.obtenirClau(), pare.obtenirValor());
+			establir(pare.obtenirValor(), pare.obtenirClau());
 		}
 		@Override
 		public void establirFill(Anyell<V, K> fill) {
-			establir(fill.obtenirValor(), fill.obtenirClau());
+			establir(fill.obtenirClau(),fill.obtenirValor());
 		}
 	}
 }

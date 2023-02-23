@@ -2,6 +2,7 @@ package cel.gènesi;
 
 import cel.Anyell;
 import cel.Document;
+import cel.Paritat;
 
 /**
  * <tt>
@@ -27,11 +28,11 @@ public abstract class Dona<K, V> extends Document<K,V> implements Cadena<K,V> {
 	public Dona() {
 		super();
 	}
-	public Dona(String nom) {
-		super(nom);
+	public Dona(Paritat paritat) {
+		super(paritat);
 	}
-	public Dona(Class<? extends Document<V, K>> classeFill, String nom, K clau, V valor) {
-		super(classeFill, nom, clau, valor);
+	public Dona(Class<? extends Document<V, K>> classeFill, Paritat paritat, K clau, V valor) {
+		super(classeFill, paritat, clau, valor);
 	}
 	public Dona(Document<K, V> pare) {
 		super(pare);
@@ -39,11 +40,11 @@ public abstract class Dona<K, V> extends Document<K,V> implements Cadena<K,V> {
 	public Dona(Class<? extends Document<V, K>> classeFill, Document<K, V> pare, K clau, V valor) {
 		super(classeFill, pare, clau, valor);
 	}
-	public Dona(Document<K, V> déu, String nom) {
-		super(déu, nom);
+	public Dona(Document<K, V> déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Dona(Class<? extends Document<V, K>> classeFill, Document<K, V> déu, String nom, K clau, V valor) {
-		super(classeFill, déu, nom, clau, valor);
+	public Dona(Class<? extends Document<V, K>> classeFill, Document<K, V> déu, Paritat paritat, K clau, V valor) {
+		super(classeFill, déu, paritat, clau, valor);
 	}
 
 	@Override

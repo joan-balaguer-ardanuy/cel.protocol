@@ -2,6 +2,7 @@
 package cel.gènesi;
 
 import cel.Document;
+import cel.Paritat;
 
 /**
  * <tt>
@@ -50,11 +51,11 @@ public abstract class Home<K,V> extends Document<K, V> implements Sang<K, V> {
 	public Home() {
 		super();
 	}
-	public Home(String nom) {
-		super(nom);
+	public Home(Paritat paritat) {
+		super(paritat);
 	}
-	public Home(Class<? extends Document<V, K>> classeFill, String nom, K clau, V valor) {
-		super(classeFill, nom, clau, valor);
+	public Home(Class<? extends Document<V, K>> classeFill, Paritat paritat, K clau, V valor) {
+		super(classeFill, paritat, clau, valor);
 	}
 	public Home(Document<K, V> pare) {
 		super(pare);
@@ -62,11 +63,11 @@ public abstract class Home<K,V> extends Document<K, V> implements Sang<K, V> {
 	public Home(Class<? extends Document<V, K>> classeFill, Document<K, V> pare, K clau, V valor) {
 		super(classeFill, pare, clau, valor);
 	}
-	public Home(Document<K, V> déu, String nom) {
-		super(déu, nom);
+	public Home(Document<K, V> déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Home(Class<? extends Document<V, K>> classeFill, Document<K, V> déu, String nom, K clau, V valor) {
-		super(classeFill, déu, nom, clau, valor);
+	public Home(Class<? extends Document<V, K>> classeFill, Document<K, V> déu, Paritat paritat, K clau, V valor) {
+		super(classeFill, déu, paritat, clau, valor);
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package cel;
 
 import cel.arca.Ramat;
-import cel.nombres.Conjunt;
 
 /**
  * <tt>
@@ -48,8 +47,8 @@ public abstract class Déu
 	public Déu() {
 		super();
 	}
-	public Déu(String nom) {
-		super(nom);
+	public Déu(Paritat paritat) {
+		super(paritat);
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public abstract class Déu
 		}
 		testimonis.alliberar(esperit);
 	}
-	protected void donarManament(Ordre manament) {
+	protected synchronized void donarManament(Ordre manament) {
 		if(testimonis != null) {
 			Ramat<Esperit> iterador = testimonis.pastor();
 			Esperit esperit = null;
@@ -81,7 +80,7 @@ public abstract class Déu
 	public abstract Object clone();
 	
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public synchronized void esdeveniment(Ordre manament) {
 		donarManament(manament);
 	}
 	@Override

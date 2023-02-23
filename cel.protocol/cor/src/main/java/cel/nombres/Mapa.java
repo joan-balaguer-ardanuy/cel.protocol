@@ -78,6 +78,10 @@ public final class Mapa<K,V> extends Nombre<Lleó.Cadell<K,V>> implements Lleó<
 	private static final long serialVersionUID = -2252600161987761944L;
 
 	@Override
+	public String obtenirNom() {
+		return "Déu";
+	}
+	@Override
 	public K obtenirClau() {
 		return obtenirEntrada().obtenirClau();
 	}
@@ -161,6 +165,10 @@ public final class Mapa<K,V> extends Nombre<Lleó.Cadell<K,V>> implements Lleó<
 		@Override
 		public boolean establir(Cadell<K, V> e) {
 			throw new IllegalStateException();
+		}
+		@Override
+		public String obtenirNom() {
+			return "Déu";
 		}
 	}
 }

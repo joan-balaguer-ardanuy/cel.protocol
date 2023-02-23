@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,10 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 
 	private static final long serialVersionUID = -9071886077186438664L;
 
+	@Override
+	public String obtenirNom() {
+		return obtenirClau().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public Espaitemps getKey() {
@@ -41,11 +46,11 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 	public Aaron() {
 		super();
 	}
-	public Aaron(String nom) {
-		super(nom);
+	public Aaron(Paritat paritat) {
+		super(paritat);
 	}
-	public Aaron(String nom, Espaitemps clau, Hiperespai valor) {
-		super(TimeMaster.class, nom, clau, valor);
+	public Aaron(Paritat paritat, Espaitemps clau, Hiperespai valor) {
+		super(TimeMaster.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,11 +62,11 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Aaron(Aaron déu, String nom) {
-		super(déu, nom);
+	public Aaron(Aaron déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Aaron(Aaron déu, String nom, Espaitemps clau, Hiperespai valor) {
-		super(TimeMaster.class, déu, nom, clau, valor);
+	public Aaron(Aaron déu, Paritat paritat, Espaitemps clau, Hiperespai valor) {
+		super(TimeMaster.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -69,46 +74,31 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 	@Override
 	public int compareTo(Anyell<Hiperespai, Espaitemps> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Supercúmul,Interestellar> anyell = obtenirClau().comparador().font();
-		comparador((Espaitemps) anyell, (Hiperespai) anyell.obtenirFill());
+		Anyell<Interestellar,Supercúmul> anyell = obtenirClau().comparador().font();
+		comparador((Hiperespai) anyell, (Espaitemps) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
+		if(manament.getSource() instanceof Aaron) {
+			Aaron aaron = (Aaron) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirClau().comparador().compara(espaitemps, obtenirValor());
-				Anyell<Supercúmul,Interestellar> anyell = obtenirClau().comparador().font();
-				establir((Espaitemps) anyell, (Hiperespai) anyell.obtenirFill());
+				aaron.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
 			case Manament.MOR:
-				espaitemps.alliberar();
-				obtenirValor().establirValor(espaitemps.obtenirValor(), espaitemps.obtenirClau());
+				aaron.alliberar();
+				establirValor(aaron.obtenirClau(), aaron.obtenirValor());
 				break;
 			default:
 				return;
 			}
 		}
-		else if(manament.getSource() instanceof Aaron) {
-			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Aaron aaron = (Aaron) manament.getSource();
-				permutarFill(aaron, aaron.obtenirFill());
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	@Override
 	public void run() {
-//		getKey().run();
-		for(Anyell<Supercúmul,Interestellar> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }

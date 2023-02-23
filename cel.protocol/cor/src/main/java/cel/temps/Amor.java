@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.BiFunction;
 
+import cel.Paritat;
+
 /**
  * <tt>
  * <center>
@@ -40,11 +42,11 @@ public abstract class Amor
 	public Amor() {
 		super();
 	}
-	public Amor(String nom) {
-		super(nom);
+	public Amor(Paritat paritat) {
+		super(paritat);
 	}
-	public Amor(Class<? extends V> classeFill, String nom) {
-		super(classeFill, nom);
+	public Amor(Class<? extends V> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Amor(K pare) {
 		super(pare);
@@ -52,11 +54,11 @@ public abstract class Amor
 	public Amor(Class<? extends V> classeFill, K pare) {
 		super(classeFill, pare);
 	}
-	public Amor(K déu, String nom) {
-		super(déu, nom);
+	public Amor(K déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Amor(Class<? extends V> classeFill, K déu, String nom) {
-		super(classeFill, déu, nom);
+	public Amor(Class<? extends V> classeFill, K déu, Paritat paritat) {
+		super(classeFill, déu, paritat);
 	}
 
 	@Override
@@ -134,14 +136,14 @@ public abstract class Amor
 
 	protected abstract class Òrgan implements Reproductor<K,V> {
 
-		K font;
+		V font;
 		
-		public Òrgan(K font) {
+		public Òrgan(V font) {
 			this.font = font;
 		}
 		
 		@Override
-		public K font() {
+		public V font() {
 			return font;
 		}
 		
@@ -150,7 +152,7 @@ public abstract class Amor
 		public abstract void establirFill(V fill);
 
 		@Override
-		public void compara(K pare, V fill) {
+		public synchronized void compara(K pare, V fill) {
 			Iterator<K> iteradorPare = pare.iterator();
 			Iterator<V> iteradorFill = fill.iterator();
 			
@@ -159,13 +161,13 @@ public abstract class Amor
 					K clau = iteradorPare.next();
 					V valor = iteradorFill.next();
 					clau.compareTo(valor);
-					establirPare(clau.comparador().font());
+					establirFill(clau.comparador().font());
 					
 					if(iteradorFill.hasNext() && iteradorPare.hasNext()) {
 						valor = iteradorFill.next();
 						clau = iteradorPare.next();
 						valor.compareTo(clau);
-						establirFill(valor.comparador().font());
+						establirPare(valor.comparador().font());
 					}
 					else return;
 				}

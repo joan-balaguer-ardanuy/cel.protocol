@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import cel.Anyell;
 import cel.Manament;
 import cel.Ordre;
+import cel.Paritat;
 
 @XmlRootElement
 @XmlType(propOrder={"key", "value", "entry"})
@@ -14,6 +15,12 @@ public class Diploide
 	extends Dona<Haploide,Genomapa> {
 
 	private static final long serialVersionUID = 1392928931896245647L;
+	
+	@Override
+	@XmlElement
+	public String obtenirNom() {
+		return getKey().obtenirNom();
+	}
 	@Override
 	@XmlElement
 	public Haploide getKey() {
@@ -41,11 +48,11 @@ public class Diploide
 	public Diploide() {
 		super();
 	}
-	public Diploide(String nom) {
-		super(nom);
+	public Diploide(Paritat paritat) {
+		super(paritat);
 	}
-	public Diploide(String nom, Haploide clau, Genomapa valor) {
-		super(Cromosoma.class, nom, clau, valor);
+	public Diploide(Paritat paritat, Haploide clau, Genomapa valor) {
+		super(Cromosoma.class, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
@@ -57,56 +64,52 @@ public class Diploide
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
-	public Diploide(Diploide déu, String nom) {
-		super(déu, nom);
+	public Diploide(Diploide déu, Paritat paritat) {
+		super(déu, paritat);
 	}
-	public Diploide(Diploide déu, String nom, Haploide clau, Genomapa valor) {
-		super(Cromosoma.class, déu, nom, clau, valor);
+	public Diploide(Diploide déu, Paritat paritat, Haploide clau, Genomapa valor) {
+		super(Cromosoma.class, déu, paritat, clau, valor);
 		clau.afegirTestimoni(this);
 		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
-	public int compareTo(Anyell<Genomapa,Haploide> o) {
+	public synchronized int compareTo(Anyell<Genomapa,Haploide> o) {
 		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
-		Anyell<Hipercadena,Hipercub> anyell = obtenirClau().comparador().font();
-		comparador((Haploide) anyell, (Genomapa) anyell.obtenirFill());
+		Anyell<Hipercub,Hipercadena> anyell = obtenirClau().comparador().font();
+		comparador((Genomapa) anyell, (Haploide) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Haploide) {
-			Haploide genomapa = (Haploide) manament.getSource();
+		if(manament.getSource() instanceof Genomapa) {
+			Genomapa entrada = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				obtenirClau().comparador().compara(genomapa, obtenirValor());
-				Anyell<Hipercadena,Hipercub> anyell = obtenirClau().comparador().font();
-				establirValor((Haploide) anyell, (Genomapa) anyell.obtenirFill());
-				break;
-			case Manament.MOR:
-				genomapa.alliberar();
-				obtenirValor().establirValor(genomapa.obtenirValor(), genomapa.obtenirClau());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					execute(establirClau(entrada, (Haploide) entrada.obtenirFill()));
+				}
 				break;
 			default:
-				return;
+				break;
 			}
 		}
 		else if(manament.getSource() instanceof Diploide) {
+			Diploide diploide = (Diploide) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				Diploide diploide = (Diploide) manament.getSource();
-				permutarFill(diploide, diploide.obtenirFill());
-				break;
-			default:
-				break;
+				case Manament.VIU:
+					diploide.comparador(diploide.getValue(), diploide.getKey()).compara(diploide, obtenirFill());
+					Anyell<Genomapa,Haploide> anyell = diploide.comparador().font();
+					donarManament(new Ordre(anyell));
+					break;
+				default:
+					return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		for(Anyell<Hipercadena,Hipercub> anyell : getKey()) {
-			anyell.run();
-		}
+		getKey().run();
 		super.run();
 	}
 }
