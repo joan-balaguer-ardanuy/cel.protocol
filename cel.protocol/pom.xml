@@ -26,9 +26,7 @@
 	<modules>
 		<module>cap</module>
 		<module>cor</module>
-		<module>cel.temps</module>
 		<module>temps</module>
-		<module>processat</module>
 		<module>simulador</module>
 	</modules>
 </project>
