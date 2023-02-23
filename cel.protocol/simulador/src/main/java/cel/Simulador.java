@@ -1,11 +1,11 @@
-package cel.processat;
+package cel;
 
 import cel.Esperit;
 import cel.Ordre;
 import cel.Paritat;
 import processing.core.*;
 
-public class Sketch extends PApplet implements Esperit {
+public class Simulador extends PApplet implements Esperit {
 
 	float angle = PI / 200;
 
@@ -30,11 +30,11 @@ public class Sketch extends PApplet implements Esperit {
 //		rotateZ(angle);
 		angle = angle + PI / 50;
 
-		translate(width / 2, height / 2, -100);
+		translate(width / 2, height / 2, -800);
 		fill(255, 100, 100);
 		sphere(50);
 
-		translate(width / 4, height / 4, -100);
+		translate(width / 4, height / 4, -800);
 		fill(128, 255, 100);
 		sphere(112);
 	}
