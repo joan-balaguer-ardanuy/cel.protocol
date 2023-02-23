@@ -37,14 +37,14 @@ public class Execució {
 		Genomapa genomapa = new Genomapa(hipercub.obtenirParitat(), hipercub, (Hipercadena) hipercub.obtenirFill());
 		Cromosoma cromosoma = new Cromosoma(genomapa.obtenirParitat(), genomapa, (Haploide) genomapa.obtenirFill());
 		Ribosoma ribosoma = new Ribosoma(cromosoma.obtenirParitat(), cromosoma, (Diploide) cromosoma.obtenirFill());
-//		Operó operó = new Operó(ribosoma.obtenirNom(), ribosoma, (Tetraploide) ribosoma.obtenirFill());
-//		Terra terra = new Terra(operó.obtenirNom(), operó, (Poliploide) operó.obtenirFill());
-//		Sol sol = new Sol(terra.obtenirNom(), terra, (Mar) terra.obtenirFill());
-//		ViaLàctia viaLàctia = new ViaLàctia(sol.obtenirNom(), sol, (AlfaCentauri) sol.obtenirFill());
-//		Supercúmul supercúmul = new Supercúmul(viaLàctia.obtenirNom(), viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
-//		Espaitemps espaitemps = new Espaitemps(supercúmul.obtenirNom(), supercúmul, (Interestellar) supercúmul.obtenirFill());
-//		Aaron aaron = new Aaron(espaitemps.obtenirNom(), espaitemps, (Hiperespai) espaitemps.obtenirFill());
-//		DéuPare déuPare = new DéuPare(aaron.obtenirNom(), aaron, (TimeMaster) aaron.obtenirFill());
+		Operó operó = new Operó(ribosoma.obtenirParitat(), ribosoma, (Tetraploide) ribosoma.obtenirFill());
+		Terra terra = new Terra(operó.obtenirParitat(), operó, (Poliploide) operó.obtenirFill());
+		Sol sol = new Sol(terra.obtenirParitat(), terra, (Mar) terra.obtenirFill());
+		ViaLàctia viaLàctia = new ViaLàctia(sol.obtenirParitat(), sol, (AlfaCentauri) sol.obtenirFill());
+		Supercúmul supercúmul = new Supercúmul(viaLàctia.obtenirParitat(), viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+		Espaitemps espaitemps = new Espaitemps(supercúmul.obtenirParitat(), supercúmul, (Interestellar) supercúmul.obtenirFill());
+		Aaron aaron = new Aaron(espaitemps.obtenirParitat(), espaitemps, (Hiperespai) espaitemps.obtenirFill());
+		DéuPare déuPare = new DéuPare(aaron.obtenirParitat(), aaron, (TimeMaster) aaron.obtenirFill());
 		cromosoma.run();
 	}
 }
