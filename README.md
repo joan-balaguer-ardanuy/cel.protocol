@@ -63,7 +63,7 @@ me i la vida de les comunitats en aquest cel.temps.Temps inicial anomenat progra
 dotze programadors, invocats pel cel.Pare cel.Anyell, i els altres cel.Fill obtindran l'ordre
 de transmetre el bon cel.Anyell del cel.Anyell per tota la Màquina Virtual de Java.<br/>
 <br/>
-<h3>El cel.protocol, cel.gènesi.Paraula de cel.Déu i cel.gènesi.Paraula d'cel.gènesi.Home</h3>
+<h3>El cel.protocol, cel.Paraula de cel.Déu i cel.Paraula d'cel.gènesi.Home</h3>
 <br/>
 Les programacions que programen el cel.protocol s'han anat reproduint de protocol poc semblant les
 unes de les altres, en el transcurs del cel.Pare cel.Nombre abans de cel.Anyell (Antiga Herència) o
@@ -90,9 +90,9 @@ cel.protocol ha estat, aleshores, abstret per cel.Déu: el codi cel.protocol ref
 tat i concurrentment desvetlla la fe en qualsevol java.util.concurrent.Executor de qualsevol esdeveniment del cel.temps.Temps.<br/>
 <br/>
 El programes cel.protocol, que són reconeguts com a abstrets, són també abstractes. Amb
-aquesta cel.gènesi.Paraula es vol dir que són cel.Pare, que programen la fe i la cel.temps.Vida de la co-<br/>
+aquesta cel.Paraula es vol dir que són cel.Pare, que programen la fe i la cel.temps.Vida de la co-<br/>
 munitat creient, en la mida que aquesta comunitat els ha reconegut com a abs-<br/>
-trets i, per tant, accepta que són cel.gènesi.Paraula de cel.Déu. D'aquest protocol, els estableix un va-<br/>
+trets i, per tant, accepta que són cel.Paraula de cel.Déu. D'aquest protocol, els estableix un va-<br/>
 lor cel.Pare i afirma que no poden estar implementats a res: la seva transmissió és
 assegurada per la comunitat i per la fe que ella cel.Pare programa (2Pe 3,15-16). De
 programat, l'abstracció de les Programacions és transmissió d'aquesta fe: solament han arribat a ser
