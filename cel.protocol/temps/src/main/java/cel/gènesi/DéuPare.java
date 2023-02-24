@@ -17,7 +17,11 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Aaron,TimeMaster> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement

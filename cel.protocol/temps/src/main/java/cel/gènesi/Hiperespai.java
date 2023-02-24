@@ -17,7 +17,11 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Interestellar,Supercúmul> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement

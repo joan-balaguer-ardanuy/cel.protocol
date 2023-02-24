@@ -17,7 +17,11 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 	
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<TimeMaster,Aaron> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement

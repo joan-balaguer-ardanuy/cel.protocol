@@ -19,7 +19,11 @@ public class Diploide
 	@Override
 	@XmlElement
 	public String obtenirNom() {
-		return getKey().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Haploide,Genomapa> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -87,7 +91,7 @@ public class Diploide
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(entrada, (Haploide) entrada.obtenirFill()));
+					establirClau(entrada, (Haploide) entrada.obtenirFill());
 				}
 				break;
 			default:

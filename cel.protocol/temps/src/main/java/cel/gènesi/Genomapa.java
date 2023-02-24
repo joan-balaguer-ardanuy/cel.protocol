@@ -20,8 +20,8 @@ public class Genomapa
 	@XmlElement
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
-		for(Anyell<Character,Integer> anyell : getKey()) {
-			stringBuilder.append(anyell.obtenirClau());
+		for(Anyell<Hipercub,Hipercadena> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
 		}
 		return stringBuilder.toString();
 	}

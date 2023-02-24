@@ -21,7 +21,11 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	@Override
 	@XmlElement
 	public String obtenirNom() {
-		return null;
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Cromosoma,Diploide> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement

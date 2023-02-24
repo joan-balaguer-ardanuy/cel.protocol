@@ -17,7 +17,11 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Espaitemps,Hiperespai> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement

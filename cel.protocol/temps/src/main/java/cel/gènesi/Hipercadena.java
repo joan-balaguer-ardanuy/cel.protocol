@@ -18,7 +18,11 @@ public class Hipercadena extends Dona<Integer,Character> {
 	@Override
 	@XmlElement
 	public String obtenirNom() {
-		return getValue().toString();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Integer,Character> entrada : this) {
+			stringBuilder.append(entrada.obtenirValor());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -71,7 +75,7 @@ public class Hipercadena extends Dona<Integer,Character> {
 		Hipercadena hipercadena = (Hipercadena) manament.getSource();
 		switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				hipercadena.comparador(hipercadena.getValue(), hipercadena.getKey()).compara(hipercadena, obtenirFill());
+				hipercadena.comparador().compara(hipercadena, obtenirFill());
 				Anyell<Character,Integer> anyell = hipercadena.comparador().font();
 				donarManament(new Ordre(anyell));
 				break;
@@ -79,7 +83,6 @@ public class Hipercadena extends Dona<Integer,Character> {
 				return;
 		}
 	}
-
 	@Override
 	public synchronized int compareTo(Anyell<Character, Integer> o) {
 		if(obtenirClau() < o.obtenirValor()) {

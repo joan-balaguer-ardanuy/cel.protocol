@@ -17,7 +17,11 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Hiperespai,Espaitemps> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -86,7 +90,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(espaitemps, (Hiperespai) espaitemps.obtenirFill()));
+					establirClau(espaitemps, (Hiperespai) espaitemps.obtenirFill());
 				}
 				break;
 			default:

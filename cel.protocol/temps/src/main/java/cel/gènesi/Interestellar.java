@@ -17,7 +17,11 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Andròmeda,ViaLàctia> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -86,7 +90,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill()));
+					establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
 				}
 				break;
 			default:

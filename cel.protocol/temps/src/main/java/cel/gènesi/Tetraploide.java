@@ -20,7 +20,11 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Diploide,Cromosoma> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -88,7 +92,7 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) { 
-					execute(establirClau(entrada, (Diploide) entrada.obtenirFill()));
+					establirClau(entrada, (Diploide) entrada.obtenirFill());
 				}
 				break;
 			default:

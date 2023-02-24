@@ -17,8 +17,13 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
-	}	@Override
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Tetraploide,Ribosoma> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
+	}
+	@Override
 	@XmlElement
 	public Tetraploide getKey() {
 		return obtenirClau();
@@ -85,7 +90,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill()));
+					establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill());
 				}
 				break;
 			default:

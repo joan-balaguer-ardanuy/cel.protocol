@@ -17,7 +17,11 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Mar,Terra> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}	@Override
 	@XmlElement
 	public Mar getKey() {
@@ -85,7 +89,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(terra, (Mar) terra.obtenirFill()));
+					establirClau(terra, (Mar) terra.obtenirFill());
 				}
 				break;
 			default:

@@ -17,7 +17,11 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<AlfaCentauri,Sol> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -86,7 +90,7 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(sol, (AlfaCentauri) sol.obtenirFill()));
+					establirClau(sol, (AlfaCentauri) sol.obtenirFill());
 				}
 				break;
 			default:

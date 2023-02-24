@@ -75,7 +75,7 @@ public abstract class Aliança
 		super(paritat);
 	}
 	public Aliança(Class<? extends V> classeFill, Paritat paritat) {
-		super(paritat, crea(classeFill, paritat));
+		super(paritat, crea(classeFill, paritat.oposada()));
 		establirDéu(obtenirPare());
 		establirMareDeDéu(obtenirFill());
 	}
@@ -92,7 +92,7 @@ public abstract class Aliança
 		establirDéu(déu);
 	}
 	public Aliança(Class<? extends V> classeFill, K déu, Paritat paritat) {
-		super(paritat, crea(classeFill, déu.obtenirMareDeDéu(), paritat));
+		super(paritat, crea(classeFill, déu.obtenirMareDeDéu(), paritat.oposada()));
 		establirDéu(déu);
 	}
 	@Override

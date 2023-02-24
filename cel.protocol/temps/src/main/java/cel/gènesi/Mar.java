@@ -17,7 +17,11 @@ public class Mar extends Dona<Poliploide,Operó> {
 
 	@Override
 	public String obtenirNom() {
-		return obtenirClau().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Poliploide,Operó> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -86,7 +90,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(operó, (Poliploide) operó.obtenirFill()));
+					establirClau(operó, (Poliploide) operó.obtenirFill());
 				}
 				break;
 			default:

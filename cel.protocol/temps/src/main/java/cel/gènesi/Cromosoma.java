@@ -21,7 +21,11 @@ public class Cromosoma
 	
 	@Override
 	public String obtenirNom() {
-		return getKey().obtenirNom();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Genomapa,Haploide> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement

@@ -18,7 +18,11 @@ public class Hipercub extends Home<Character,Integer> {
 	@Override
 	@XmlElement
 	public String obtenirNom() {
-		return getKey().toString();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Anyell<Character,Integer> entrada : this) {
+			stringBuilder.append(entrada.obtenirClau());
+		}
+		return stringBuilder.toString();
 	}
 	@Override
 	@XmlElement
@@ -68,17 +72,19 @@ public class Hipercub extends Home<Character,Integer> {
 	@Override
 	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		Hipercub hipercub = (Hipercub) manament.getSource();
-		switch (manament.obtenirManament()) {
-		case Manament.VIU:
-			hipercub.permutarFill(obtenirPassat(), obtenirFutur());
-			break;
-		case Manament.MOR:
-			hipercub.alliberar();
-			establirValor(hipercub.obtenirClau(), hipercub.obtenirValor());
-			break;
-		default:
-			return;
+		if(manament.getSource() instanceof Hipercub) {
+			Hipercub hipercub = (Hipercub) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				hipercub.permutarFill(obtenirPare(), obtenirPare().obtenirFill());
+				break;
+			case Manament.MOR:
+				hipercub.alliberar();
+				establirClau(hipercub.obtenirValor(), hipercub.obtenirClau());
+				break;
+			default:
+				return;
+			}
 		}
 	}
 	

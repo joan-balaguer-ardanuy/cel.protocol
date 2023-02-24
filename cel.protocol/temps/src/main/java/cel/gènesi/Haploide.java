@@ -23,8 +23,8 @@ public class Haploide
 	@Override
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
-		for(Anyell<Integer,Character> anyell : getKey()) {
-			stringBuilder.append(anyell.obtenirValor());
+		for(Anyell<Hipercadena,Hipercub> anyell : this) {
+			stringBuilder.append(anyell.obtenirClau().obtenirNom());
 		}
 		return stringBuilder.toString();
 	}
@@ -87,7 +87,7 @@ public class Haploide
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(entrada, (Hipercadena) entrada.obtenirFill()));
+					establirClau(entrada, (Hipercadena) entrada.obtenirFill());
 				}
 				break;
 			default:
