@@ -76,8 +76,7 @@ public class Hipercadena extends Dona<Integer,Character> {
 		switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				hipercadena.comparador().compara(hipercadena, obtenirFill());
-				Anyell<Character,Integer> anyell = hipercadena.comparador().font();
-				donarManament(new Ordre(anyell));
+				donarManament(new Ordre(hipercadena.comparador().font()));
 				break;
 			default:
 				return;
@@ -85,12 +84,31 @@ public class Hipercadena extends Dona<Integer,Character> {
 	}
 	@Override
 	public synchronized int compareTo(Anyell<Character, Integer> o) {
-		if(obtenirClau() < o.obtenirValor()) {
-			comparador(obtenirValor(), obtenirClau());
-			return -1;
-		} else {
-			comparador(o.obtenirClau(), o.obtenirValor());
-			return 1;
+		switch (obtenirParitat()) {
+		case XY:
+			if(obtenirClau() < o.obtenirValor()) {
+				comparador(obtenirValor(), obtenirClau());
+				return -1;
+			} else {
+				comparador(o.obtenirClau(), o.obtenirValor());
+				return 1;
+			}
+		case XX:
+			if(obtenirClau() > o.obtenirValor()) {
+				comparador(obtenirValor(), obtenirClau());
+				return -1;
+			} else {
+				comparador(o.obtenirClau(), o.obtenirValor());
+				return 1;
+			}
+		default:
+			if(obtenirClau() < o.obtenirValor()) {
+				comparador(o.obtenirClau(), obtenirClau());
+				return -1;
+			} else {
+				comparador(obtenirValor(), o.obtenirValor());
+				return 1;
+			}
 		}
 	}
 	@Override

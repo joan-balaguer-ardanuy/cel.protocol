@@ -45,14 +45,13 @@ public class Simulador extends PApplet implements Esperit {
 	float z = 0;
 	
 	public void setup() {
-		size(1920, 1080, P3D);
 		background(0);
 		colorMode(RGB, 255, 255, 255);
 		noStroke();
 		ellipseMode(RADIUS);
 		frameRate(25);
 		
-		int dilatació = 1;
+		int dilatació = 10;
 		Hipercub hipercub = new Hipercub(Paritat.XX, 'A', (int) 'A'*dilatació);
 		hipercub.establirValor('B', (int) 'B'*dilatació);
 		hipercub.establirValor('C', (int) 'C'*dilatació);

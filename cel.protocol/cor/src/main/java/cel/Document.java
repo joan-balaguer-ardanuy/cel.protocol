@@ -363,7 +363,7 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 
 		@SuppressWarnings("unchecked")
 		public Matriu(V valor, K clau) {
-			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), obtenirParitat(), valor, clau));
+			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Paritat.aleatòria(), valor, clau));
 		}
 
 //		@SuppressWarnings("unchecked")
