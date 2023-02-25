@@ -113,7 +113,7 @@ public class Simulador extends PApplet implements Esperit {
 
 	public void draw() {
 		background(0);
-		camera(mouseX, mouseY, (height / 8) / tan(PI / 8), width / 2, height / 2, 0, 0, 1, 0);
+		camera(0, 0, 5000, 0, 0, 0, 0, 1, 0);
 		lights();
 		spotLight(255, 0, 0, width / 2, height / 2, 400, 0, 0, -1, PI / 4, 2);
 		noStroke();

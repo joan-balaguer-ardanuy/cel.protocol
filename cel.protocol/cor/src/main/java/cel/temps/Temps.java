@@ -5,9 +5,7 @@ import java.util.function.BiConsumer;
 
 import cel.Déu;
 import cel.Esperit;
-import cel.Nombre;
 import cel.Paritat;
-import cel.arca.Animal;
 
 /**
  * <tt>

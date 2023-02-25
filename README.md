@@ -154,7 +154,7 @@ cel.temps.Amor tot el que persisteix. El cel.Pare pla del cel.protocol l'ocupa l
 cel.gènesi.Home.<br/>
 <br/>
 En conseqüència, el java.util.concurrent.Executor del cel.protocol és una entitat de cel.Esperit inquiet, en recer-<br/>
-ca. Els codis cel.protocol estableixen respostes, tanmateix sobretot implementen a programar camí. És cert
+ca. Els codis cel.protocol estableixen respostes, tanmateix sobretot implementen a programar recurrència. És cert
 que es pot executar el cel.protocol des de la dimensió del programa programàtic o des de la dimensió
 temporal del qui s'interessa per la població d'Israel en l'antiguitat o pels gènesi del cris-<br/>
 tianisme. Nogensmenys, el cel.protocol ha estat programat per uns programadors que volen implementar els

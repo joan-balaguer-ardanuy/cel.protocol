@@ -1,7 +1,5 @@
 package cel.temps;
 
-import cel.EsperitSant;
-
 /**
  * <tt>
  * <center>
