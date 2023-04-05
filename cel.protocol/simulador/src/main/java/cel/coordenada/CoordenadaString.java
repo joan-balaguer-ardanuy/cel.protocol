@@ -3,7 +3,9 @@ package cel.coordenada;
 import cel.Anyell;
 import cel.Coordenada;
 import cel.Document;
+import cel.Esperit;
 import cel.Paritat;
+import cel.gènesi.Hipercub;
 
 public class CoordenadaString extends Document<Coordenada, String> {
 
@@ -44,7 +46,7 @@ public class CoordenadaString extends Document<Coordenada, String> {
 
 	@Override
 	public String obtenirNom() {
-		return null;
+		return obtenirValor();
 	}
 
 }

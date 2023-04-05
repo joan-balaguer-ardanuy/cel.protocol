@@ -30,13 +30,15 @@ public class Simulador extends PApplet implements Esperit {
 
 	private static final long serialVersionUID = -5297826820482250738L;
 	
-	Cromosoma cromosoma;
-	DéuPare déuPare;
+	Genomapa genomapa;
+//	Operó operó;
+	
 	Anyell<String,Coordenada> coordenades;
 	
 	float constantX = 621;
 	float constantY = 702;
-	float constantZ = 891;
+	float constantZ = 891-199+91;
+	float cameraZ = 5000;
 	
 	float tamany = 200;
 	
@@ -46,7 +48,7 @@ public class Simulador extends PApplet implements Esperit {
 	
 	public void setup() {
 		background(0);
-		colorMode(RGB, 255, 255, 255);
+		colorMode(RGB, 255);
 		noStroke();
 		ellipseMode(RADIUS);
 		frameRate(25);
@@ -80,75 +82,80 @@ public class Simulador extends PApplet implements Esperit {
 		hipercub.establirValor('Z', (int) 'Z'*dilatació);
 		hipercub.establirValor('Ç', (int) 'Ç'*dilatació);
 		
-		Genomapa genomapa = new Genomapa(hipercub.obtenirParitat(), hipercub, (Hipercadena) hipercub.obtenirFill());
-		Cromosoma cromosoma = new Cromosoma(genomapa.obtenirParitat(), genomapa, (Haploide) genomapa.obtenirFill());
-		Ribosoma ribosoma = new Ribosoma(cromosoma.obtenirParitat(), cromosoma, (Diploide) cromosoma.obtenirFill());
-		Operó operó = new Operó(ribosoma.obtenirParitat(), ribosoma, (Tetraploide) ribosoma.obtenirFill());
-		Terra terra = new Terra(operó.obtenirParitat(), operó, (Poliploide) operó.obtenirFill());
-		Sol sol = new Sol(terra.obtenirParitat(), terra, (Mar) terra.obtenirFill());
-		ViaLàctia viaLàctia = new ViaLàctia(sol.obtenirParitat(), sol, (AlfaCentauri) sol.obtenirFill());
-		Supercúmul supercúmul = new Supercúmul(viaLàctia.obtenirParitat(), viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
-		Espaitemps espaitemps = new Espaitemps(supercúmul.obtenirParitat(), supercúmul, (Interestellar) supercúmul.obtenirFill());
-		Aaron aaron = new Aaron(espaitemps.obtenirParitat(), espaitemps, (Hiperespai) espaitemps.obtenirFill());
-		déuPare = new DéuPare(aaron.obtenirParitat(), aaron, (TimeMaster) aaron.obtenirFill());
-//		
-		déuPare.afegirTestimoni(this);
-		déuPare.obtenirFill().afegirTestimoni(this);
-
-		coordenades = new StringCoordenada(Paritat.XX, déuPare.obtenirNom(), new Coordenada(déuPare.obtenirNom(), déuPare.obtenirParitat())); 
-		coordenades.establirValor(hipercub.obtenirNom(), new Coordenada(hipercub.obtenirNom(), hipercub.obtenirParitat()));
-		coordenades.establirValor(genomapa.obtenirNom(), new Coordenada(genomapa.obtenirNom(), genomapa.obtenirParitat()));
-		coordenades.establirValor(cromosoma.obtenirNom(), new Coordenada(cromosoma.obtenirNom(), cromosoma.obtenirParitat()));
-		coordenades.establirValor(cromosoma.obtenirNom(), new Coordenada(cromosoma.obtenirNom(), cromosoma.obtenirParitat()));
-		coordenades.establirValor(ribosoma.obtenirNom(), new Coordenada(ribosoma.obtenirNom(), ribosoma.obtenirParitat()));
-		coordenades.establirValor(operó.obtenirNom(), new Coordenada(operó.obtenirNom(), operó.obtenirParitat()));
-		coordenades.establirValor(terra.obtenirNom(), new Coordenada(terra.obtenirNom(), terra.obtenirParitat()));
-		coordenades.establirValor(sol.obtenirNom(), new Coordenada(sol.obtenirNom(), sol.obtenirParitat()));
-		coordenades.establirValor(viaLàctia.obtenirNom(), new Coordenada(viaLàctia.obtenirNom(), viaLàctia.obtenirParitat()));
-		coordenades.establirValor(supercúmul.obtenirNom(), new Coordenada(supercúmul.obtenirNom(), supercúmul.obtenirParitat()));
-		coordenades.establirValor(espaitemps.obtenirNom(), new Coordenada(espaitemps.obtenirNom(), espaitemps.obtenirParitat()));
-		coordenades.establirValor(aaron.obtenirNom(), new Coordenada(aaron.obtenirNom(), aaron.obtenirParitat()));
-		déuPare.execute(déuPare);
+		genomapa = new Genomapa(hipercub.obtenirParitat(), hipercub, (Hipercadena) hipercub.obtenirFill());
+		genomapa.afegirTestimoni(this);
+		genomapa.obtenirFill().afegirTestimoni(this);
+		coordenades = new StringCoordenada(genomapa.obtenirParitat(), genomapa.obtenirNom(), new Coordenada(genomapa));
+		genomapa.execute(genomapa);
 	}
 
 	public void draw() {
 		background(0);
-		camera(0, 0, 5000, 0, 0, 0, 0, 1, 0);
+		camera(0, 0, -cameraZ, 0, 0, 0, 0, 1, 0);
 		lights();
-		spotLight(255, 0, 0, width / 2, height / 2, 400, 0, 0, -1, PI / 4, 2);
+		spotLight(255, 0, 0, width / 2, height / 2, 5000, 0, 0, -1, PI / 4, 2);
 		noStroke();
-
-		for(Anyell<String,Coordenada> coordCromosoma : coordenades) {
-			Coordenada coordenada = coordCromosoma.obtenirValor();
+		
+		for(Anyell<String,Coordenada> anyell : coordenades) {
+			Coordenada coordenada = anyell.obtenirValor();
+//			if(coordenada.getEsperit() instanceof Hipercadena) {
+//				rotateX(coordenada.getAngleX());	
+//				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
+//			} else if(coordenada.getEsperit() instanceof Hipercub) {
+//				rotateY(coordenada.getAngleY());
+//				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
+//			}
 			switch (coordenada.getParitat()) {
 			case XX:
 				rotateX(coordenada.getAngleX());	
-				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getAngleX() % 50);
+				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
 				break;
 			case XY:
 				rotateY(coordenada.getAngleY());
-				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getAngleY() % 50);
+				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
 				break;
 			default:
+				rotateX(coordenada.getAngleX());	
+				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
+				rotateY(coordenada.getAngleY());
+				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
 				rotateZ(coordenada.getAngleZ());
-				coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getAngleZ() % 50);
+				coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
 				break;
 			}
+//			rotateZ(coordenada.getAngleZ());
+//			coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
 			translate(coordenada.getX() % constantX, coordenada.getY() % constantY, -coordenada.getZ() % constantZ);
-//			translate(coordenada.getX(), coordenada.getY(), -coordenada.getZ());
-//			fill(coordenada.getX() * 255 / constantX, coordenada.getY() * 255 / constantY, coordenada.getZ() * 255 / constantZ);
-			fill((coordenada.getX() * 255 / constantX) % 255, (coordenada.getY() * 255 / constantY) % 255, (coordenada.getZ() * 255 / constantZ) % 255);
-			sphere(coordenada.getTotal() % tamany);
+			
+			switch (coordenada.getParitat()) {
+			case XX:
+				fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
+				break;
+			case XY:
+				fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
+				break;
+			default:
+				fill((coordenada.getX()) % 255,  coordenada.getY() % 255, coordenada.getZ() % 255);
+				break;
+			}
+//			if(coordenada.getEsperit() instanceof Hipercadena) {
+//				fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
+//			} else if(coordenada.getEsperit() instanceof Hipercub) {
+//				fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
+//			}
+			sphere(coordenada.getTotal() % 200);
 		}
 	}
 	
 	public void settings() {
+		System.setProperty("jogl.disable.openglcore", "false");
 		size(1920, 1080, "processing.opengl.PGraphics3D");
+//		size(1366, 768, "processing.opengl.PGraphics3D");
 	}
 
 	@Override
 	public String obtenirNom() {
-		return null;
+		return null; 
 	}
 
 	@Override
@@ -188,10 +195,18 @@ public class Simulador extends PApplet implements Esperit {
 
 	@Override
 	public void esdeveniment(Ordre manament) {
+		Esperit esperit = (Esperit) manament.getSource();
 		switch (manament.obtenirManament()) {
-		case Manament.GÈNESI:
-			Esperit esperit = (Esperit) manament.getSource();
-			Coordenada coordenada = new Coordenada(esperit.obtenirNom(), esperit.obtenirParitat());
+		case Manament.VIU:
+//			if(esperit instanceof Hipercub) {
+//				Coordenada coordenada = new Coordenada((Hipercub) esperit);
+//				coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//			} else if(esperit instanceof Hipercadena) {
+//				Coordenada coordenada = new Coordenada((Hipercadena) esperit);
+//				coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//			}
+//			
+			Coordenada coordenada = new Coordenada(esperit);
 			coordenades.establirValor(esperit.obtenirNom(), coordenada);
 		default:
 			break;

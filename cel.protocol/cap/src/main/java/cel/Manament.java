@@ -39,4 +39,9 @@ public class Manament {
 	 * Temps de morir
 	 */
 	public final static String MOR = "MOR";
+	
+	/**
+	 * Temps de morir
+	 */
+	public final static String REPRESENTA = "REPRESENTA";
 }

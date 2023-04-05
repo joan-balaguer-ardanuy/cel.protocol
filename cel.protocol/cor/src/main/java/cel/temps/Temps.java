@@ -102,13 +102,13 @@ public abstract class Temps
 	public Temps(Class<? extends V> classeFill, K déu, Paritat paritat) {
 		super(classeFill, déu, paritat);
 	}
-
+ 
 	@Override
 	public void volta() {
 		if(aleatorietat().nextBoolean()) {
-			permutarFill(obtenirPare(), obtenirFill().obtenirPare());
+			obtenirPare().permutarFill(obtenirPassat(), obtenirFutur());
 		} else {
-			permutarFill(obtenirPassat(), obtenirFutur());
+			obtenirPassat().permutarFill(obtenirPare(), obtenirPare().obtenirFill());
 		}
 	}
 	@Override

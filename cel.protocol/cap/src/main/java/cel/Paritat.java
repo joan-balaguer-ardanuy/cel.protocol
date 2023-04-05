@@ -24,6 +24,11 @@ public enum Paritat {
 	 * @return l'aleatorietat.
 	 */
 	public static Paritat aleatòria() {
+//		if(aleatorietat.nextBoolean()) {
+//			return XX;
+//		} else {
+//			return XY;
+//		}
 		switch (aleatorietat.nextInt(3)) {
 		case 0:
 			return XY;
@@ -32,5 +37,14 @@ public enum Paritat {
 		default:
 			return YY;
 		}
+//		int val = aleatorietat.nextInt(1001);
+//		if(val <= 499) {
+//			return XX;
+//		} else if (val > 499 && val < 1000) {
+//			return XY;
+//		}
+//		else {
+//			return YY;
+//		}
 	}
 }

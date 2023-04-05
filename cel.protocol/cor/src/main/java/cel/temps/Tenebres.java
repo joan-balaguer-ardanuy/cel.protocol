@@ -132,8 +132,9 @@ public abstract class Tenebres
 	}
 	@Override
 	public void run() {
-		if(sócDéu() ? true : !sócFinal())
+		if(sócDéu() ? true : !sócFinal() && !ésBuit()) {
 			obtenirFill().run();
+		}
 		super.run();
 	}
 }

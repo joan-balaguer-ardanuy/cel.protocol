@@ -89,6 +89,14 @@ public class Hipercub extends Home<Character,Integer> {
 	}
 	@Override
 	public synchronized int compareTo(Anyell<Integer,Character> o) {
+
+//		if(obtenirValor() > o.obtenirClau()) {
+//			comparador(obtenirValor(), obtenirClau());
+//			return 1;
+//		} else {
+//			comparador(o.obtenirClau(), o.obtenirValor());
+//			return -1;
+//		}
 		switch (obtenirParitat()) {
 		case XX:
 			if(obtenirValor() > o.obtenirClau()) {

@@ -68,10 +68,8 @@ public abstract class Déu
 	protected synchronized void donarManament(Ordre manament) {
 		if(testimonis != null) {
 			Ramat<Esperit> iterador = testimonis.pastor();
-			Esperit esperit = null;
 			do {
-				esperit = iterador.següent();
-				esperit.esdeveniment(manament);
+				iterador.següent().esdeveniment(manament);
 			}
 			while(iterador.téMés());
 		}

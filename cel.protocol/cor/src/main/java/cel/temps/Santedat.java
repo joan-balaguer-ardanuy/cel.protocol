@@ -157,9 +157,8 @@ public abstract class Santedat
 			obtenirFutur().establirPare(obtenirFill());
 			fill.establirFill(obtenirPare().obtenirPassat());
 			establirPare(pare);
-			obtenirFill().establirPare(fill); 
+			obtenirFill().establirPare(fill);
 		} else {
-//			K parePare = ;
 			V fillPare = fill.establirPare(obtenirFill().obtenirPare());
 			K fillFill = fill.establirFill(obtenirPassat());
 			fillPare.establirFill(obtenirPare().obtenirPassat());
@@ -171,21 +170,6 @@ public abstract class Santedat
 			establirPassat(fillFill);
 			obtenirPassat().establirPare(obtenirPare().obtenirPassat());
 			obtenirFutur().establirPare(obtenirFill());
-//			K oldParent = pare.obtenirPare();
-//			V oldParentChild = fill.obtenirPare();
-//			K oldChild = fill.obtenirFill();
-//			pare.establirPare(obtenirPare()); 
-//			fill.establirPare(obtenirFill().obtenirPare());
-//			fill.establirFill(obtenirPassat());
-//			oldParentChild.establirFill(obtenirPare().obtenirPassat());
-//			obtenirPare().establirPassat(pare);
-//			establirPare(oldParent);
-//			obtenirFill().establirPare(oldParentChild);
-//			obtenirPassat().establirPare(pare);
-//			obtenirFutur().establirPare(fill);
-//			establirPassat(oldChild);
-//			obtenirPassat().establirPare(obtenirPare().obtenirPassat());
-//			obtenirFutur().establirPare(obtenirFill());
 		}
 	}
 

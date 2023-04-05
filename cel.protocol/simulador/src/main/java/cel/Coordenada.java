@@ -1,5 +1,9 @@
 package cel;
 
+import cel.gènesi.Genomapa;
+import cel.gènesi.Hipercadena;
+import cel.gènesi.Hipercub;
+
 public class Coordenada {
 	static char[] lletres = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',  'O', 'P', 'Q', 'R','S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ç' };
 	float constant;
@@ -11,13 +15,20 @@ public class Coordenada {
 	float total = 0;
 
 	static final float PI = (float) Math.PI;
-	float angleX = PI / 200;
-	float angleY = PI / 200;
-	float angleZ = PI / 200;
+	float angleX;
+	float angleY;
+	float angleZ;
 	
+	Esperit esperit;
 	
 	String nom;
 	
+	public Esperit getEsperit() {
+		return esperit;
+	}
+	public void setEsperit(Esperit esperit) {
+		this.esperit = esperit;
+	}
 	public float getTotal() {
 		return total;
 	}
@@ -66,19 +77,69 @@ public class Coordenada {
 	public void setParitat(Paritat paritat) {
 		this.paritat = paritat;
 	}
-	public Coordenada(String nom, Paritat paritat) {
-		this.paritat = paritat;
-		switch (paritat) {
-		case XX:
-			angleX = angleX + PI / 50 ;
-			break;
-		case XY:
-			angleY = angleY + PI / 50;
-			break;
-		default:
-			angleZ = angleZ + PI / 50;
-			break;
+	
+	public Coordenada(Hipercub hipercub) {
+		esperit = hipercub;
+		for(Anyell<Character,Integer> anyell : hipercub) {
+			switch (obtenirDimensió(anyell.obtenirClau())) {
+			case XX:
+				x += obtenirValor(anyell.obtenirClau());
+				break;
+			case XY:
+				y += obtenirValor(anyell.obtenirClau());
+				break;
+			default:
+				z += obtenirValor(anyell.obtenirClau());
+				break;
+			}
 		}
+		total = x + y + z;
+		angleY = PI / (y % 200);
+//		switch (hipercub.obtenirParitat()) {
+//		case XX:
+//			angleX = PI / (x % 200);
+//			break;
+//		case XY:
+//			angleY = PI / (y % 200);
+//			break;
+//		default:
+//			angleZ = PI / (z % 200);
+//			break;
+//		}
+	}
+	public Coordenada(Hipercadena hipercadena) {
+		esperit = hipercadena;
+		for(Anyell<Integer,Character> anyell : hipercadena) {
+			switch (obtenirDimensió(anyell.obtenirValor())) {
+			case XX:
+				x += obtenirValor(anyell.obtenirValor());
+				break;
+			case XY:
+				y += obtenirValor(anyell.obtenirValor());
+				break;
+			default:
+				z += obtenirValor(anyell.obtenirValor());
+				break;
+			}
+		}
+		total = x + y + z;
+		angleX = PI / (x % 200);
+//		switch (hipercadena.obtenirParitat()) {
+//		case XX:
+//			angleX = PI / (x % 200);
+//			break;
+//		case XY:
+//			angleY = PI / (y % 200);
+//			break;
+//		default:
+//			angleZ = PI / (z % 200);
+//			break;
+//		}
+	}
+	public Coordenada(Esperit esperit) {
+		this.esperit = esperit;
+		this.paritat = esperit.obtenirParitat();
+		this.nom = esperit.obtenirNom();
 		
 		int índex = 0;
 		for(índex = 0; índex < nom.length(); índex++) {
@@ -99,8 +160,19 @@ public class Coordenada {
 		}
 		
 		total = x + y + z;
+		
+		switch (paritat) {
+		case XX:
+			angleX = PI / (x % 200);
+			break;
+		case XY:
+			angleY = PI / (y % 200);
+			break;
+		default:
+			angleZ = PI / (z % 200);
+			break;
+		}
 	}
-	
 	public static int obtenirValor(char lletra) {
 		
 		switch (lletra) {
@@ -157,7 +229,7 @@ public class Coordenada {
 		case 'Z':
 			return 90;
 		case 'Ç':
-			return 199;
+			return 91;
 		default:
 			return 0;
 		}
@@ -183,7 +255,7 @@ public class Coordenada {
 		case 'P':
 		case 'Q':
 		case 'R':
-			return Paritat.XY;
+			return Paritat.YY;
 		case 'S':
 		case 'T':
 		case 'U':
@@ -194,7 +266,7 @@ public class Coordenada {
 		case 'Z':
 		case 'Ç':
 		default:
-			return Paritat.YY;
+			return Paritat.XY;
 		}
 	}
 }

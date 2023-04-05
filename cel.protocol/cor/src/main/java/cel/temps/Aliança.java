@@ -101,7 +101,7 @@ public abstract class Aliança
 	}
 	@Override
 	public boolean sócFinal() {
-		return obtenirPassat() == obtenirDéu();
+		return obtenirFill() == obtenirMareDeDéu();
 	}
 	
 	@Override
@@ -249,7 +249,7 @@ public abstract class Aliança
 			K pare = (K) getClass().getConstructor().newInstance();
 			V fill = (V) obtenirFill().getClass().getConstructor().newInstance();
 			pare.establirParitat(obtenirParitat());
-			fill.establirParitat(obtenirParitat());
+			fill.establirParitat(obtenirFill().obtenirParitat());
 			pare.establirPare(pare);
 			fill.establirPare(fill);
 			pare.establirFill(fill);

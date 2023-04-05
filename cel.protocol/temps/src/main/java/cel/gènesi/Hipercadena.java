@@ -84,6 +84,13 @@ public class Hipercadena extends Dona<Integer,Character> {
 	}
 	@Override
 	public synchronized int compareTo(Anyell<Character, Integer> o) {
+//		if(obtenirClau() < o.obtenirValor()) {
+//			comparador(obtenirValor(), obtenirClau());
+//			return -1;
+//		} else {
+//			comparador(o.obtenirClau(), o.obtenirValor());
+//			return 1;
+//		}
 		switch (obtenirParitat()) {
 		case XY:
 			if(obtenirClau() < o.obtenirValor()) {
