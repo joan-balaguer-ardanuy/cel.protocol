@@ -52,7 +52,7 @@ public class Hipercadena extends Dona<Integer,Character> {
 		super();
 	}
 	public Hipercadena(Paritat paritat) {
-		super(paritat);
+		super(paritat); 
 	}
 	public Hipercadena(Paritat paritat, Integer clau, Character valor) {
 		super(Hipercub.class, paritat, clau, valor);
@@ -75,22 +75,15 @@ public class Hipercadena extends Dona<Integer,Character> {
 		Hipercadena hipercadena = (Hipercadena) manament.getSource();
 		switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				hipercadena.comparador().compara(hipercadena, obtenirFill());
-				donarManament(new Ordre(hipercadena.comparador().font()));
+				comparador(obtenirValor(), obtenirClau()).compara(hipercadena.obtenirDéu(), obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				return;
-		}
-	}
+		} 
+	} 
 	@Override
 	public synchronized int compareTo(Anyell<Character, Integer> o) {
-//		if(obtenirClau() < o.obtenirValor()) {
-//			comparador(obtenirValor(), obtenirClau());
-//			return -1;
-//		} else {
-//			comparador(o.obtenirClau(), o.obtenirValor());
-//			return 1;
-//		}
 		switch (obtenirParitat()) {
 		case XY:
 			if(obtenirClau() < o.obtenirValor()) {
@@ -100,20 +93,12 @@ public class Hipercadena extends Dona<Integer,Character> {
 				comparador(o.obtenirClau(), o.obtenirValor());
 				return 1;
 			}
-		case XX:
+		default:
 			if(obtenirClau() > o.obtenirValor()) {
 				comparador(obtenirValor(), obtenirClau());
 				return -1;
 			} else {
 				comparador(o.obtenirClau(), o.obtenirValor());
-				return 1;
-			}
-		default:
-			if(obtenirClau() < o.obtenirValor()) {
-				comparador(o.obtenirClau(), obtenirClau());
-				return -1;
-			} else {
-				comparador(obtenirValor(), o.obtenirValor());
 				return 1;
 			}
 		}

@@ -1,5 +1,8 @@
 package cel;
 
+import java.util.Iterator;
+
+import cel.arca.Ramat;
 import cel.coordenada.StringCoordenada;
 import cel.gènesi.Aaron;
 import cel.gènesi.AlfaCentauri;
@@ -29,10 +32,11 @@ import processing.core.*;
 public class Simulador extends PApplet implements Esperit {
 
 	private static final long serialVersionUID = -5297826820482250738L;
-	
+//	Cromosoma cromosoma;
 	Genomapa genomapa;
 //	Operó operó;
-	
+
+	Testimonis testimonis;
 	Anyell<String,Coordenada> coordenades;
 	
 	float constantX = 621;
@@ -81,8 +85,11 @@ public class Simulador extends PApplet implements Esperit {
 		hipercub.establirValor('Y', (int) 'Y'*dilatació);
 		hipercub.establirValor('Z', (int) 'Z'*dilatació);
 		hipercub.establirValor('Ç', (int) 'Ç'*dilatació);
+
+		testimonis = new Testimonis();
+		genomapa = new Genomapa(Paritat.XX, hipercub, (Hipercadena) hipercub.obtenirFill());
+//		cromosoma = new Cromosoma(genomapa.obtenirParitat(), genomapa, (Haploide)genomapa.obtenirFill());
 		
-		genomapa = new Genomapa(hipercub.obtenirParitat(), hipercub, (Hipercadena) hipercub.obtenirFill());
 		genomapa.afegirTestimoni(this);
 		genomapa.obtenirFill().afegirTestimoni(this);
 		coordenades = new StringCoordenada(genomapa.obtenirParitat(), genomapa.obtenirNom(), new Coordenada(genomapa));
@@ -95,55 +102,75 @@ public class Simulador extends PApplet implements Esperit {
 		lights();
 		spotLight(255, 0, 0, width / 2, height / 2, 5000, 0, 0, -1, PI / 4, 2);
 		noStroke();
-		
-		for(Anyell<String,Coordenada> anyell : coordenades) {
-			Coordenada coordenada = anyell.obtenirValor();
-//			if(coordenada.getEsperit() instanceof Hipercadena) {
-//				rotateX(coordenada.getAngleX());	
-//				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
-//			} else if(coordenada.getEsperit() instanceof Hipercub) {
-//				rotateY(coordenada.getAngleY());
-//				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
+		synchronized (this) {
+//			Ramat<Esperit> esperits = testimonis.pastor();
+//			while(esperits.téMés()) {
+//				Esperit esperit = esperits.següent();
+//				for(Anyell<String,Coordenada> anyell : coordenades) {
+//					if(anyell.obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
+//						anyell.alliberar();
+//						esperits.alliberar();
+//						break;
+//					}
+//				}
 //			}
-			switch (coordenada.getParitat()) {
-			case XX:
-				rotateX(coordenada.getAngleX());	
-				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
-				break;
-			case XY:
-				rotateY(coordenada.getAngleY());
-				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
-				break;
-			default:
-				rotateX(coordenada.getAngleX());	
-				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
-				rotateY(coordenada.getAngleY());
-				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
-				rotateZ(coordenada.getAngleZ());
-				coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
-				break;
+			Iterator<Anyell<String,Coordenada>> it = coordenades.iterator();
+			while(it.hasNext()) {
+				if(it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
+					it.remove();
+				} 
 			}
-//			rotateZ(coordenada.getAngleZ());
-//			coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
-			translate(coordenada.getX() % constantX, coordenada.getY() % constantY, -coordenada.getZ() % constantZ);
-			
-			switch (coordenada.getParitat()) {
-			case XX:
-				fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
-				break;
-			case XY:
-				fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
-				break;
-			default:
-				fill((coordenada.getX()) % 255,  coordenada.getY() % 255, coordenada.getZ() % 255);
-				break;
+		}
+		synchronized (this) {
+			for(Anyell<String,Coordenada> anyell : coordenades) {
+				Coordenada coordenada = anyell.obtenirValor();
+//				if(coordenada.getEsperit() instanceof Hipercadena) {
+//					rotateX(coordenada.getAngleX());	
+//					coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
+//				} else if(coordenada.getEsperit() instanceof Hipercub) {
+//					rotateY(coordenada.getAngleY());
+//					coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
+//				}
+				switch (coordenada.getParitat()) {
+				case XX:
+					rotateX(coordenada.getAngleX());	
+					coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
+					break;
+				case XY:
+					rotateY(coordenada.getAngleY());
+					coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
+					break;
+				default:
+					rotateX(coordenada.getAngleX());	
+					coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
+					rotateY(coordenada.getAngleY());
+					coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
+					rotateZ(coordenada.getAngleZ());
+					coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
+					break;
+				}
+//				rotateZ(coordenada.getAngleZ());
+//				coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
+				translate(coordenada.getX() % constantX, coordenada.getY() % constantY, -coordenada.getZ() % constantZ);
+				
+				switch (coordenada.getParitat()) {
+				case XX:
+					fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
+					break;
+				case XY:
+					fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
+					break;
+				default:
+					fill((coordenada.getX()) % 255,  coordenada.getY() % 255, coordenada.getZ() % 255);
+					break;
+				}
+//				if(coordenada.getEsperit() instanceof Hipercadena) {
+//					fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
+//				} else if(coordenada.getEsperit() instanceof Hipercub) {
+//					fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
+//				}
+				sphere(coordenada.getTotal() % 200);
 			}
-//			if(coordenada.getEsperit() instanceof Hipercadena) {
-//				fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
-//			} else if(coordenada.getEsperit() instanceof Hipercub) {
-//				fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
-//			}
-			sphere(coordenada.getTotal() % 200);
 		}
 	}
 	
@@ -197,17 +224,22 @@ public class Simulador extends PApplet implements Esperit {
 	public void esdeveniment(Ordre manament) {
 		Esperit esperit = (Esperit) manament.getSource();
 		switch (manament.obtenirManament()) {
+		case Manament.GÈNESI:
+			if(esperit instanceof Genomapa) {
+				Genomapa genomapa = (Genomapa) esperit;
+				genomapa.afegirTestimoni(this);
+				genomapa.obtenirFill().afegirTestimoni(this);
+			}
+			break;
 		case Manament.VIU:
-//			if(esperit instanceof Hipercub) {
-//				Coordenada coordenada = new Coordenada((Hipercub) esperit);
-//				coordenades.establirValor(esperit.obtenirNom(), coordenada);
-//			} else if(esperit instanceof Hipercadena) {
-//				Coordenada coordenada = new Coordenada((Hipercadena) esperit);
-//				coordenades.establirValor(esperit.obtenirNom(), coordenada);
-//			}
-//			
+			System.out.println("VIU: " + esperit.getClass());
 			Coordenada coordenada = new Coordenada(esperit);
 			coordenades.establirValor(esperit.obtenirNom(), coordenada);
+			break;
+		case Manament.MOR:
+			System.out.println("MOR: " + esperit.getClass());
+			testimonis.establir(esperit);
+			break;
 		default:
 			break;
 		}

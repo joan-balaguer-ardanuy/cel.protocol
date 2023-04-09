@@ -77,21 +77,21 @@ public class Diploide
 		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
-	public synchronized int compareTo(Anyell<Genomapa,Haploide> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+	public int compareTo(Anyell<Genomapa,Haploide> o) {
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hipercub,Hipercadena> anyell = obtenirClau().comparador().font();
 		comparador((Genomapa) anyell, (Haploide) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
-	public synchronized void esdeveniment(Ordre manament) {
+	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
 		if(manament.getSource() instanceof Genomapa) {
 			Genomapa entrada = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					establirClau(entrada, (Haploide) entrada.obtenirFill());
+					execute(establirClau(entrada, (Haploide) entrada.obtenirFill()));
 				}
 				break;
 			default:
@@ -102,9 +102,8 @@ public class Diploide
 			Diploide diploide = (Diploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					diploide.comparador(diploide.getValue(), diploide.getKey()).compara(diploide, obtenirFill());
-					Anyell<Genomapa,Haploide> anyell = diploide.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(diploide.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;

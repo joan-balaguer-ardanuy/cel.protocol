@@ -30,19 +30,19 @@ public abstract class Fill
 	private static final long serialVersionUID = 3538974726700165148L;
 
 	@Override
-	public synchronized K obtenirPassat() {
+	public K obtenirPassat() {
 		return obtenirFill().obtenirFill();
 	}
 	@Override
-	public synchronized K establirPassat(K passat) {
+	public K establirPassat(K passat) {
 		return obtenirFill().establirFill(passat);
 	}
 	@Override
-	public synchronized V obtenirFutur() {
+	public V obtenirFutur() {
 		return obtenirFill().obtenirPassat();
 	}
 	@Override
-	public synchronized V establirFutur(V futur) {
+	public V establirFutur(V futur) {
 		return obtenirFill().establirPassat(futur);
 	}
 	

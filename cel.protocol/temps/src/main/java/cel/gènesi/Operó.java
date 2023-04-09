@@ -77,7 +77,7 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 
 	@Override
 	public int compareTo(Anyell<Tetraploide, Ribosoma> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Diploide,Cromosoma> anyell = obtenirClau().comparador().font();
 		comparador((Tetraploide) anyell, (Ribosoma) anyell.obtenirFill());
 		return 0;

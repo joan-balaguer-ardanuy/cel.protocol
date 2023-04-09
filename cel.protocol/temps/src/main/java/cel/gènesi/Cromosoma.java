@@ -79,14 +79,14 @@ public class Cromosoma
 		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
-	public synchronized int compareTo(Anyell<Haploide,Genomapa> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+	public int compareTo(Anyell<Haploide,Genomapa> o) {
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hipercadena,Hipercub> anyell = obtenirClau().comparador().font();
 		comparador((Haploide) anyell, (Genomapa) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
-	public synchronized void esdeveniment(Ordre manament) {
+	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
 		if(manament.getSource() instanceof Cromosoma) {
 			Cromosoma cromosoma = (Cromosoma) manament.getSource();

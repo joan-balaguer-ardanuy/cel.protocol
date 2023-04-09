@@ -77,7 +77,7 @@ public class Terra extends Home<Operó,Poliploide> {
 
 	@Override
 	public int compareTo(Anyell<Poliploide, Operó> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Tetraploide,Ribosoma> anyell = obtenirClau().comparador().font();
 		comparador((Poliploide) anyell, (Operó) anyell.obtenirFill());
 		return 0;

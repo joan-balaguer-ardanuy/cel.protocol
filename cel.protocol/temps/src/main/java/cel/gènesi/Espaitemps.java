@@ -77,7 +77,7 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 
 	@Override
 	public int compareTo(Anyell<Interestellar, Supercúmul> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Andròmeda,ViaLàctia> anyell = obtenirClau().comparador().font();
 		comparador((Interestellar) anyell, (Supercúmul) anyell.obtenirFill());
 		return 0;
@@ -102,7 +102,7 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getKey().run(); 
 		super.run();
 	}
 }

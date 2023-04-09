@@ -80,7 +80,7 @@ public abstract class Temps
 			implements Vida<K,V> {
 
 	private static final long serialVersionUID = 5651963240853233224L;
-
+	
 	public Temps() {
 		super();
 	}
@@ -166,7 +166,7 @@ public abstract class Temps
 		/**
 		 * Si aquest iterador té un animal més
 		 */
-		private boolean téMés;
+		private volatile boolean téMés;
 		
 		public Iterador(K pare) {
 			següent = actual = pare;
@@ -181,12 +181,16 @@ public abstract class Temps
 		@Override
 		public synchronized K next() {
 			K e = següent;
-			actual = e;
-			següent = e.obtenirPare();
-			if(e == Temps.this)
-				téMés = false;
-			else téMés = true;
-			return e;
+			synchronized (e) {
+				synchronized (this) {
+					actual = e;
+					següent = e.obtenirPare();
+					if(e == Temps.this || e == següent)
+						téMés = false;
+					else téMés = true;
+					return e;	
+				}	
+			}
 		}
 		@Override
 		public synchronized void remove() {

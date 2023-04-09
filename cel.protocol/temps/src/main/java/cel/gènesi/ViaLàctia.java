@@ -77,7 +77,7 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 
 	@Override
 	public int compareTo(Anyell<AlfaCentauri, Sol> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Mar,Terra> anyell = obtenirClau().comparador().font();
 		comparador((AlfaCentauri) anyell, (Sol) anyell.obtenirFill());
 		return 0;

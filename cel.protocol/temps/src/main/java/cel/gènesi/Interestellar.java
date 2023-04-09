@@ -77,7 +77,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 
 	@Override
 	public int compareTo(Anyell<ViaLàctia, Andròmeda> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Sol,AlfaCentauri> anyell = obtenirClau().comparador().font();
 		comparador((ViaLàctia) anyell, (Andròmeda) anyell.obtenirFill());
 		return 0;
@@ -90,7 +90,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+					execute(establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill()));
 				}
 				break;
 			default:
@@ -101,9 +101,8 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			Interestellar interestellar = (Interestellar) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					interestellar.comparador(interestellar.getValue(), interestellar.getKey()).compara(interestellar, obtenirFill());
-					Anyell<ViaLàctia,Andròmeda> anyell = interestellar.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(interestellar.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;
@@ -112,7 +111,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getKey().run(); 
 		super.run();
 	}
 }

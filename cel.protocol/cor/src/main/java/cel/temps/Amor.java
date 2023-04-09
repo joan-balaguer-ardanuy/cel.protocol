@@ -152,27 +152,34 @@ public abstract class Amor
 		public abstract void establirFill(V fill);
 
 		@Override
-		public synchronized void compara(K pare, V fill) {
-			Iterator<K> iteradorPare = pare.iterator();
-			Iterator<V> iteradorFill = fill.iterator();
-			
-			for(;;) {
-				if(iteradorPare.hasNext() && iteradorFill.hasNext()) {
-					K clau = iteradorPare.next();
-					V valor = iteradorFill.next();
-					clau.compareTo(valor);
-					establirFill(clau.comparador().font());
-					
-					if(iteradorFill.hasNext() && iteradorPare.hasNext()) {
-						valor = iteradorFill.next();
-						clau = iteradorPare.next();
-						valor.compareTo(clau);
-						establirPare(valor.comparador().font());
-					}
-					else return;
+		public void compara(K pare, V fill) {
+			K p = pare.obtenirPare();
+			V f = fill.obtenirPare();
+			do {
+				p.compareTo(f);
+				establirFill(p.comparador().font());
+				p = p.obtenirPare();
+				f = f.obtenirPare();
+				if((p != pare && f != fill)) {
+					f.compareTo(p);
+					establirPare(f.comparador().font());
+					p = p.obtenirPare();
+					f = f.obtenirPare();
 				}
-				else return;
-			}
+			} while(p != pare && f != fill);
+			
+//			do {
+//				p = f.obtenirFill();
+//				f = p.obtenirFill();
+//				p.compareTo(f);
+//				establirFill(p.comparador().font());
+//				if((p != pare && f != fill)) {
+//					p = f.obtenirFill();
+//					f = p.obtenirFill();
+//					f.compareTo(p);
+//					establirPare(f.comparador().font());
+//				}
+//			} while(p != pare && f != fill);
 		}
 	}
 }

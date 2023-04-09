@@ -1,5 +1,6 @@
 package cel.temps;
 
+import cel.Manament;
 import cel.Paritat;
 
 /**
@@ -132,7 +133,7 @@ public abstract class Tenebres
 	}
 	@Override
 	public void run() {
-		if(sócDéu() ? true : !sócFinal() && !ésBuit()) {
+		if(sócDéu() || sócPrincipi() || !sócFinal()) {
 			obtenirFill().run();
 		}
 		super.run();

@@ -77,7 +77,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 
 	@Override
 	public int compareTo(Anyell<TimeMaster, Aaron> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hiperespai,Espaitemps> anyell = obtenirClau().comparador().font();
 		comparador((TimeMaster) anyell, (Aaron) anyell.obtenirFill());
 		return 0;
@@ -102,7 +102,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getKey().run(); 
 		super.run();
 	}
 }

@@ -39,6 +39,7 @@ public interface Vida<K,V> extends Regne<K>, Poder<V>, EsperitSant<K,V> {
 	void volta();
     
 	boolean sócDéu();
+	boolean sócPrincipi();
 	boolean sócFinal();
 	
 	/**

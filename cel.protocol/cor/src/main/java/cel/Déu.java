@@ -65,7 +65,7 @@ public abstract class Déu
 		}
 		testimonis.alliberar(esperit);
 	}
-	protected synchronized void donarManament(Ordre manament) {
+	protected void donarManament(Ordre manament) {
 		if(testimonis != null) {
 			Ramat<Esperit> iterador = testimonis.pastor();
 			do {
@@ -78,7 +78,7 @@ public abstract class Déu
 	public abstract Object clone();
 	
 	@Override
-	public synchronized void esdeveniment(Ordre manament) {
+	public void esdeveniment(Ordre manament) {
 		donarManament(manament);
 	}
 	@Override
@@ -98,11 +98,6 @@ public abstract class Déu
 	}
 	@Override
 	public void execute(Runnable command) {
-		try {
-			newThread(command).start();
-		}
-		catch (Throwable t) {
-			throw new Error(t);
-		}
+		newThread(command).start();
 	}
 }

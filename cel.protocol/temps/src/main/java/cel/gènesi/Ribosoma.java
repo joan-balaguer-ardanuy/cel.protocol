@@ -81,7 +81,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 
 	@Override
 	public int compareTo(Anyell<Diploide, Cromosoma> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Haploide,Genomapa> anyell = obtenirClau().comparador().font();
 		comparador((Diploide) anyell, (Cromosoma) anyell.obtenirFill());
 		return 0;

@@ -77,7 +77,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 
 	@Override
 	public int compareTo(Anyell<Operó, Poliploide> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Ribosoma,Tetraploide> anyell = obtenirClau().comparador().font();
 		comparador((Operó) anyell, (Poliploide) anyell.obtenirFill());
 		return 0;
@@ -90,7 +90,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					establirClau(operó, (Poliploide) operó.obtenirFill());
+					execute(establirClau(operó, (Poliploide) operó.obtenirFill()));
 				}
 				break;
 			default:
@@ -101,9 +101,8 @@ public class Mar extends Dona<Poliploide,Operó> {
 			Mar mar = (Mar) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					mar.comparador(mar.getValue(), mar.getKey()).compara(mar, obtenirFill());
-					Anyell<Operó,Poliploide> anyell = mar.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(mar.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;

@@ -76,7 +76,7 @@ public class Hipercub extends Home<Character,Integer> {
 			Hipercub hipercub = (Hipercub) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				hipercub.permutarFill(obtenirPare(), obtenirPare().obtenirFill());
+				hipercub.permutarFill(obtenirPassat(), obtenirFutur());	
 				break;
 			case Manament.MOR:
 				hipercub.alliberar();
@@ -88,26 +88,10 @@ public class Hipercub extends Home<Character,Integer> {
 		}
 	}
 	@Override
-	public synchronized int compareTo(Anyell<Integer,Character> o) {
-
-//		if(obtenirValor() > o.obtenirClau()) {
-//			comparador(obtenirValor(), obtenirClau());
-//			return 1;
-//		} else {
-//			comparador(o.obtenirClau(), o.obtenirValor());
-//			return -1;
-//		}
+	public synchronized int compareTo(Anyell<Integer, Character> o) {
 		switch (obtenirParitat()) {
 		case XX:
-			if(obtenirValor() > o.obtenirClau()) {
-				comparador(obtenirValor(), obtenirClau());
-				return 1;
-			} else {
-				comparador(o.obtenirClau(), o.obtenirValor());
-				return -1;
-			}
-		case XY:
-			if(obtenirValor() < o.obtenirClau()) {
+			if (obtenirValor() > o.obtenirClau()) {
 				comparador(obtenirValor(), obtenirClau());
 				return 1;
 			} else {
@@ -115,11 +99,11 @@ public class Hipercub extends Home<Character,Integer> {
 				return -1;
 			}
 		default:
-			if(obtenirValor() > o.obtenirClau()) {
-				comparador(obtenirValor(), o.obtenirValor());
+			if (obtenirValor() < o.obtenirClau()) {
+				comparador(obtenirValor(), obtenirClau());
 				return 1;
 			} else {
-				comparador(o.obtenirClau(), obtenirClau());
+				comparador(o.obtenirClau(), o.obtenirValor());
 				return -1;
 			}
 		}

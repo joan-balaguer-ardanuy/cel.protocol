@@ -356,22 +356,21 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		return comparador == null ? comparador = new Matriu(obtenirValor(), obtenirClau()) : comparador;
 	}
 	public Anyell.Generador<K,V> comparador(V valor, K clau) {
-		return comparador == null ? comparador = new Matriu(valor, clau) : comparador;
+		comparador = new Matriu(valor, clau);
+		return comparador;
 	}
-	
 	private class Matriu extends Òrgan implements Generador<K,V> {
 
 		@SuppressWarnings("unchecked")
 		public Matriu(V valor, K clau) {
 			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Paritat.aleatòria(), valor, clau));
 		}
-
-//		@SuppressWarnings("unchecked")
+		@SuppressWarnings("unchecked")
 		@Override
 		public void establir(V valor, K clau) {
-//			Anyell<K,V> anyell = (Anyell<K,V>) crea(Document.this.getClass(), font(), obtenirNom(), clau, valor);
-//			font().establirFill(anyell, anyell.obtenirFill());
-			font().establirValor(valor, clau);
+			Anyell<V,K> anyell = (Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), font(), font().obtenirParitat(), valor, clau);
+			font().establirFill(anyell, anyell.obtenirFill());
+//			font().establirValor(valor, clau);
 		}
 		@Override
 		public void establirPare(Anyell<K, V> pare) {

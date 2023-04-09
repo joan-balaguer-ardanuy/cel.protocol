@@ -103,6 +103,10 @@ public abstract class Aliança
 	public boolean sócFinal() {
 		return obtenirFill() == obtenirMareDeDéu();
 	}
+	public boolean sócPrincipi()
+	{
+		return obtenirPare() == obtenirDéu();
+	}
 	
 	@Override
 	protected void donarManament(Ordre manament) {

@@ -79,7 +79,7 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	}
 	@Override
 	public int compareTo(Anyell<Cromosoma, Diploide> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Genomapa,Haploide> anyell = obtenirClau().comparador().font();
 		comparador((Cromosoma) anyell, (Diploide) anyell.obtenirFill());
 		return 0;
@@ -92,7 +92,7 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) { 
-					establirClau(entrada, (Diploide) entrada.obtenirFill());
+					execute(establirClau(entrada, (Diploide) entrada.obtenirFill()));
 				}
 				break;
 			default:
@@ -103,9 +103,8 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 			Tetraploide tretraploide = (Tetraploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					tretraploide.comparador(tretraploide.getValue(), tretraploide.getKey()).compara(tretraploide, obtenirFill());
-					Anyell<Cromosoma,Diploide> anyell = tretraploide.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(tretraploide.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;

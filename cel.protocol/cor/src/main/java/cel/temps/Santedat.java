@@ -84,7 +84,7 @@ public abstract class Santedat
 	}
 	
 	@Override
-	public synchronized void alliberar() {
+	public void alliberar() {
 		obtenirPare().establirPassat(obtenirPassat());
 		obtenirFutur().establirPare(obtenirFill().obtenirPare());
 		establirPare(obtenirPassat().establirPare(obtenirPare()));
@@ -97,7 +97,7 @@ public abstract class Santedat
 	}
 
 	@Override
-	public synchronized void recórrerFill(K pare, V fill) {
+	public void recórrerFill(K pare, V fill) {
 		pare.establirPare(obtenirPare());
 		fill.establirPare(obtenirFill().obtenirPare());
 		fill.establirFill(obtenirPare().obtenirPassat());
@@ -118,7 +118,7 @@ public abstract class Santedat
 	}
 
 	@Override
-	public synchronized void concórrerFill(K pare, V fill) {
+	public void concórrerFill(K pare, V fill) {
 		obtenirPassat().establirPare(pare);
 		obtenirFutur().establirPare(fill);
 		fill.establirFill(obtenirPassat());

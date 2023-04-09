@@ -32,18 +32,18 @@ public abstract class Pare
 	K pare;
 	V fill;
 	
-	public synchronized K obtenirPare() {
+	public K obtenirPare() {
 		return pare;
 	}
-	public synchronized K establirPare(K pare) {
+	public K establirPare(K pare) {
 		K antic = this.pare;
 		this.pare = pare;
 		return antic;
 	}
-	public synchronized V obtenirFill() {
+	public V obtenirFill() {
 		return fill;
 	}
-	public synchronized V establirFill(V fill) {
+	public V establirFill(V fill) {
 		V nou = this.fill;
 		this.fill = fill;
 		return nou;

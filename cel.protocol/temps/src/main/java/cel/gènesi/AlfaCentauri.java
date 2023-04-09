@@ -76,7 +76,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 
 	@Override
 	public int compareTo(Anyell<Terra, Mar> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Operó,Poliploide> anyell = obtenirClau().comparador().font();
 		comparador((Terra) anyell, (Mar) anyell.obtenirFill());
 		return 0;
@@ -89,7 +89,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					establirClau(terra, (Mar) terra.obtenirFill());
+					execute(establirClau(terra, (Mar) terra.obtenirFill()));
 				}
 				break;
 			default:
@@ -100,9 +100,8 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					alfaCentauri.comparador(alfaCentauri.getValue(), alfaCentauri.getKey()).compara(alfaCentauri, obtenirFill());
-					Anyell<Terra,Mar> anyell = alfaCentauri.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(alfaCentauri.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;

@@ -77,7 +77,7 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 
 	@Override
 	public int compareTo(Anyell<Sol,AlfaCentauri> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Terra,Mar> anyell = obtenirClau().comparador().font();
 		comparador((Sol) anyell, (AlfaCentauri) anyell.obtenirFill());
 		return 0;
@@ -90,7 +90,7 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					establirClau(sol, (AlfaCentauri) sol.obtenirFill());
+					execute(establirClau(sol, (AlfaCentauri) sol.obtenirFill()));
 				}
 				break;
 			default:
@@ -101,9 +101,8 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					andròmeda.comparador(andròmeda.getValue(), andròmeda.getKey()).compara(andròmeda, obtenirFill());
-					Anyell<Sol,AlfaCentauri> anyell = andròmeda.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(andròmeda.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;
@@ -112,7 +111,7 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getKey().run(); 
 		super.run();
 	}
 }

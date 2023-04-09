@@ -77,7 +77,7 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 
 	@Override
 	public int compareTo(Anyell<Aaron, TimeMaster> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Espaitemps,Hiperespai> anyell = obtenirClau().comparador().font();
 		comparador((Aaron) anyell, (TimeMaster) anyell.obtenirFill());
 		return 0;
@@ -101,9 +101,10 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 			MareDeDéu mareDeDéu = (MareDeDéu) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					mareDeDéu.comparador(mareDeDéu.getValue(), mareDeDéu.getKey()).compara(mareDeDéu, obtenirFill());
+					comparador(obtenirValor(), obtenirClau()).compara(mareDeDéu.obtenirDéu(), obtenirMareDeDéu());
 					Anyell<Aaron,TimeMaster> anyell = mareDeDéu.comparador().font();
 					donarManament(new Ordre(anyell));
+					execute(anyell);
 					break;
 				default:
 					return;

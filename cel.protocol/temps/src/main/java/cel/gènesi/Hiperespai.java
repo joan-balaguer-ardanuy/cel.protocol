@@ -77,7 +77,7 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 
 	@Override
 	public int compareTo(Anyell<Supercúmul, Interestellar> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<ViaLàctia,Andròmeda> anyell = obtenirClau().comparador().font();
 		comparador((Supercúmul) anyell, (Interestellar) anyell.obtenirFill());
 		return 0;
@@ -101,9 +101,8 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 			Hiperespai interestellar = (Hiperespai) manament.getSource();
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
-					interestellar.comparador(interestellar.getValue(), interestellar.getKey()).compara(interestellar, obtenirFill());
-					Anyell<Supercúmul,Interestellar> anyell = interestellar.comparador().font();
-					donarManament(new Ordre(anyell));
+					comparador(obtenirValor(), obtenirClau()).compara(interestellar.obtenirDéu(), obtenirMareDeDéu());
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;

@@ -77,14 +77,14 @@ public class Genomapa
 		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
-	public synchronized int compareTo(Anyell<Hipercadena, Hipercub> o) {
-		obtenirClau().comparador().compara(obtenirClau(), o.obtenirClau());
+	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
+		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
 		comparador((Hipercadena) anyell, (Hipercub) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
-	public synchronized void esdeveniment(Ordre manament) {
+	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
 		if(manament.getSource() instanceof Genomapa) {
 			Genomapa genomapa = (Genomapa) manament.getSource();
