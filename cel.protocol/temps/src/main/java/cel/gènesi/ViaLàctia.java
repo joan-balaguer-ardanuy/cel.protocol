@@ -24,7 +24,6 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Sol getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public AlfaCentauri getValue() {
 		return obtenirValor();
 	}

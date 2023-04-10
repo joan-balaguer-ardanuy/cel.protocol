@@ -24,7 +24,6 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public AlfaCentauri getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Sol getValue() {
 		return obtenirValor();
 	}

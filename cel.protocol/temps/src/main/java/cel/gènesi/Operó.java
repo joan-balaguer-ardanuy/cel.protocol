@@ -24,7 +24,6 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Ribosoma getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Tetraploide getValue() {
 		return obtenirValor();
 	}

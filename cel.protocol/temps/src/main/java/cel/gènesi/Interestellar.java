@@ -24,7 +24,6 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Andròmeda getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public ViaLàctia getValue() {
 		return obtenirValor();
 	}

@@ -24,7 +24,6 @@ public class Terra extends Home<Operó,Poliploide> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Operó getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Terra extends Home<Operó,Poliploide> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Poliploide getValue() {
 		return obtenirValor();
 	}

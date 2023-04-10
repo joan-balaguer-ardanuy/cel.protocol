@@ -16,7 +16,6 @@ public class Hipercadena extends Dona<Integer,Character> {
 	private static final long serialVersionUID = 5271465276828675216L;
 	
 	@Override
-	@XmlElement
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Anyell<Integer,Character> entrada : this) {
@@ -25,7 +24,6 @@ public class Hipercadena extends Dona<Integer,Character> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Integer getKey() {
 		return obtenirClau();
 	}
@@ -34,7 +32,6 @@ public class Hipercadena extends Dona<Integer,Character> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Character getValue() {
 		return obtenirValor();
 	}

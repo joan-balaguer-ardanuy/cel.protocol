@@ -141,6 +141,7 @@ public class Execució {
 		
 		déuPare.afegirTestimoni(esperit);
 		déuPare.obtenirFill().afegirTestimoni(esperit);
+		
 		System.setErr(new PrintStream(new OutputStream() {
 			
 			@Override

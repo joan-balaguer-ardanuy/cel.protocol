@@ -19,7 +19,6 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	private static final long serialVersionUID = 360967584403725750L;
 	
 	@Override
-	@XmlElement
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Anyell<Cromosoma,Diploide> anyell : this) {
@@ -28,7 +27,6 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Cromosoma getKey() {
 		return obtenirClau();
 	}
@@ -37,7 +35,6 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Diploide getValue() {
 		return obtenirValor();
 	}

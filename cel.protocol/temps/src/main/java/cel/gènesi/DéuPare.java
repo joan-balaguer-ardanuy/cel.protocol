@@ -24,7 +24,6 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Aaron getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public TimeMaster getValue() {
 		return obtenirValor();
 	}

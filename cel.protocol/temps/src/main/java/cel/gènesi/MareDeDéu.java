@@ -24,7 +24,6 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public TimeMaster getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Aaron getValue() {
 		return obtenirValor();
 	}

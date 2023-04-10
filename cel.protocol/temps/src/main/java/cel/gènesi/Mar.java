@@ -24,7 +24,6 @@ public class Mar extends Dona<Poliploide,Operó> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Poliploide getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Mar extends Dona<Poliploide,Operó> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Operó getValue() {
 		return obtenirValor();
 	}

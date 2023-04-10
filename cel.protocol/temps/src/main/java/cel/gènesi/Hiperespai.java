@@ -24,7 +24,6 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Interestellar getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Supercúmul getValue() {
 		return obtenirValor();
 	}

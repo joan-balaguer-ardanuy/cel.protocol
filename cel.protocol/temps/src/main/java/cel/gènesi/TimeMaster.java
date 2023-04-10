@@ -24,7 +24,6 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Hiperespai getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Espaitemps getValue() {
 		return obtenirValor();
 	}

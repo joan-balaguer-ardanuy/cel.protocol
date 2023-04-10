@@ -19,7 +19,6 @@ public class Genomapa
 	private static final long serialVersionUID = -8323794104627311597L;
 	
 	@Override
-	@XmlElement
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Anyell<Hipercub,Hipercadena> anyell : this) {
@@ -28,7 +27,6 @@ public class Genomapa
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Hipercub getKey() {
 		return obtenirClau();
 	}
@@ -37,7 +35,6 @@ public class Genomapa
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Hipercadena getValue() {
 		return obtenirValor();
 	}

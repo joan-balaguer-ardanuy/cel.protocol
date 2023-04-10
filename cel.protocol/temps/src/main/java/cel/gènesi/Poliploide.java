@@ -24,7 +24,6 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Tetraploide getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Ribosoma getValue() {
 		return obtenirValor();
 	}

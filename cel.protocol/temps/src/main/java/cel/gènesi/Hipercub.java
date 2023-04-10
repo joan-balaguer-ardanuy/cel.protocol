@@ -16,7 +16,6 @@ public class Hipercub extends Home<Character,Integer> {
 	private static final long serialVersionUID = 7927408443586096486L;
 	
 	@Override
-	@XmlElement
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Anyell<Character,Integer> entrada : this) {
@@ -25,7 +24,6 @@ public class Hipercub extends Home<Character,Integer> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Character getKey() {
 		return obtenirClau();
 	}
@@ -34,7 +32,6 @@ public class Hipercub extends Home<Character,Integer> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Integer getValue() {
 		return obtenirValor();
 	}

@@ -27,7 +27,6 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Diploide getKey() {
 		return obtenirClau();
 	}
@@ -36,7 +35,6 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Cromosoma getValue() {
 		return obtenirValor();
 	}

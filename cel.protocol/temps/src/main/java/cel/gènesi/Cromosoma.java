@@ -28,7 +28,6 @@ public class Cromosoma
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Genomapa getKey() {
 		return obtenirClau();
 	}
@@ -36,7 +35,6 @@ public class Cromosoma
 	public Genomapa setKey(Genomapa key) {
 		return establirClau(key);
 	}
-	@XmlElement
 	@Override
 	public Haploide getValue() {
 		return obtenirValor();

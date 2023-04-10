@@ -24,7 +24,6 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public ViaLàctia getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Andròmeda getValue() {
 		return obtenirValor();
 	}

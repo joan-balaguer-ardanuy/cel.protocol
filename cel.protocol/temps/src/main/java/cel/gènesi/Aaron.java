@@ -24,7 +24,6 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Espaitemps getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Hiperespai getValue() {
 		return obtenirValor();
 	}

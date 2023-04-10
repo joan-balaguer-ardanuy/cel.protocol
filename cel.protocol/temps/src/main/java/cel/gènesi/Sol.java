@@ -24,7 +24,6 @@ public class Sol extends Home<Terra,Mar> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Terra getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Sol extends Home<Terra,Mar> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Mar getValue() {
 		return obtenirValor();
 	}

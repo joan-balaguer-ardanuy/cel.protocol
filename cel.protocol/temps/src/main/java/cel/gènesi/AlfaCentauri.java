@@ -22,8 +22,8 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			stringBuilder.append(anyell.obtenirClau().obtenirNom());
 		}
 		return stringBuilder.toString();
-	}	@Override
-	@XmlElement
+	}	
+	@Override
 	public Mar getKey() {
 		return obtenirClau();
 	}
@@ -32,7 +32,6 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Terra getValue() {
 		return obtenirValor();
 	}

@@ -17,7 +17,6 @@ public class Diploide
 	private static final long serialVersionUID = 1392928931896245647L;
 	
 	@Override
-	@XmlElement
 	public String obtenirNom() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Anyell<Haploide,Genomapa> anyell : this) {
@@ -26,7 +25,6 @@ public class Diploide
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Haploide getKey() {
 		return obtenirClau();
 	}
@@ -35,7 +33,6 @@ public class Diploide
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Genomapa getValue() {
 		return obtenirValor();
 	}

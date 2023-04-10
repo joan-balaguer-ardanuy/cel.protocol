@@ -29,7 +29,6 @@ public class Haploide
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Hipercadena getKey() {
 		return obtenirClau();
 	}
@@ -38,7 +37,6 @@ public class Haploide
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Hipercub getValue() {
 		return obtenirValor();
 	}

@@ -24,7 +24,6 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 		return stringBuilder.toString();
 	}
 	@Override
-	@XmlElement
 	public Supercúmul getKey() {
 		return obtenirClau();
 	}
@@ -33,7 +32,6 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 		return establirClau(key);
 	}
 	@Override
-	@XmlElement
 	public Interestellar getValue() {
 		return obtenirValor();
 	}
