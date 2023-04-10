@@ -230,15 +230,14 @@ public class Simulador extends PApplet implements Esperit {
 				genomapa.afegirTestimoni(this);
 				genomapa.obtenirFill().afegirTestimoni(this);
 			}
+			
 			break;
 		case Manament.VIU:
-			System.out.println("VIU: " + esperit.getClass());
+			System.out.println(esperit.obtenirNom());
 			Coordenada coordenada = new Coordenada(esperit);
 			coordenades.establirValor(esperit.obtenirNom(), coordenada);
 			break;
 		case Manament.MOR:
-			System.out.println("MOR: " + esperit.getClass());
-			testimonis.establir(esperit);
 			break;
 		default:
 			break;

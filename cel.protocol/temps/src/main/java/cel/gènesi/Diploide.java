@@ -104,6 +104,7 @@ public class Diploide
 				case Manament.VIU:
 					comparador(obtenirValor(), obtenirClau()).compara(diploide.obtenirDéu(), obtenirMareDeDéu());
 					donarManament(new Ordre(comparador().font()));
+					execute(comparador().font());
 					break;
 				default:
 					return;

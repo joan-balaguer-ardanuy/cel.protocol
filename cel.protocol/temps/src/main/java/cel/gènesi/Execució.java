@@ -1,5 +1,9 @@
 package cel.gènesi;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import cel.Anyell;
 import cel.Esperit;
 import cel.Manament;
@@ -12,16 +16,16 @@ public class Execució {
 		
 		Esperit esperit = new Esperit() {
 			
+			private static final long serialVersionUID = 4985487628873024010L;
+
 			@Override
 			public Thread newThread(Runnable r) {
-				// TODO Auto-generated method stub
-				return null;
+				return new Thread(r);
 			}
 			
 			@Override
 			public void execute(Runnable command) {
-				// TODO Auto-generated method stub
-				
+				newThread(command).start();
 			}
 			
 			@Override
@@ -69,7 +73,7 @@ public class Execució {
 						DéuPare déuPare = (DéuPare) esperit;
 						déuPare.afegirTestimoni(this);
 						déuPare.obtenirFill().afegirTestimoni(this);
-						System.out.println(esperit.getClass());
+						execute(déuPare);
 					} else if(esperit instanceof Hipercub) {
 						System.out.println(esperit.obtenirNom());
 					} else {
@@ -137,7 +141,14 @@ public class Execució {
 		
 		déuPare.afegirTestimoni(esperit);
 		déuPare.obtenirFill().afegirTestimoni(esperit);
-		
+		System.setErr(new PrintStream(new OutputStream() {
+			
+			@Override
+			public void write(int b) throws IOException {
+				// TODO Auto-generated method stub
+				
+			}
+		}));
 		déuPare.execute(déuPare);
 	}
 }

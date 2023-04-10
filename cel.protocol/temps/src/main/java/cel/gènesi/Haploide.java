@@ -107,6 +107,7 @@ public class Haploide
 				case Manament.VIU:
 					comparador(obtenirValor(), obtenirClau()).compara(haploide.obtenirDéu(), obtenirMareDeDéu());
 					donarManament(new Ordre(comparador().font()));
+					//execute(comparador().font());
 					break;
 				default:
 					return;

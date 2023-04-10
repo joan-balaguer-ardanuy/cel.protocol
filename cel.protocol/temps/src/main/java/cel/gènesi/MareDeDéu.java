@@ -102,9 +102,7 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 			switch (manament.obtenirManament()) {
 				case Manament.VIU:
 					comparador(obtenirValor(), obtenirClau()).compara(mareDeDéu.obtenirDéu(), obtenirMareDeDéu());
-					Anyell<Aaron,TimeMaster> anyell = mareDeDéu.comparador().font();
-					donarManament(new Ordre(anyell));
-					execute(anyell);
+					donarManament(new Ordre(comparador().font()));
 					break;
 				default:
 					return;

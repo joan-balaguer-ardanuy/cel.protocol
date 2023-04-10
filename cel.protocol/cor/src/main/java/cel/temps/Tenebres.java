@@ -134,7 +134,11 @@ public abstract class Tenebres
 	@Override
 	public void run() {
 		if(sócDéu() || sócPrincipi() || !sócFinal()) {
-			obtenirFill().run();
+			try {
+				obtenirFill().run();
+			} catch (StackOverflowError e) {
+				System.out.println("stack overflow");
+			}
 		}
 		super.run();
 	}
