@@ -55,10 +55,8 @@ public class Cromosoma
 	public Cromosoma(Paritat paritat) {
 		super(paritat);
 	}
-	public Cromosoma(Paritat paritat, Genomapa clau, Haploide valor) {
-		super(Diploide.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Cromosoma(Class<Diploide> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Cromosoma(Cromosoma pare) {
 		super(pare);
@@ -94,7 +92,7 @@ public class Cromosoma
 				break;
 			case Manament.MOR:
 				cromosoma.alliberar();
-				establirValor(cromosoma.obtenirClau(), cromosoma.obtenirValor());
+				establirClau(cromosoma.obtenirValor(), cromosoma.obtenirClau());
 				break;
 			default:
 				return;

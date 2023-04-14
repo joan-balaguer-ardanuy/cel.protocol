@@ -51,10 +51,8 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	public DéuPare(Paritat paritat) {
 		super(paritat);
 	}
-	public DéuPare(Paritat paritat, Aaron clau, TimeMaster valor) {
-		super(MareDeDéu.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public DéuPare(Class<MareDeDéu> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public DéuPare(DéuPare pare) {
 		super(pare);

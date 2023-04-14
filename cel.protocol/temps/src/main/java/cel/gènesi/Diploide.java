@@ -52,10 +52,8 @@ public class Diploide
 	public Diploide(Paritat paritat) {
 		super(paritat);
 	}
-	public Diploide(Paritat paritat, Haploide clau, Genomapa valor) {
-		super(Cromosoma.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Diploide(Class<Cromosoma> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Diploide(Diploide pare) {
 		super(pare);
@@ -83,28 +81,29 @@ public class Diploide
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Genomapa) {
-			Genomapa entrada = (Genomapa) manament.getSource();
+		if(manament.getSource() instanceof Hipercub) {
+			Hipercub hipercub = (Hipercub) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(entrada, (Haploide) entrada.obtenirFill()));
+					Genomapa genomapa = new Genomapa(Haploide.class, hipercub.obtenirParitat());
+					genomapa.establirValor(hipercub, (Hipercadena) hipercub.obtenirFill());
+					donarManament(new Ordre(genomapa));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof Diploide) {
-			Diploide diploide = (Diploide) manament.getSource();
+		} else if(manament.getSource() instanceof Haploide) {
+			Haploide haploide = (Haploide) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(diploide.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					execute(comparador().font());
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				haploide.comparador(haploide.obtenirValor(), haploide.obtenirClau()).compara(haploide, obtenirValor());
+				Genomapa genomapa = (Genomapa) haploide.comparador().font();
+				obtenirDéu().establirClau(genomapa, (Haploide) genomapa.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

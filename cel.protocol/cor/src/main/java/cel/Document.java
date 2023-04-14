@@ -83,10 +83,10 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	public Document(Paritat paritat) {
 		super(paritat);
 	}
-	public Document(Class<? extends Document<V,K>> classeFill, Paritat paritat, K clau, V valor) {
+	public Document(Class<? extends Document<V,K>> classeFill, Paritat paritat) {
 		super(classeFill, paritat);
-		establirClau(clau);
-		establirValor(valor);
+		establirClau(null);
+		establirValor(null);
 	}
 	public Document(Document<K,V> pare) {
 		super(pare);
@@ -160,7 +160,10 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	@SuppressWarnings("unchecked")
 	@Override
 	public synchronized Anyell<K,V> establirValor(K clau, V valor) {
-		return (Anyell<K,V>) crea(getClass(), obtenirPare(), clau, valor);
+		Anyell<K,V> anyell = (Anyell<K,V>) crea(getClass(), obtenirPare(), clau, valor);
+		obtenirDéu().establirClau(clau);
+		obtenirMareDeDéu().establirClau(valor);
+		return anyell;
 	}
 	@Override
 	public Anyell<V,K> establirClau(V valor, K clau) {
@@ -353,7 +356,7 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	
 	@Override
 	public Anyell.Generador<K,V> comparador() {
-		return comparador == null ? comparador = new Matriu(obtenirValor(), obtenirClau()) : comparador;
+		return comparador == null ? comparador = new Matriu() : comparador;
 	}
 	public Anyell.Generador<K,V> comparador(V valor, K clau) {
 		comparador = new Matriu(valor, clau);
@@ -362,14 +365,21 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	private class Matriu extends Òrgan implements Generador<K,V> {
 
 		@SuppressWarnings("unchecked")
+		public Matriu() {
+			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Document.this.getClass(), Paritat.aleatòria()));
+		}
+		@SuppressWarnings("unchecked")
 		public Matriu(V valor, K clau) {
-			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Paritat.aleatòria(), valor, clau));
+			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Document.this.getClass(), Paritat.aleatòria()));
+			establir(valor, clau);
 		}
 		@SuppressWarnings("unchecked")
 		@Override
 		public void establir(V valor, K clau) {
 			Anyell<V,K> anyell = (Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), font(), font().obtenirParitat(), valor, clau);
 			font().establirFill(anyell, anyell.obtenirFill());
+			font().obtenirDéu().establirClau(valor);
+			font().obtenirMareDeDéu().establirClau(clau);
 //			font().establirValor(valor, clau);
 		}
 		@Override

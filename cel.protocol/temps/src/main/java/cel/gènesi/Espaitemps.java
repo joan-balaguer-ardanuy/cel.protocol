@@ -51,10 +51,8 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	public Espaitemps(Paritat paritat) {
 		super(paritat);
 	}
-	public Espaitemps(Paritat paritat, Supercúmul clau, Interestellar valor) {
-		super(Hiperespai.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Espaitemps(Class<Hiperespai> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Espaitemps(Espaitemps pare) {
 		super(pare);

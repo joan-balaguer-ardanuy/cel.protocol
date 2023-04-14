@@ -31,8 +31,8 @@ public abstract class Dona<K, V> extends Document<K,V> implements Cadena<K,V> {
 	public Dona(Paritat paritat) {
 		super(paritat);
 	}
-	public Dona(Class<? extends Document<V, K>> classeFill, Paritat paritat, K clau, V valor) {
-		super(classeFill, paritat, clau, valor);
+	public Dona(Class<? extends Document<V, K>> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Dona(Document<K, V> pare) {
 		super(pare);

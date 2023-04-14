@@ -1,8 +1,9 @@
 package cel;
 
-import java.util.Iterator;
-
-import cel.arca.Ramat;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import cel.coordenada.CoordenadaString;
 import cel.coordenada.StringCoordenada;
 import cel.gènesi.Aaron;
 import cel.gènesi.AlfaCentauri;
@@ -18,6 +19,7 @@ import cel.gènesi.Hipercub;
 import cel.gènesi.Hiperespai;
 import cel.gènesi.Interestellar;
 import cel.gènesi.Mar;
+import cel.gènesi.MareDeDéu;
 import cel.gènesi.Operó;
 import cel.gènesi.Poliploide;
 import cel.gènesi.Ribosoma;
@@ -32,9 +34,8 @@ import processing.core.*;
 public class Simulador extends PApplet implements Esperit {
 
 	private static final long serialVersionUID = -5297826820482250738L;
-//	Cromosoma cromosoma;
-	Genomapa genomapa;
-//	Operó operó;
+
+	DéuPare déuPare;
 
 	Testimonis testimonis;
 	Anyell<String,Coordenada> coordenades;
@@ -45,6 +46,8 @@ public class Simulador extends PApplet implements Esperit {
 	float cameraZ = 5000;
 	
 	float tamany = 200;
+	
+//	boolean clear = false;
 	
 	float x = 0;
 	float y = 0;
@@ -58,79 +61,103 @@ public class Simulador extends PApplet implements Esperit {
 		frameRate(25);
 		
 		int dilatació = 10;
-		Hipercub hipercub = new Hipercub(Paritat.XX, 'A', (int) 'A'*dilatació);
-		hipercub.establirValor('B', (int) 'B'*dilatació);
-		hipercub.establirValor('C', (int) 'C'*dilatació);
-		hipercub.establirValor('D', (int) 'D'*dilatació);
-		hipercub.establirValor('E', (int) 'E'*dilatació);
-		hipercub.establirValor('F', (int) 'F'*dilatació);
-		hipercub.establirValor('G', (int) 'G'*dilatació);
-		hipercub.establirValor('H', (int) 'H'*dilatació);
-		hipercub.establirValor('I', (int) 'I'*dilatació);
-		hipercub.establirValor('J', (int) 'J'*dilatació);
-		hipercub.establirValor('K', (int) 'K'*dilatació);
-		hipercub.establirValor('L', (int) 'L'*dilatació);
-		hipercub.establirValor('M', (int) 'M'*dilatació);
-		hipercub.establirValor('N', (int) 'N'*dilatació);
-		hipercub.establirValor('O', (int) 'O'*dilatació);
-		hipercub.establirValor('P', (int) 'P'*dilatació);
-		hipercub.establirValor('Q', (int) 'Q'*dilatació);
-		hipercub.establirValor('R', (int) 'R'*dilatació);
-		hipercub.establirValor('S', (int) 'S'*dilatació);
-		hipercub.establirValor('T', (int) 'T'*dilatació);
-		hipercub.establirValor('U', (int) 'U'*dilatació);
-		hipercub.establirValor('V', (int) 'V'*dilatació);
-		hipercub.establirValor('W', (int) 'W'*dilatació);
-		hipercub.establirValor('X', (int) 'X'*dilatació);
-		hipercub.establirValor('Y', (int) 'Y'*dilatació);
-		hipercub.establirValor('Z', (int) 'Z'*dilatació);
-		hipercub.establirValor('Ç', (int) 'Ç'*dilatació);
-
-		testimonis = new Testimonis();
-		genomapa = new Genomapa(Paritat.XX, hipercub, (Hipercadena) hipercub.obtenirFill());
-//		cromosoma = new Cromosoma(genomapa.obtenirParitat(), genomapa, (Haploide)genomapa.obtenirFill());
+		Hipercub hipercub = new Hipercub(Hipercadena.class, Paritat.XX);
+		hipercub.establirValor('A', 65*dilatació);
+		hipercub.establirValor('B', 66*dilatació);
+		hipercub.establirValor('C', 67*dilatació);
+		hipercub.establirValor('D', 68*dilatació);
+		hipercub.establirValor('E', 69*dilatació);
+		hipercub.establirValor('F', 70*dilatació);
+		hipercub.establirValor('G', 71*dilatació);
+		hipercub.establirValor('H', 72*dilatació);
+		hipercub.establirValor('I', 73*dilatació);
+		hipercub.establirValor('J', 74*dilatació);
+		hipercub.establirValor('K', 75*dilatació);
+		hipercub.establirValor('L', 76*dilatació);
+		hipercub.establirValor('M', 77*dilatació);
+		hipercub.establirValor('N', 78*dilatació);
+		hipercub.establirValor('O', 79*dilatació);
+		hipercub.establirValor('P', 80*dilatació);
+		hipercub.establirValor('Q', 81*dilatació);
+		hipercub.establirValor('R', 82*dilatació);
+		hipercub.establirValor('S', 83*dilatació);
+		hipercub.establirValor('T', 84*dilatació);
+		hipercub.establirValor('U', 85*dilatació);
+		hipercub.establirValor('V', 86*dilatació);
+		hipercub.establirValor('W', 87*dilatació);
+		hipercub.establirValor('X', 88*dilatació);
+		hipercub.establirValor('Y', 89*dilatació);
+		hipercub.establirValor('Z', 90*dilatació);
+		hipercub.establirValor('Ç', 91*dilatació);
 		
-		genomapa.afegirTestimoni(this);
-		genomapa.obtenirFill().afegirTestimoni(this);
-		coordenades = new StringCoordenada(genomapa.obtenirParitat(), genomapa.obtenirNom(), new Coordenada(genomapa));
-		genomapa.execute(genomapa);
+		Genomapa genomapa = new Genomapa(Haploide.class, hipercub.obtenirParitat());
+		genomapa.establirValor(hipercub, (Hipercadena) hipercub.obtenirFill());
+		
+		Cromosoma cromosoma = new Cromosoma(Diploide.class, genomapa.obtenirParitat());
+		cromosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
+		
+		Ribosoma ribosoma = new Ribosoma(Tetraploide.class, cromosoma.obtenirParitat());
+		ribosoma.establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
+		
+		Operó operó = new Operó(Poliploide.class, ribosoma.obtenirParitat());
+		operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
+		
+		Terra terra = new Terra(Mar.class, operó.obtenirParitat());
+		terra.establirValor(operó, (Poliploide) operó.obtenirFill());
+		
+		Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
+		sol.establirValor(terra, (Mar) terra.obtenirFill());
+		
+		ViaLàctia viaLàctia = new ViaLàctia(Andròmeda.class, sol.obtenirParitat());
+		viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
+		
+		Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
+		supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+		
+		Espaitemps espaitemps = new Espaitemps(Hiperespai.class, supercúmul.obtenirParitat());
+		espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
+		
+		Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
+		aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
+		
+		déuPare = new DéuPare(MareDeDéu.class, aaron.obtenirParitat());
+		déuPare.establirValor(aaron, (TimeMaster) aaron.obtenirFill());
+		
+		déuPare.afegirTestimoni(this);
+		déuPare.obtenirFill().afegirTestimoni(this);
+		
+//		System.setErr(new PrintStream(new OutputStream() {
+//			
+//			@Override
+//			public void write(int b) throws IOException {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		}));
+		coordenades = new StringCoordenada(CoordenadaString.class, déuPare.obtenirParitat());
+		coordenades.establirValor(déuPare.obtenirNom(), new Coordenada(déuPare));
+		déuPare.execute(déuPare);
 	}
 
 	public void draw() {
 		background(0);
-		camera(0, 0, -cameraZ, 0, 0, 0, 0, 1, 0);
+		camera(width*2, height*2, -cameraZ, 0, 0, 0, 0, 1, 0);
+//		hint(DISABLE_DEPTH_TEST); 
 		lights();
 		spotLight(255, 0, 0, width / 2, height / 2, 5000, 0, 0, -1, PI / 4, 2);
 		noStroke();
-		synchronized (this) {
-//			Ramat<Esperit> esperits = testimonis.pastor();
-//			while(esperits.téMés()) {
-//				Esperit esperit = esperits.següent();
-//				for(Anyell<String,Coordenada> anyell : coordenades) {
-//					if(anyell.obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
-//						anyell.alliberar();
-//						esperits.alliberar();
-//						break;
-//					}
+//		synchronized (this) {
+//			Iterator<Anyell<String, Coordenada>> it = coordenades.iterator();
+//			while (it.hasNext()) {
+//				if (it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
+//					it.remove();
 //				}
 //			}
-			Iterator<Anyell<String,Coordenada>> it = coordenades.iterator();
-			while(it.hasNext()) {
-				if(it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
-					it.remove();
-				} 
-			}
-		}
+//		}
 		synchronized (this) {
+			
 			for(Anyell<String,Coordenada> anyell : coordenades) {
 				Coordenada coordenada = anyell.obtenirValor();
-//				if(coordenada.getEsperit() instanceof Hipercadena) {
-//					rotateX(coordenada.getAngleX());	
-//					coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX() % 50);
-//				} else if(coordenada.getEsperit() instanceof Hipercub) {
-//					rotateY(coordenada.getAngleY());
-//					coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY() % 50);
-//				}
 				switch (coordenada.getParitat()) {
 				case XX:
 					rotateX(coordenada.getAngleX());	
@@ -149,8 +176,6 @@ public class Simulador extends PApplet implements Esperit {
 					coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
 					break;
 				}
-//				rotateZ(coordenada.getAngleZ());
-//				coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ() % 50);
 				translate(coordenada.getX() % constantX, coordenada.getY() % constantY, -coordenada.getZ() % constantZ);
 				
 				switch (coordenada.getParitat()) {
@@ -164,11 +189,6 @@ public class Simulador extends PApplet implements Esperit {
 					fill((coordenada.getX()) % 255,  coordenada.getY() % 255, coordenada.getZ() % 255);
 					break;
 				}
-//				if(coordenada.getEsperit() instanceof Hipercadena) {
-//					fill((coordenada.getX() % 255),  coordenada.getY(), (coordenada.getZ() % 255));
-//				} else if(coordenada.getEsperit() instanceof Hipercub) {
-//					fill((coordenada.getX()),  coordenada.getY() % 255, (coordenada.getZ() % 255));
-//				}
 				sphere(coordenada.getTotal() % 200);
 			}
 		}
@@ -225,15 +245,17 @@ public class Simulador extends PApplet implements Esperit {
 		Esperit esperit = (Esperit) manament.getSource();
 		switch (manament.obtenirManament()) {
 		case Manament.GÈNESI:
-			if(esperit instanceof Genomapa) {
-				Genomapa genomapa = (Genomapa) esperit;
-				genomapa.afegirTestimoni(this);
-				genomapa.obtenirFill().afegirTestimoni(this);
-			}
-			
+//			if(esperit instanceof Genomapa) {
+//				Genomapa genomapa = (Genomapa) esperit;
+//				genomapa.afegirTestimoni(this);
+//				genomapa.obtenirFill().afegirTestimoni(this);
+//				execute(genomapa);
+//			}
+//			Coordenada coordenada = new Coordenada(esperit);
+//			coordenades.establirValor(esperit.obtenirNom(), coordenada);
 			break;
 		case Manament.VIU:
-			System.out.println(esperit.obtenirNom());
+			System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
 			Coordenada coordenada = new Coordenada(esperit);
 			coordenades.establirValor(esperit.obtenirNom(), coordenada);
 			break;

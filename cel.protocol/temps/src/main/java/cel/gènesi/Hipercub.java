@@ -51,8 +51,8 @@ public class Hipercub extends Home<Character,Integer> {
 	public Hipercub(Paritat paritat) {
 		super(paritat);
 	}
-	public Hipercub(Paritat paritat, Character clau, Integer valor) {
-		super(Hipercadena.class, paritat, clau, valor);
+	public Hipercub(Class<Hipercadena> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Hipercub(Hipercub pare) {
 		super(pare);

@@ -51,10 +51,8 @@ public class Terra extends Home<Operó,Poliploide> {
 	public Terra(Paritat paritat) {
 		super(paritat);
 	}
-	public Terra(Paritat paritat, Operó clau, Poliploide valor) {
-		super(Mar.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Terra(Class<Mar> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Terra(Terra pare) {
 		super(pare);

@@ -51,10 +51,8 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 	public MareDeDéu(Paritat paritat) {
 		super(paritat);
 	}
-	public MareDeDéu(Paritat paritat, TimeMaster clau, Aaron valor) {
-		super(DéuPare.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public MareDeDéu(Class<DéuPare> classeFill, Paritat paritat) {
+		super(DéuPare.class, paritat);
 	}
 	public MareDeDéu(MareDeDéu pare) {
 		super(pare);
@@ -83,27 +81,29 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Aaron) {
-			Aaron aaron = (Aaron) manament.getSource();
+		if(manament.getSource() instanceof Espaitemps) {
+			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(aaron, (TimeMaster) aaron.obtenirFill()));
+					Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
+					aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
+					donarManament(new Ordre(aaron));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof MareDeDéu) {
-			MareDeDéu mareDeDéu = (MareDeDéu) manament.getSource();
+		} else if(manament.getSource() instanceof TimeMaster) {
+			TimeMaster timeMaster = (TimeMaster) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(mareDeDéu.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				timeMaster.comparador(timeMaster.obtenirValor(), timeMaster.obtenirClau()).compara(timeMaster, obtenirValor());
+				Aaron aaron = (Aaron) timeMaster.comparador().font();
+				obtenirDéu().establirClau(aaron, (TimeMaster) aaron.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

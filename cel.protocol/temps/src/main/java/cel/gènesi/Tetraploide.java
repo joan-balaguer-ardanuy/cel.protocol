@@ -54,10 +54,8 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	public Tetraploide(Paritat paritat) {
 		super(paritat);
 	}
-	public Tetraploide(Paritat paritat, Diploide clau, Cromosoma valor) {
-		super(Ribosoma.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Tetraploide(Class<Ribosoma> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Tetraploide(Tetraploide pare) {
 		super(pare);
@@ -85,27 +83,29 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Cromosoma) {
-			Cromosoma entrada = (Cromosoma) manament.getSource();
+		if(manament.getSource() instanceof Genomapa) {
+			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
-				if(sócDéu()) { 
-					execute(establirClau(entrada, (Diploide) entrada.obtenirFill()));
+				if(sócDéu()) {
+					Cromosoma cromsosoma = new Cromosoma(Diploide.class, genomapa.obtenirParitat());
+					cromsosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
+					donarManament(new Ordre(cromsosoma));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof Tetraploide) {
-			Tetraploide tretraploide = (Tetraploide) manament.getSource();
+		} else if(manament.getSource() instanceof Diploide) {
+			Diploide diploide = (Diploide) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(tretraploide.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				diploide.comparador(diploide.obtenirValor(), diploide.obtenirClau()).compara(diploide, obtenirValor());
+				Cromosoma cromosoma = (Cromosoma) diploide.comparador().font();
+				obtenirDéu().establirClau(cromosoma, (Diploide) cromosoma.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

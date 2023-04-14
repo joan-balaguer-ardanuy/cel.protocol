@@ -51,10 +51,8 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	public Andròmeda(Paritat paritat) {
 		super(paritat);
 	}
-	public Andròmeda(Paritat paritat, AlfaCentauri clau, Sol valor) {
-		super(ViaLàctia.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Andròmeda(Class<ViaLàctia> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Andròmeda(Andròmeda pare) {
 		super(pare);
@@ -83,27 +81,29 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Sol) {
-			Sol sol = (Sol) manament.getSource();
+		if(manament.getSource() instanceof Terra) {
+			Terra terra = (Terra) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(sol, (AlfaCentauri) sol.obtenirFill()));
+					Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
+					sol.establirValor(terra, (Mar) terra.obtenirFill());
+					donarManament(new Ordre(sol));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof Andròmeda) {
-			Andròmeda andròmeda = (Andròmeda) manament.getSource();
+		} else if(manament.getSource() instanceof AlfaCentauri) {
+			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(andròmeda.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				alfaCentauri.comparador(alfaCentauri.obtenirValor(), alfaCentauri.obtenirClau()).compara(alfaCentauri, obtenirValor());
+				Sol sol = (Sol) alfaCentauri.comparador().font();
+				obtenirDéu().establirClau(sol, (AlfaCentauri) sol.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

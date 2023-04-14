@@ -24,8 +24,8 @@ public class StringCoordenada extends Document<String, Coordenada> {
 		super(CoordenadaString.class, pare, clau, valor);
 	}
 
-	public StringCoordenada(Paritat paritat, String clau, Coordenada valor) {
-		super(CoordenadaString.class, paritat, clau, valor);
+	public StringCoordenada(Class<CoordenadaString> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 
 	public StringCoordenada(StringCoordenada déu, Paritat paritat) {

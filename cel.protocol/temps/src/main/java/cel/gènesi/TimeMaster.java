@@ -51,10 +51,8 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	public TimeMaster(Paritat paritat) {
 		super(paritat);
 	}
-	public TimeMaster(Paritat paritat, Hiperespai clau, Espaitemps valor) {
-		super(Aaron.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public TimeMaster(Class<Aaron> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public TimeMaster(TimeMaster pare) {
 		super(pare);
@@ -83,27 +81,29 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
+		if(manament.getSource() instanceof Supercúmul) {
+			Supercúmul supercúmul = (Supercúmul) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(espaitemps, (Hiperespai) espaitemps.obtenirFill()));
+					Espaitemps espaitemps = new Espaitemps(Hiperespai.class, supercúmul.obtenirParitat());
+					espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
+					donarManament(new Ordre(espaitemps));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof TimeMaster) {
-			TimeMaster timeMaster = (TimeMaster) manament.getSource();
+		} else if(manament.getSource() instanceof Hiperespai) {
+			Hiperespai hiperespai = (Hiperespai) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(timeMaster.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				hiperespai.comparador(hiperespai.obtenirValor(), hiperespai.obtenirClau()).compara(hiperespai, obtenirValor());
+				Espaitemps supercúmul = (Espaitemps) hiperespai.comparador().font();
+				obtenirDéu().establirClau(supercúmul, (Hiperespai) supercúmul.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

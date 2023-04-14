@@ -51,10 +51,8 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	public Poliploide(Paritat paritat) {
 		super(paritat);
 	}
-	public Poliploide(Paritat paritat, Tetraploide clau, Ribosoma valor) {
-		super(Operó.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Poliploide(Class<Operó> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Poliploide(Poliploide pare) {
 		super(pare);
@@ -83,27 +81,29 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
+		if(manament.getSource() instanceof Cromosoma) {
+			Cromosoma cromosoma = (Cromosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill()));
+					Ribosoma ribosoma = new Ribosoma(Tetraploide.class, cromosoma.obtenirParitat());
+					ribosoma.establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
+					donarManament(new Ordre(ribosoma));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof Poliploide) {
-			Poliploide tretraploide = (Poliploide) manament.getSource();
+		} else if(manament.getSource() instanceof Tetraploide) {
+			Tetraploide tetraploide = (Tetraploide) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(tretraploide.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				tetraploide.comparador(tetraploide.obtenirValor(), tetraploide.obtenirClau()).compara(tetraploide, obtenirValor());
+				Ribosoma ribosoma = (Ribosoma) tetraploide.comparador().font();
+				obtenirDéu().establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

@@ -54,10 +54,8 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	public Ribosoma(Paritat paritat) {
 		super(paritat);
 	}
-	public Ribosoma(Paritat paritat, Cromosoma clau, Diploide valor) {
-		super(Tetraploide.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Ribosoma(Class<Tetraploide> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Ribosoma(Ribosoma pare) {
 		super(pare);
@@ -94,7 +92,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 				break;
 			case Manament.MOR:
 				ribosoma.alliberar();
-				establirValor(ribosoma.obtenirClau(), ribosoma.obtenirValor());
+				establirClau(ribosoma.obtenirValor(), ribosoma.obtenirClau());
 				break;
 			default:
 				return;

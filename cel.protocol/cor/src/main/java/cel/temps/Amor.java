@@ -160,13 +160,13 @@ public abstract class Amor
 				establirFill(p.comparador().font());
 				p = p.obtenirPare();
 				f = f.obtenirPare();
-				if((p != pare && f != fill)) {
+				if ((p != pare && f != fill)) {
 					f.compareTo(p);
 					establirPare(f.comparador().font());
 					p = p.obtenirPare();
 					f = f.obtenirPare();
 				}
-			} while(p != pare && f != fill);
+			} while (p != pare && f != fill);
 			
 //			do {
 //				p = f.obtenirFill();

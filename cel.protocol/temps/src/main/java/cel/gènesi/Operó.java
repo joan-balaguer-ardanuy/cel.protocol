@@ -51,10 +51,8 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	public Operó(Paritat paritat) {
 		super(paritat);
 	}
-	public Operó(Paritat paritat, Ribosoma clau, Tetraploide valor) {
-		super(Poliploide.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Operó(Class<Poliploide> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Operó(Operó pare) {
 		super(pare);

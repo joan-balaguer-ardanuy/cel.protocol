@@ -1,7 +1,5 @@
 package cel.gènesi;
 
-import java.io.PrintStream;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -54,10 +52,8 @@ public class Genomapa
 	public Genomapa(Paritat paritat) {
 		super(paritat);
 	}
-	public Genomapa(Paritat paritat, Hipercub clau, Hipercadena valor) {
-		super(Haploide.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Genomapa(Class<Haploide> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Genomapa(Genomapa pare) {
 		super(pare);
@@ -77,7 +73,7 @@ public class Genomapa
 	}
 	@Override
 	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(o.obtenirClau().obtenirClau(), o.obtenirClau().obtenirValor()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
 		comparador((Hipercadena) anyell, (Hipercub) anyell.obtenirFill());
 		return 0;
@@ -93,7 +89,7 @@ public class Genomapa
 				break;
 			case Manament.MOR:
 				genomapa.alliberar();
-				establirValor(genomapa.obtenirClau(), genomapa.obtenirValor());
+				establirClau(genomapa.obtenirValor(), genomapa.obtenirClau());
 				break;
 			default:
 				return;

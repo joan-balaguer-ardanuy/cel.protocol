@@ -56,10 +56,8 @@ public class Haploide
 	public Haploide(Paritat paritat) {
 		super(paritat);
 	}
-	public Haploide(Paritat paritat, Hipercadena clau, Hipercub valor) {
-		super(Genomapa.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Haploide(Class<Genomapa> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Haploide(Haploide pare) {
 		super(pare);
@@ -87,28 +85,15 @@ public class Haploide
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercub) {
-			Hipercub entrada = (Hipercub) manament.getSource();
+		if(manament.getSource() instanceof Hipercadena) {
+			Hipercadena hipercadena = (Hipercadena) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					execute(establirClau(entrada, (Hipercadena) entrada.obtenirFill()));
-				}
+			case Manament.VIU:
+				hipercadena.comparador(hipercadena.obtenirValor(), hipercadena.obtenirClau()).compara(hipercadena, obtenirValor());
+				donarManament(new Ordre(hipercadena.comparador().font()));
 				break;
 			default:
 				break;
-			}
-		}
-		else if(manament.getSource() instanceof Haploide) {
-			Haploide haploide = (Haploide) manament.getSource();
-			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(haploide.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					//execute(comparador().font());
-					break;
-				default:
-					return;
 			}
 		}
 	}

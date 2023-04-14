@@ -51,10 +51,8 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	public Interestellar(Paritat paritat) {
 		super(paritat);
 	}
-	public Interestellar(Paritat paritat, Andròmeda clau, ViaLàctia valor) {
-		super(Supercúmul.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Interestellar(Class<Supercúmul> classeFill, Paritat paritat) {
+		super(Supercúmul.class, paritat);
 	}
 	public Interestellar(Interestellar pare) {
 		super(pare);
@@ -83,27 +81,29 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof ViaLàctia) {
-			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
+		if(manament.getSource() instanceof Sol) {
+			Sol sol = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					execute(establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill()));
+					ViaLàctia viaLàctia = new ViaLàctia(Andròmeda.class, sol.obtenirParitat());
+					viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
+					donarManament(new Ordre(viaLàctia));
 				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof Interestellar) {
-			Interestellar interestellar = (Interestellar) manament.getSource();
+		} else if(manament.getSource() instanceof Andròmeda) {
+			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
-				case Manament.VIU:
-					comparador(obtenirValor(), obtenirClau()).compara(interestellar.obtenirDéu(), obtenirMareDeDéu());
-					donarManament(new Ordre(comparador().font()));
-					break;
-				default:
-					return;
+			case Manament.VIU:
+				andròmeda.comparador(andròmeda.obtenirValor(), andròmeda.obtenirClau()).compara(andròmeda, obtenirValor());
+				ViaLàctia viaLàctia = (ViaLàctia) andròmeda.comparador().font();
+				obtenirDéu().establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}

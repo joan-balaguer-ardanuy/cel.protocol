@@ -51,10 +51,8 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	public Supercúmul(Paritat paritat) {
 		super(paritat);
 	}
-	public Supercúmul(Paritat paritat, ViaLàctia clau, Andròmeda valor) {
-		super(Interestellar.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Supercúmul(Class<Interestellar> classeFill, Paritat paritat) {
+		super(Interestellar.class, paritat);
 	}
 	public Supercúmul(Supercúmul pare) {
 		super(pare);

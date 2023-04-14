@@ -51,10 +51,8 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	public ViaLàctia(Paritat paritat) {
 		super(paritat);
 	}
-	public ViaLàctia(Paritat paritat, Sol clau, AlfaCentauri valor) {
-		super(Andròmeda.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public ViaLàctia(Class<Andròmeda> classeFill, Paritat paritat) {
+		super(Andròmeda.class, paritat);
 	}
 	public ViaLàctia(ViaLàctia pare) {
 		super(pare);

@@ -51,10 +51,8 @@ public class Sol extends Home<Terra,Mar> {
 	public Sol(Paritat paritat) {
 		super(paritat);
 	}
-	public Sol(Paritat paritat, Terra clau, Mar valor) {
-		super(AlfaCentauri.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Sol(Class<AlfaCentauri> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Sol(Sol pare) {
 		super(pare);

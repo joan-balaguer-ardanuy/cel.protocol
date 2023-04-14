@@ -51,10 +51,8 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 	public Aaron(Paritat paritat) {
 		super(paritat);
 	}
-	public Aaron(Paritat paritat, Espaitemps clau, Hiperespai valor) {
-		super(TimeMaster.class, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+	public Aaron(Class<TimeMaster> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Aaron(Aaron pare) {
 		super(pare);

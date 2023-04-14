@@ -55,8 +55,8 @@ public abstract class Home<K,V> extends Document<K, V> implements Sang<K, V> {
 	public Home(Paritat paritat) {
 		super(paritat);
 	}
-	public Home(Class<? extends Document<V, K>> classeFill, Paritat paritat, K clau, V valor) {
-		super(classeFill, paritat, clau, valor);
+	public Home(Class<? extends Document<V, K>> classeFill, Paritat paritat) {
+		super(classeFill, paritat);
 	}
 	public Home(Document<K, V> pare) {
 		super(pare);
