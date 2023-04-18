@@ -105,6 +105,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 					diploide.comparador(diploide.obtenirValor(), diploide.obtenirClau()).compara(diploide, obtenirClau());
 					Cromosoma cromosoma = (Cromosoma) diploide.comparador().font();
 					obtenirMareDeDéu().establirClau(cromosoma, (Diploide) cromosoma.obtenirFill());
+					donarManament(new Ordre(cromosoma.obtenirFill()));
 				}
 				break;
 			default:

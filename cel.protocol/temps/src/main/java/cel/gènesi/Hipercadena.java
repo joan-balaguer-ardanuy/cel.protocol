@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
-import cel.Manament;
-import cel.Ordre;
 import cel.Paritat;
 
 @XmlRootElement
@@ -66,35 +64,7 @@ public class Hipercadena extends Dona<Integer,Character> {
 	public Hipercadena(Hipercadena déu, Paritat paritat, Integer clau, Character valor) {
 		super(Hipercub.class, déu, paritat, clau, valor);
 	}
-	@Override
-	public synchronized void esdeveniment(Ordre manament) {
-		super.esdeveniment(manament);
-		Hipercadena hipercadena = (Hipercadena) manament.getSource();
-		switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				comparador(obtenirValor(), obtenirClau()).compara(hipercadena.obtenirDéu(), obtenirMareDeDéu());
-				donarManament(new Ordre(comparador().font()));
-				break;
-			case Manament.MOR:
-				hipercadena.alliberar();
-				establirClau(hipercadena.obtenirValor(), hipercadena.obtenirClau());
-				break;
-			default:
-				return;
-		}
-//		Hipercadena hipercadena = (Hipercadena) manament.getSource();
-//		switch (manament.obtenirManament()) {
-//		case Manament.VIU:
-//			if(hipercadena.sócFinal()) {
-//				comparador(obtenirValor(), obtenirClau()).compara(hipercadena.obtenirDéu(), obtenirMareDeDéu());
-//				donarManament(new Ordre(comparador().font()));
-//			}
-//			break;
-//
-//		default:
-//			break;
-//		}
-	} 
+
 	@Override
 	public synchronized int compareTo(Anyell<Character, Integer> o) {
 		switch (obtenirParitat()) {

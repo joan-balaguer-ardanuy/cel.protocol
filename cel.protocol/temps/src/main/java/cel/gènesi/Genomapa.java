@@ -87,10 +87,7 @@ public class Genomapa
 			case Manament.VIU:
 				if(!sócDéu()) {
 					hipercadena.comparador(hipercadena.obtenirValor(), hipercadena.obtenirClau()).compara(hipercadena, obtenirClau());
-					Hipercub hipercub = (Hipercub) hipercadena.comparador().font();
-					if(!hipercub.ésBuit()) {
-						donarManament(new Ordre(hipercub));
-					}
+					donarManament(new Ordre(hipercadena.comparador().font()));
 				}
 				break;
 			default:
