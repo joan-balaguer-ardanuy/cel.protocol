@@ -59,16 +59,16 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	}
 	public TimeMaster(TimeMaster pare, Hiperespai clau, Espaitemps valor) {
 		super(Aaron.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public TimeMaster(TimeMaster déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public TimeMaster(TimeMaster déu, Paritat paritat, Hiperespai clau, Espaitemps valor) {
 		super(Aaron.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -94,13 +94,13 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Hiperespai) {
-			Hiperespai hiperespai = (Hiperespai) manament.getSource();
+		} else if(manament.getSource() instanceof Espaitemps) {
+			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				hiperespai.comparador(hiperespai.obtenirValor(), hiperespai.obtenirClau()).compara(hiperespai, obtenirValor());
-				Espaitemps supercúmul = (Espaitemps) hiperespai.comparador().font();
-				obtenirDéu().establirClau(supercúmul, (Hiperespai) supercúmul.obtenirFill());
+				espaitemps.comparador(espaitemps.obtenirValor(), espaitemps.obtenirClau()).compara(espaitemps, obtenirClau());
+				Hiperespai hiperespai = (Hiperespai) espaitemps.comparador().font();
+				obtenirMareDeDéu().establirClau(hiperespai, (Espaitemps) hiperespai.obtenirFill());
 				break;
 			default:
 				break;
@@ -109,7 +109,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

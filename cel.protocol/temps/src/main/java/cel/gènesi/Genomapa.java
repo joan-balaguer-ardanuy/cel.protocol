@@ -60,16 +60,16 @@ public class Genomapa
 	}
 	public Genomapa(Genomapa pare, Hipercub clau, Hipercadena valor) {
 		super(Haploide.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Genomapa(Genomapa déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Genomapa(Genomapa déu, Paritat paritat, Hipercub clau, Hipercadena valor) {
 		super(Haploide.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
@@ -81,24 +81,26 @@ public class Genomapa
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Genomapa) {
-			Genomapa genomapa = (Genomapa) manament.getSource();
+		if(manament.getSource() instanceof Hipercadena) {
+			Hipercadena hipercadena = (Hipercadena) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				genomapa.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				genomapa.alliberar();
-				establirClau(genomapa.obtenirValor(), genomapa.obtenirClau());
+				if(!sócDéu()) {
+					hipercadena.comparador(hipercadena.obtenirValor(), hipercadena.obtenirClau()).compara(hipercadena, obtenirClau());
+					Hipercub hipercub = (Hipercub) hipercadena.comparador().font();
+					if(!hipercub.ésBuit()) {
+						donarManament(new Ordre(hipercub));
+					}
+				}
 				break;
 			default:
-				return;
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

@@ -59,16 +59,16 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	}
 	public Interestellar(Interestellar pare, Andròmeda clau, ViaLàctia valor) {
 		super(Supercúmul.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Interestellar(Interestellar déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Interestellar(Interestellar déu,	Paritat paritat, Andròmeda clau, ViaLàctia valor) {
 		super(Supercúmul.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -94,13 +94,13 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Andròmeda) {
-			Andròmeda andròmeda = (Andròmeda) manament.getSource();
+		} else if(manament.getSource() instanceof ViaLàctia) {
+			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				andròmeda.comparador(andròmeda.obtenirValor(), andròmeda.obtenirClau()).compara(andròmeda, obtenirValor());
-				ViaLàctia viaLàctia = (ViaLàctia) andròmeda.comparador().font();
-				obtenirDéu().establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+				viaLàctia.comparador(viaLàctia.obtenirValor(), viaLàctia.obtenirClau()).compara(viaLàctia, obtenirClau());
+				Andròmeda andròmeda = (Andròmeda) viaLàctia.comparador().font();
+				obtenirMareDeDéu().establirClau(andròmeda, (ViaLàctia) andròmeda.obtenirFill());
 				break;
 			default:
 				break;
@@ -109,7 +109,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	}
 	@Override
 	public void run() {
-		getKey().run(); 
+		getValue().run(); 
 		super.run();
 	}
 }

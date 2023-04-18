@@ -59,16 +59,16 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	}
 	public Operó(Operó pare, Ribosoma clau, Tetraploide valor) {
 		super(Poliploide.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Operó(Operó déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Operó(Operó déu, Paritat paritat, Ribosoma clau, Tetraploide valor) {
 		super(Poliploide.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

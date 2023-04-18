@@ -1,6 +1,5 @@
 package cel;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -88,11 +87,9 @@ public class Execució {
 						aaron.afegirTestimoni(this);
 						aaron.obtenirFill().afegirTestimoni(this);
 						execute(aaron);
-					} else if(esperit instanceof Hipercub) {
-						System.out.println(esperit.obtenirNom());
 					}
 					break;
-				default: 
+				default:
 					break;
 				}
 			}
@@ -109,7 +106,7 @@ public class Execució {
 		};
 		
 		int dilatació = 1;
-		Hipercub hipercub = new Hipercub(Hipercadena.class, Paritat.XX);
+		Hipercub hipercub = new Hipercub(Hipercadena.class, Paritat.aleatòria());
 		hipercub.establirValor('A', 1*dilatació);
 		hipercub.establirValor('B', 2*dilatació);
 		hipercub.establirValor('C', 3*dilatació);
@@ -182,6 +179,6 @@ public class Execució {
 				
 			}
 		}));
-		déuPare.execute(déuPare);
+		déuPare.execute(operó);
 	}
 }

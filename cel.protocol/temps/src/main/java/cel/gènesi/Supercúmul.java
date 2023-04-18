@@ -59,16 +59,16 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	}
 	public Supercúmul(Supercúmul pare, ViaLàctia clau, Andròmeda valor) {
 		super(Interestellar.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Supercúmul(Supercúmul déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Supercúmul(Supercúmul déu, Paritat paritat, ViaLàctia clau, Andròmeda valor) {
 		super(Interestellar.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

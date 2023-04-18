@@ -59,16 +59,16 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	}
 	public Espaitemps(Espaitemps pare, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Espaitemps(Espaitemps déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Espaitemps(Espaitemps déu, Paritat paritat, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,24 +81,35 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
+		if(manament.getSource() instanceof ViaLàctia) {
+			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				espaitemps.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				espaitemps.alliberar();
-				establirValor(espaitemps.obtenirClau(), espaitemps.obtenirValor());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
+					supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+					donarManament(new Ordre(supercúmul));
+				}
 				break;
 			default:
-				return;
+				break;
+			}
+		} else if(manament.getSource() instanceof Interestellar) {
+			Interestellar interestellar = (Interestellar) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				interestellar.comparador(interestellar.obtenirValor(), interestellar.obtenirClau()).compara(interestellar, obtenirClau());
+				Supercúmul supercúmul = (Supercúmul) interestellar.comparador().font();
+				obtenirMareDeDéu().establirClau(supercúmul, (Interestellar) supercúmul.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run(); 
+		getValue().run(); 
 		super.run();
 	}
 }

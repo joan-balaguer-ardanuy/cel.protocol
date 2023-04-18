@@ -59,16 +59,16 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	}
 	public ViaLàctia(ViaLàctia pare, Sol clau, AlfaCentauri valor) {
 		super(Andròmeda.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public ViaLàctia(ViaLàctia déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public ViaLàctia(ViaLàctia déu, Paritat paritat, Sol clau, AlfaCentauri valor) {
 		super(Andròmeda.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,24 +81,35 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof ViaLàctia) {
-			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
+		if(manament.getSource() instanceof Terra) {
+			Terra terra = (Terra) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				viaLàctia.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				viaLàctia.alliberar();
-				establirValor(viaLàctia.obtenirClau(), viaLàctia.obtenirValor());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
+					sol.establirValor(terra, (Mar) terra.obtenirFill());
+					donarManament(new Ordre(sol));
+				}
 				break;
 			default:
-				return;
+				break;
+			}
+		} else if(manament.getSource() instanceof AlfaCentauri) {
+			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				alfaCentauri.comparador(alfaCentauri.obtenirValor(), alfaCentauri.obtenirClau()).compara(alfaCentauri, obtenirClau());
+				Sol sol = (Sol) alfaCentauri.comparador().font();
+				obtenirMareDeDéu().establirClau(sol, (AlfaCentauri) sol.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

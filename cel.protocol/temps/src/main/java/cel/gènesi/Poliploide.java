@@ -59,16 +59,16 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	}
 	public Poliploide(Poliploide pare, Tetraploide clau, Ribosoma valor) {
 		super(Operó.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Poliploide(Poliploide déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Poliploide(Poliploide déu, Paritat paritat, Tetraploide clau, Ribosoma valor) {
 		super(Operó.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -94,13 +94,15 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Tetraploide) {
-			Tetraploide tetraploide = (Tetraploide) manament.getSource();
+		} else if(manament.getSource() instanceof Ribosoma) {
+			Ribosoma ribosoma = (Ribosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				tetraploide.comparador(tetraploide.obtenirValor(), tetraploide.obtenirClau()).compara(tetraploide, obtenirValor());
-				Ribosoma ribosoma = (Ribosoma) tetraploide.comparador().font();
-				obtenirDéu().establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill());
+				if(!sócDéu()) {
+					ribosoma.comparador(ribosoma.obtenirValor(), ribosoma.obtenirClau()).compara(ribosoma, obtenirClau());
+					Tetraploide tetraploide = (Tetraploide) ribosoma.comparador().font();
+					obtenirMareDeDéu().establirClau(tetraploide, (Ribosoma) tetraploide.obtenirFill());
+				}
 				break;
 			default:
 				break;
@@ -109,7 +111,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

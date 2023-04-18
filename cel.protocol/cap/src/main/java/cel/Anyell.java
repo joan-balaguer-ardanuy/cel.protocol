@@ -722,7 +722,6 @@ public interface Anyell<K,V> extends Vida<Anyell<K,V>, Anyell<V,K>> {
     
     @Override
     Anyell.Generador<K,V> comparador();
-    
     Anyell.Generador<K,V> comparador(V valor, K clau);
     
     interface Generador<K,V> extends Reproductor<Anyell<K,V>,Anyell<V,K>> {

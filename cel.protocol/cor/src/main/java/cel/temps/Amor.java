@@ -1,6 +1,5 @@
 package cel.temps;
 
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.BiFunction;
 
@@ -152,7 +151,7 @@ public abstract class Amor
 		public abstract void establirFill(V fill);
 
 		@Override
-		public void compara(K pare, V fill) {
+		public synchronized void compara(K pare, V fill) {
 			K p = pare.obtenirPare();
 			V f = fill.obtenirPare();
 			do {
@@ -166,6 +165,7 @@ public abstract class Amor
 					p = p.obtenirPare();
 					f = f.obtenirPare();
 				}
+
 			} while (p != pare && f != fill);
 			
 //			do {

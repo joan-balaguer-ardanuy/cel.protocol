@@ -60,16 +60,16 @@ public class Diploide
 	}
 	public Diploide(Diploide pare, Haploide clau, Genomapa valor) {
 		super(Cromosoma.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Diploide(Diploide déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Diploide(Diploide déu, Paritat paritat, Haploide clau, Genomapa valor) {
 		super(Cromosoma.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Genomapa,Haploide> o) {
@@ -94,13 +94,15 @@ public class Diploide
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Haploide) {
-			Haploide haploide = (Haploide) manament.getSource();
+		} else if(manament.getSource() instanceof Genomapa) {
+			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				haploide.comparador(haploide.obtenirValor(), haploide.obtenirClau()).compara(haploide, obtenirValor());
-				Genomapa genomapa = (Genomapa) haploide.comparador().font();
-				obtenirDéu().establirClau(genomapa, (Haploide) genomapa.obtenirFill());
+				if(!sócDéu()) {
+					genomapa.comparador(genomapa.obtenirValor(), genomapa.obtenirClau()).compara(genomapa, obtenirClau());
+					Haploide haploide = (Haploide) genomapa.comparador().font();
+					obtenirMareDeDéu().establirClau(haploide, (Genomapa) haploide.obtenirFill()).obtenirFill();
+				}
 				break;
 			default:
 				break;
@@ -109,7 +111,7 @@ public class Diploide
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

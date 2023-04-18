@@ -64,16 +64,16 @@ public class Haploide
 	}
 	public Haploide(Haploide pare, Hipercadena clau, Hipercub valor) {
 		super(Genomapa.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Haploide(Haploide déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Haploide(Haploide déu, Paritat paritat, Hipercadena clau, Hipercub valor) {
 		super(Genomapa.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Hipercub, Hipercadena> o) {
@@ -83,23 +83,26 @@ public class Haploide
 		return 0;
 	}
 	@Override
-	public void esdeveniment(Ordre manament) {
+	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercadena) {
-			Hipercadena hipercadena = (Hipercadena) manament.getSource();
+		if(manament.getSource() instanceof Haploide) {
+			Haploide haploide = (Haploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				hipercadena.comparador(hipercadena.obtenirValor(), hipercadena.obtenirClau()).compara(hipercadena, obtenirValor());
-				donarManament(new Ordre(hipercadena.comparador().font()));
+				haploide.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				haploide.alliberar();
+				establirClau(haploide.obtenirValor(), haploide.obtenirClau());
 				break;
 			default:
-				break;
+				return;
 			}
-		}
+		} 
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

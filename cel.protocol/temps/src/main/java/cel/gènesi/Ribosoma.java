@@ -62,16 +62,16 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	}
 	public Ribosoma(Ribosoma pare, Cromosoma clau, Diploide valor) {
 		super(Tetraploide.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Ribosoma(Ribosoma  déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Ribosoma(Ribosoma déu, Paritat paritat, Cromosoma clau, Diploide valor) {
 		super(Tetraploide.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -84,24 +84,37 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
+		if(manament.getSource() instanceof Genomapa) {
+			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				ribosoma.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				ribosoma.alliberar();
-				establirClau(ribosoma.obtenirValor(), ribosoma.obtenirClau());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					Cromosoma cromosoma = new Cromosoma(Diploide.class, genomapa.obtenirParitat());
+					cromosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
+					donarManament(new Ordre(cromosoma));
+				}
 				break;
 			default:
-				return;
+				break;
+			}
+		} else if(manament.getSource() instanceof Diploide) {
+			Diploide diploide = (Diploide) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				if(!sócDéu()) {
+					diploide.comparador(diploide.obtenirValor(), diploide.obtenirClau()).compara(diploide, obtenirClau());
+					Cromosoma cromosoma = (Cromosoma) diploide.comparador().font();
+					obtenirMareDeDéu().establirClau(cromosoma, (Diploide) cromosoma.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

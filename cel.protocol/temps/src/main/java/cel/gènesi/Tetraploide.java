@@ -62,16 +62,16 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	}
 	public Tetraploide(Tetraploide pare, Diploide clau, Cromosoma valor) {
 		super(Ribosoma.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Tetraploide(Tetraploide déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Tetraploide(Tetraploide déu, Paritat paritat, Diploide clau, Cromosoma valor) {
 		super(Ribosoma.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Cromosoma, Diploide> o) {
@@ -83,35 +83,25 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Genomapa) {
-			Genomapa genomapa = (Genomapa) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Cromosoma cromsosoma = new Cromosoma(Diploide.class, genomapa.obtenirParitat());
-					cromsosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
-					donarManament(new Ordre(cromsosoma));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof Diploide) {
-			Diploide diploide = (Diploide) manament.getSource();
+		if(manament.getSource() instanceof Tetraploide) {
+			Tetraploide tetraploide = (Tetraploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				diploide.comparador(diploide.obtenirValor(), diploide.obtenirClau()).compara(diploide, obtenirValor());
-				Cromosoma cromosoma = (Cromosoma) diploide.comparador().font();
-				obtenirDéu().establirClau(cromosoma, (Diploide) cromosoma.obtenirFill());
+				tetraploide.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				tetraploide.alliberar();
+				establirClau(tetraploide.obtenirValor(), tetraploide.obtenirClau());
 				break;
 			default:
-				break;
+				return;
 			}
 		}
+		
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

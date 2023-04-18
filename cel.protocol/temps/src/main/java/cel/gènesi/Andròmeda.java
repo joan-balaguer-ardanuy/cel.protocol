@@ -59,16 +59,16 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	}
 	public Andròmeda(Andròmeda pare, AlfaCentauri clau, Sol valor) {
 		super(ViaLàctia.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Andròmeda(Andròmeda déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Andròmeda(Andròmeda déu,	Paritat paritat, AlfaCentauri clau, Sol valor) {
 		super(ViaLàctia.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,35 +81,24 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Terra) {
-			Terra terra = (Terra) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
-					sol.establirValor(terra, (Mar) terra.obtenirFill());
-					donarManament(new Ordre(sol));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof AlfaCentauri) {
-			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
+		if(manament.getSource() instanceof Andròmeda) {
+			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				alfaCentauri.comparador(alfaCentauri.obtenirValor(), alfaCentauri.obtenirClau()).compara(alfaCentauri, obtenirValor());
-				Sol sol = (Sol) alfaCentauri.comparador().font();
-				obtenirDéu().establirClau(sol, (AlfaCentauri) sol.obtenirFill());
+				andròmeda.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				andròmeda.alliberar();
+				establirValor(andròmeda.obtenirClau(), andròmeda.obtenirValor());
 				break;
 			default:
-				break;
+				return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run(); 
+		getValue().run(); 
 		super.run();
 	}
 }

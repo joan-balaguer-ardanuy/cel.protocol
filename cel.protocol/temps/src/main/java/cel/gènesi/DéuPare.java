@@ -59,16 +59,16 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	}
 	public DéuPare(DéuPare pare, Aaron clau, TimeMaster valor) {
 		super(MareDeDéu.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public DéuPare(DéuPare déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public DéuPare(DéuPare déu, Paritat paritat, Aaron clau, TimeMaster valor) {
 		super(MareDeDéu.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,24 +81,35 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof DéuPare) {
-			DéuPare déuPare = (DéuPare) manament.getSource();
+		if(manament.getSource() instanceof Espaitemps) {
+			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				déuPare.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				déuPare.alliberar();
-				establirValor(déuPare.obtenirClau(), déuPare.obtenirValor());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
+					aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
+					donarManament(new Ordre(aaron));
+				}
 				break;
 			default:
-				return;
+				break;
+			}
+		} else if(manament.getSource() instanceof TimeMaster) {
+			TimeMaster timeMaster = (TimeMaster) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				timeMaster.comparador(timeMaster.obtenirValor(), timeMaster.obtenirClau()).compara(timeMaster, obtenirClau());
+				Aaron aaron = (Aaron) timeMaster.comparador().font();
+				obtenirMareDeDéu().establirClau(aaron, (TimeMaster) aaron.obtenirFill());
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run(); 
+		getValue().run(); 
 		super.run();
 	}
 }

@@ -3,6 +3,8 @@ package cel;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Iterator;
+
 import cel.coordenada.CoordenadaString;
 import cel.coordenada.StringCoordenada;
 import cel.gènesi.Aaron;
@@ -47,7 +49,7 @@ public class Simulador extends PApplet implements Esperit {
 	
 	float tamany = 200;
 	
-//	boolean clear = false;
+	boolean clear = false;
 	
 	float x = 0;
 	float y = 0;
@@ -147,10 +149,12 @@ public class Simulador extends PApplet implements Esperit {
 		spotLight(255, 0, 0, width / 2, height / 2, 5000, 0, 0, -1, PI / 4, 2);
 		noStroke();
 //		synchronized (this) {
-//			Iterator<Anyell<String, Coordenada>> it = coordenades.iterator();
-//			while (it.hasNext()) {
-//				if (it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
-//					it.remove();
+//			if (clear) {
+//				Iterator<Anyell<String, Coordenada>> it = coordenades.iterator();
+//				while (it.hasNext()) {
+//					if (it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
+//						it.remove();
+//					}
 //				}
 //			}
 //		}
@@ -189,7 +193,7 @@ public class Simulador extends PApplet implements Esperit {
 					fill((coordenada.getX()) % 255,  coordenada.getY() % 255, coordenada.getZ() % 255);
 					break;
 				}
-				sphere(coordenada.getTotal() % 200);
+				sphere(coordenada.getTotal() % 150 + 50);
 			}
 		}
 	}
@@ -245,21 +249,98 @@ public class Simulador extends PApplet implements Esperit {
 		Esperit esperit = (Esperit) manament.getSource();
 		switch (manament.obtenirManament()) {
 		case Manament.GÈNESI:
-//			if(esperit instanceof Genomapa) {
-//				Genomapa genomapa = (Genomapa) esperit;
-//				genomapa.afegirTestimoni(this);
-//				genomapa.obtenirFill().afegirTestimoni(this);
+			if(esperit instanceof Aaron) {
+				Aaron genomapa = (Aaron) esperit;
+				genomapa.afegirTestimoni(this);
+				genomapa.obtenirFill().afegirTestimoni(this);
 //				execute(genomapa);
-//			}
+			}
 //			Coordenada coordenada = new Coordenada(esperit);
 //			coordenades.establirValor(esperit.obtenirNom(), coordenada);
+			if(esperit instanceof Hipercub) {
+				Coordenada coordenada = new Coordenada(esperit);
+				coordenades.establirValor(esperit.obtenirNom(), coordenada);
+			}
+			if(esperit instanceof Genomapa) {
+				Coordenada coordenada = new Coordenada(esperit);
+				coordenades.establirValor(esperit.obtenirNom(), coordenada);
+			}
+//			else if(esperit instanceof Hipercadena) {
+//				Coordenada coordenada = new Coordenada(esperit);
+//				coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//			}
+//			if(esperit instanceof Genomapa) {
+//				for(Anyell<Hipercub,Hipercadena> genomapa : (Genomapa) esperit) {
+//					Coordenada coordenada = new Coordenada(genomapa);
+//					coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//					
+//					for(Anyell<Character,Integer> hipercub : genomapa.obtenirClau()) {
+//						coordenada = new Coordenada(hipercub);
+//						coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//					}
+//				}
+//			} else if(esperit instanceof Haploide) {
+//				for(Anyell<Hipercadena,Hipercub> haploide : (Haploide) esperit) {
+//					Coordenada coordenada = new Coordenada(haploide);
+//					coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//					
+////					for(Anyell<Integer,Character> hipercadena : haploide.obtenirClau()) {
+////						coordenada = new Coordenada(hipercadena);
+////						coordenades.establirValor(esperit.obtenirNom(), coordenada);
+////					}
+//				}
+//			}
+//			
+//			if (esperit instanceof Cromosoma) {
+//				Cromosoma pare = (Cromosoma) esperit;
+//				
+//				for(Anyell<Genomapa,Haploide> cromosoma : pare) {
+//					Coordenada coordenada = new Coordenada(cromosoma);
+//					coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//					
+//					for(Anyell<Hipercub,Hipercadena> genomapa : cromosoma.obtenirClau()) {
+//						coordenada = new Coordenada(genomapa);
+//						coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//						
+//						for(Anyell<Character,Integer> hipercub : genomapa.obtenirClau()) {
+//							coordenada = new Coordenada(hipercub);
+//							coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//						}
+//					}
+//				}
+//			}
+//			if (esperit instanceof Diploide) {
+//				Diploide mare = (Diploide) esperit;
+//				
+//				for(Anyell<Haploide,Genomapa> diploide : mare) {
+//					Coordenada coordenada = new Coordenada(diploide);
+//					coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//					
+//					for(Anyell<Hipercadena,Hipercub> haploide : diploide.obtenirClau()) {
+//						coordenada = new Coordenada(haploide);
+//						coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//						
+//						for(Anyell<Integer,Character> hipercadena : haploide.obtenirClau()) {
+//							coordenada = new Coordenada(hipercadena);
+//							coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//						}
+//					}
+//				}
+//			}
+			
+				
 			break;
 		case Manament.VIU:
-			System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
-			Coordenada coordenada = new Coordenada(esperit);
-			coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//			if (esperit.obtenirNom().length() > 1) {
+//				System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
+//				Coordenada coordenada = new Coordenada(esperit);
+//				coordenades.establirValor(esperit.obtenirNom(), coordenada);
+//				clear = true;
+//			}
+			
 			break;
 		case Manament.MOR:
+			clear = false;
 			break;
 		default:
 			break;

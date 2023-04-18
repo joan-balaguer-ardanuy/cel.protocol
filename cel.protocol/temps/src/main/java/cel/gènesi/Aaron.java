@@ -59,16 +59,16 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 	}
 	public Aaron(Aaron pare, Espaitemps clau, Hiperespai valor) {
 		super(TimeMaster.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Aaron(Aaron déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Aaron(Aaron déu, Paritat paritat, Espaitemps clau, Hiperespai valor) {
 		super(TimeMaster.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override

@@ -59,16 +59,16 @@ public class Mar extends Dona<Poliploide,Operó> {
 	}
 	public Mar(Mar pare, Poliploide clau, Operó valor) {
 		super(Terra.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Mar(Mar déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Mar(Mar déu, Paritat paritat, Poliploide clau, Operó valor) {
 		super(Terra.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,35 +81,24 @@ public class Mar extends Dona<Poliploide,Operó> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Operó operó = new Operó(Poliploide.class, ribosoma.obtenirParitat());
-					operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
-					donarManament(new Ordre(operó));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof Poliploide) {
-			Poliploide poliploide = (Poliploide) manament.getSource();
+		if(manament.getSource() instanceof Mar) {
+			Mar mar = (Mar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				poliploide.comparador(poliploide.obtenirValor(), poliploide.obtenirClau()).compara(poliploide, obtenirValor());
-				Operó operó = (Operó) poliploide.comparador().font();
-				obtenirDéu().establirClau(operó, (Poliploide) operó.obtenirFill());
+				mar.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				mar.alliberar();
+				establirValor(mar.obtenirClau(), mar.obtenirValor());
 				break;
 			default:
-				break;
+				return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

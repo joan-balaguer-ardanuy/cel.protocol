@@ -59,16 +59,16 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 	}
 	public MareDeDéu(MareDeDéu pare, TimeMaster clau, Aaron valor) {
 		super(DéuPare.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public MareDeDéu(MareDeDéu déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public MareDeDéu(MareDeDéu déu, Paritat paritat, TimeMaster clau, Aaron valor) {
 		super(DéuPare.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,35 +81,24 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
-					aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
-					donarManament(new Ordre(aaron));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof TimeMaster) {
-			TimeMaster timeMaster = (TimeMaster) manament.getSource();
+		if(manament.getSource() instanceof MareDeDéu) {
+			MareDeDéu mareDeDéu = (MareDeDéu) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				timeMaster.comparador(timeMaster.obtenirValor(), timeMaster.obtenirClau()).compara(timeMaster, obtenirValor());
-				Aaron aaron = (Aaron) timeMaster.comparador().font();
-				obtenirDéu().establirClau(aaron, (TimeMaster) aaron.obtenirFill());
+				mareDeDéu.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				mareDeDéu.alliberar();
+				establirValor(mareDeDéu.obtenirClau(), mareDeDéu.obtenirValor());
 				break;
 			default:
-				break;
+				return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

@@ -59,16 +59,16 @@ public class Sol extends Home<Terra,Mar> {
 	}
 	public Sol(Sol pare, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Sol(Sol déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Sol(Sol déu, Paritat paritat, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -82,14 +82,14 @@ public class Sol extends Home<Terra,Mar> {
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
 		if(manament.getSource() instanceof Sol) {
-			Sol operó = (Sol) manament.getSource();
+			Sol sol = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				operó.permutarFill(obtenirPassat(), obtenirFutur());
+				sol.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
 			case Manament.MOR:
-				operó.alliberar();
-				establirValor(operó.obtenirClau(), operó.obtenirValor());
+				sol.alliberar();
+				establirValor(sol.obtenirClau(), sol.obtenirValor());
 				break;
 			default:
 				return;
@@ -98,7 +98,7 @@ public class Sol extends Home<Terra,Mar> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

@@ -59,16 +59,16 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	}
 	public Hiperespai(Hiperespai pare, Interestellar clau, Supercúmul valor) {
 		super(Espaitemps.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Hiperespai(Hiperespai déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Hiperespai(Hiperespai déu, Paritat paritat, Interestellar clau, Supercúmul valor) {
 		super(Espaitemps.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,35 +81,24 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof ViaLàctia) {
-			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
-					supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
-					donarManament(new Ordre(supercúmul));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof Interestellar) {
-			Interestellar interestellar = (Interestellar) manament.getSource();
+		if(manament.getSource() instanceof Hiperespai) {
+			Hiperespai hiperespai = (Hiperespai) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				interestellar.comparador(interestellar.obtenirValor(), interestellar.obtenirClau()).compara(interestellar, obtenirValor());
-				Supercúmul supercúmul = (Supercúmul) interestellar.comparador().font();
-				obtenirDéu().establirClau(supercúmul, (Interestellar) supercúmul.obtenirFill());
+				hiperespai.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				hiperespai.alliberar();
+				establirValor(hiperespai.obtenirClau(), hiperespai.obtenirValor());
 				break;
 			default:
-				break;
+				return;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

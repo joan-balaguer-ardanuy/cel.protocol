@@ -75,6 +75,10 @@ public class Hipercadena extends Dona<Integer,Character> {
 				comparador(obtenirValor(), obtenirClau()).compara(hipercadena.obtenirDéu(), obtenirMareDeDéu());
 				donarManament(new Ordre(comparador().font()));
 				break;
+			case Manament.MOR:
+				hipercadena.alliberar();
+				establirClau(hipercadena.obtenirValor(), hipercadena.obtenirClau());
+				break;
 			default:
 				return;
 		}

@@ -59,16 +59,16 @@ public class Terra extends Home<Operó,Poliploide> {
 	}
 	public Terra(Terra pare, Operó clau, Poliploide valor) {
 		super(Mar.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Terra(Terra déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Terra(Terra déu, Paritat paritat, Operó clau, Poliploide valor) {
 		super(Mar.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
@@ -81,24 +81,37 @@ public class Terra extends Home<Operó,Poliploide> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Terra) {
-			Terra operó = (Terra) manament.getSource();
+		if(manament.getSource() instanceof Ribosoma) {
+			Ribosoma ribosoma = (Ribosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
-			case Manament.VIU:
-				operó.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				operó.alliberar();
-				establirValor(operó.obtenirClau(), operó.obtenirValor());
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					Operó operó = new Operó(Poliploide.class, ribosoma.obtenirParitat());
+					operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
+					donarManament(new Ordre(operó));
+				}
 				break;
 			default:
-				return;
+				break;
+			}
+		} else if(manament.getSource() instanceof Poliploide) {
+			Poliploide poliploide = (Poliploide) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				if(!sócDéu()) {
+					poliploide.comparador(poliploide.obtenirValor(), poliploide.obtenirClau()).compara(poliploide, obtenirClau());
+					Operó operó = (Operó) poliploide.comparador().font();
+					obtenirMareDeDéu().establirClau(operó, (Poliploide) operó.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

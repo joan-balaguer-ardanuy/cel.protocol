@@ -93,7 +93,7 @@ public abstract class Santedat
 	}
 	@Override
 	public boolean ésBuit() {
-		return obtenirPare() == this;
+		return obtenirPare() == obtenirFill().obtenirFill();
 	}
 
 	@Override

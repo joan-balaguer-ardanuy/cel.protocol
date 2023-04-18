@@ -63,16 +63,16 @@ public class Cromosoma
 	}
 	public Cromosoma(Cromosoma pare, Genomapa clau, Haploide valor) {
 		super(Diploide.class, pare, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	public Cromosoma(Cromosoma déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Cromosoma(Cromosoma déu, Paritat paritat, Genomapa clau, Haploide valor) {
 		super(Diploide.class, déu, paritat, clau, valor);
-		clau.afegirTestimoni(this);
-		valor.afegirTestimoni(obtenirFill());
+		valor.afegirTestimoni(this);
+		clau.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Haploide,Genomapa> o) {
@@ -101,7 +101,7 @@ public class Cromosoma
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }
