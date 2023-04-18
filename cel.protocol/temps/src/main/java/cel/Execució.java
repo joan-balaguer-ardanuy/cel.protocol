@@ -179,6 +179,6 @@ public class Execució {
 				
 			}
 		}));
-		déuPare.execute(operó);
+		déuPare.execute(déuPare);
 	}
 }
