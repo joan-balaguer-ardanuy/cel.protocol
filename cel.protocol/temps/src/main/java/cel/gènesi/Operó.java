@@ -54,7 +54,7 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	public Operó(Class<Poliploide> classeFill, Paritat paritat) {
 		super(classeFill, paritat);
 	}
-	public Operó(Operó pare) {
+	public Operó(Operó pare) { 
 		super(pare);
 	}
 	public Operó(Operó pare, Ribosoma clau, Tetraploide valor) {
@@ -73,7 +73,7 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 
 	@Override
 	public int compareTo(Anyell<Tetraploide, Ribosoma> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Tetraploide(Ribosoma.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Diploide,Cromosoma> anyell = obtenirClau().comparador().font();
 		comparador((Tetraploide) anyell, (Ribosoma) anyell.obtenirFill());
 		return 0;
@@ -89,7 +89,7 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 				break;
 			case Manament.MOR:
 				operó.alliberar();
-				establirValor(operó.obtenirClau(), operó.obtenirValor());
+//				obtenirMareDeDéu().recórrerPare(operó, (Poliploide) operó.obtenirFill());
 				break;
 			default:
 				return;

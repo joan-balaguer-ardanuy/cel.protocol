@@ -76,7 +76,7 @@ public class Cromosoma
 	}
 	@Override
 	public int compareTo(Anyell<Haploide,Genomapa> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Haploide(Genomapa.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hipercadena,Hipercub> anyell = obtenirClau().comparador().font();
 		comparador((Haploide) anyell, (Genomapa) anyell.obtenirFill());
 		return 0;
@@ -92,7 +92,7 @@ public class Cromosoma
 				break;
 			case Manament.MOR:
 				cromosoma.alliberar();
-				establirClau(cromosoma.obtenirValor(), cromosoma.obtenirClau());
+//				obtenirMareDeDéu().recórrerPare(cromosoma, (Diploide) cromosoma.obtenirFill());
 				break;
 			default:
 				return;

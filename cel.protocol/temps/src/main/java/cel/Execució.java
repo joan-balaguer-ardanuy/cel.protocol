@@ -82,12 +82,25 @@ public class Execució {
 				Esperit esperit = (Esperit) manament.getSource();
 				switch (manament.obtenirManament()) {
 				case Manament.GÈNESI:
-					if(esperit instanceof Aaron) {
-						Aaron aaron = (Aaron) esperit;
+					if(esperit instanceof Terra) {
+						Terra aaron = (Terra) esperit;
 						aaron.afegirTestimoni(this);
 						aaron.obtenirFill().afegirTestimoni(this);
 						execute(aaron);
 					}
+					break;
+				case Manament.VIU:
+//						if(esperit instanceof Diploide || esperit instanceof Cromosoma) {
+//						System.out.println("VIU: " + esperit.getClass() + " " + esperit.obtenirNom());
+//					}
+					if(esperit instanceof Tetraploide || esperit instanceof Ribosoma) {
+						System.out.println("VIU: " + esperit.getClass());
+						}
+					if(esperit instanceof Poliploide || esperit instanceof Operó) {
+						System.out.println("VIU: " + esperit.getClass());
+					}
+					break;
+				case Manament.MOR:
 					break;
 				default:
 					break;
@@ -153,23 +166,23 @@ public class Execució {
 		Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
 		sol.establirValor(terra, (Mar) terra.obtenirFill());
 		
-		ViaLàctia viaLàctia = new ViaLàctia(Andròmeda.class, sol.obtenirParitat());
-		viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
+//		ViaLàctia viaLàctia = new ViaLàctia(Andròmeda.class, sol.obtenirParitat());
+//		viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
+//		
+//		Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
+//		supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+//		
+//		Espaitemps espaitemps = new Espaitemps(Hiperespai.class, supercúmul.obtenirParitat());
+//		espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
+//		
+//		Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
+//		aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
+//		
+//		DéuPare déuPare = new DéuPare(MareDeDéu.class, aaron.obtenirParitat());
+//		déuPare.establirValor(aaron, (TimeMaster) aaron.obtenirFill());
 		
-		Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
-		supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
-		
-		Espaitemps espaitemps = new Espaitemps(Hiperespai.class, supercúmul.obtenirParitat());
-		espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
-		
-		Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
-		aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
-		
-		DéuPare déuPare = new DéuPare(MareDeDéu.class, aaron.obtenirParitat());
-		déuPare.establirValor(aaron, (TimeMaster) aaron.obtenirFill());
-		
-		déuPare.afegirTestimoni(esperit);
-		déuPare.obtenirFill().afegirTestimoni(esperit);
+		sol.afegirTestimoni(esperit);
+		sol.obtenirFill().afegirTestimoni(esperit);
 		
 		System.setErr(new PrintStream(new OutputStream() {
 			
@@ -179,6 +192,6 @@ public class Execució {
 				
 			}
 		}));
-		déuPare.execute(déuPare);
+		sol.execute(sol);
 	}
 }

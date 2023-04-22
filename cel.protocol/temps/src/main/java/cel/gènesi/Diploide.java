@@ -73,7 +73,7 @@ public class Diploide
 	}
 	@Override
 	public int compareTo(Anyell<Genomapa,Haploide> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Genomapa(Haploide.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hipercub,Hipercadena> anyell = obtenirClau().comparador().font();
 		comparador((Genomapa) anyell, (Haploide) anyell.obtenirFill());
 		return 0;
@@ -99,13 +99,9 @@ public class Diploide
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-//					System.out.println("o1: " + genomapa.obtenirNom());
-//					System.out.println("o2: " + obtenirClau().obtenirNom());
-					genomapa.comparador(genomapa.obtenirValor(), genomapa.obtenirClau()).compara(genomapa, obtenirClau());
+					genomapa.comparador(new Haploide(Genomapa.class, Paritat.aleatòria())).compara(genomapa, obtenirClau());
 					Haploide haploide = (Haploide) genomapa.comparador().font();
-//					System.out.println("output " + haploide.obtenirNom());
 					obtenirMareDeDéu().establirClau(haploide, (Genomapa) haploide.obtenirFill()).obtenirFill();
-					donarManament(new Ordre(haploide));
 				}
 				break;
 			default:

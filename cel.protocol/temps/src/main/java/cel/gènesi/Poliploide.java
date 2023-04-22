@@ -73,7 +73,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 
 	@Override
 	public int compareTo(Anyell<Ribosoma, Tetraploide> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Ribosoma(Tetraploide.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Cromosoma,Diploide> anyell = obtenirClau().comparador().font();
 		comparador((Ribosoma) anyell, (Tetraploide) anyell.obtenirFill());
 		return 0;
@@ -99,7 +99,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					ribosoma.comparador(ribosoma.obtenirValor(), ribosoma.obtenirClau()).compara(ribosoma, obtenirClau());
+					ribosoma.comparador(new Tetraploide(Ribosoma.class, Paritat.aleatòria())).compara(ribosoma, obtenirClau());
 					Tetraploide tetraploide = (Tetraploide) ribosoma.comparador().font();
 					obtenirMareDeDéu().establirClau(tetraploide, (Ribosoma) tetraploide.obtenirFill());
 				}

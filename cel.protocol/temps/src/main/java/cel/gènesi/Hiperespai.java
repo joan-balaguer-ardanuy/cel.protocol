@@ -73,7 +73,7 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 
 	@Override
 	public int compareTo(Anyell<Supercúmul, Interestellar> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Supercúmul(Interestellar.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<ViaLàctia,Andròmeda> anyell = obtenirClau().comparador().font();
 		comparador((Supercúmul) anyell, (Interestellar) anyell.obtenirFill());
 		return 0;

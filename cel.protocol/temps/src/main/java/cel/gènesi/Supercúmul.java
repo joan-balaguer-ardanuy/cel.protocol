@@ -73,7 +73,7 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 
 	@Override
 	public int compareTo(Anyell<Andròmeda, ViaLàctia> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Andròmeda(ViaLàctia.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<AlfaCentauri,Sol> anyell = obtenirClau().comparador().font();
 		comparador((Andròmeda) anyell, (ViaLàctia) anyell.obtenirFill());
 		return 0;

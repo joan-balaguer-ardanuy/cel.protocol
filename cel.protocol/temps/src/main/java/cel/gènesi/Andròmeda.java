@@ -73,7 +73,7 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 
 	@Override
 	public int compareTo(Anyell<Sol,AlfaCentauri> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Sol(AlfaCentauri.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Terra,Mar> anyell = obtenirClau().comparador().font();
 		comparador((Sol) anyell, (AlfaCentauri) anyell.obtenirFill());
 		return 0;

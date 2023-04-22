@@ -73,7 +73,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 
 	@Override
 	public int compareTo(Anyell<Operó, Poliploide> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Operó(Poliploide.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Ribosoma,Tetraploide> anyell = obtenirClau().comparador().font();
 		comparador((Operó) anyell, (Poliploide) anyell.obtenirFill());
 		return 0;
@@ -89,7 +89,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 				break;
 			case Manament.MOR:
 				mar.alliberar();
-				establirValor(mar.obtenirClau(), mar.obtenirValor());
+//				obtenirMareDeDéu().recórrerPare(mar, (Terra) mar.obtenirFill());
 				break;
 			default:
 				return;

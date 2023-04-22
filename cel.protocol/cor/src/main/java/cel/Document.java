@@ -356,7 +356,11 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 	
 	@Override
 	public Anyell.Generador<K,V> comparador() {
-		return comparador == null ? comparador = new Matriu() : comparador;
+		return comparador ;
+	}
+	public Anyell.Generador<K,V> comparador(Anyell<V,K> font) {
+		comparador = new Matriu(font);
+		return comparador;
 	}
 	public Anyell.Generador<K,V> comparador(V valor, K clau) {
 		comparador = new Matriu(valor, clau);
@@ -368,10 +372,12 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		public Matriu() {
 			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Document.this.getClass(), Paritat.aleatòria()));
 		}
+		public Matriu(Anyell<V,K> anyell) {
+			super(anyell);
+		}
 		@SuppressWarnings("unchecked")
 		public Matriu(V valor, K clau) {
-			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), Document.this.getClass(), Paritat.aleatòria()));
-			establir(valor, clau);
+			super((Anyell<V,K>) crea(Document.this.obtenirFill().getClass(), obtenirMareDeDéu(), Paritat.aleatòria(), valor, clau));
 		}
 		@SuppressWarnings("unchecked")
 		@Override
@@ -384,11 +390,15 @@ public abstract class Document<K,V> extends Temps<Anyell<K,V>,Anyell<V,K>> imple
 		}
 		@Override
 		public void establirPare(Anyell<K, V> pare) {
-			establir(pare.obtenirValor(), pare.obtenirClau());
+			super.establirPare(pare);
+			font().obtenirDéu().establirClau(pare.obtenirValor());
+			font().obtenirMareDeDéu().establirClau(pare.obtenirClau());
 		}
 		@Override
-		public void establirFill(Anyell<V, K> fill) {
-			establir(fill.obtenirClau(),fill.obtenirValor());
+		public void establirFill(Anyell<V, K> valor) {
+			super.establirFill(valor);
+			font().obtenirMareDeDéu().establirClau(valor.obtenirValor());
+			font().obtenirDéu().establirClau(valor.obtenirClau());
 		}
 	}
 }

@@ -73,7 +73,7 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 
 	@Override
 	public int compareTo(Anyell<AlfaCentauri, Sol> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new AlfaCentauri(Sol.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Mar,Terra> anyell = obtenirClau().comparador().font();
 		comparador((AlfaCentauri) anyell, (Sol) anyell.obtenirFill());
 		return 0;
@@ -98,7 +98,7 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				alfaCentauri.comparador(alfaCentauri.obtenirValor(), alfaCentauri.obtenirClau()).compara(alfaCentauri, obtenirClau());
+				alfaCentauri.comparador(new Sol(AlfaCentauri.class, Paritat.aleatòria())).compara(alfaCentauri, obtenirClau());
 				Sol sol = (Sol) alfaCentauri.comparador().font();
 				obtenirMareDeDéu().establirClau(sol, (AlfaCentauri) sol.obtenirFill());
 				break;

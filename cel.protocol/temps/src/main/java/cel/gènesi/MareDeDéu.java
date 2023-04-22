@@ -73,7 +73,7 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 
 	@Override
 	public int compareTo(Anyell<Aaron, TimeMaster> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Aaron(TimeMaster.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Espaitemps,Hiperespai> anyell = obtenirClau().comparador().font();
 		comparador((Aaron) anyell, (TimeMaster) anyell.obtenirFill());
 		return 0;

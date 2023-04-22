@@ -73,7 +73,7 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 
 	@Override
 	public int compareTo(Anyell<Hiperespai, Espaitemps> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Hiperespai(Espaitemps.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Interestellar,Supercúmul> anyell = obtenirClau().comparador().font();
 		comparador((Hiperespai) anyell, (Espaitemps) anyell.obtenirFill());
 		return 0;
@@ -98,7 +98,7 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 	}
 	@Override
 	public void run() {
-		getKey().run();
+		getValue().run();
 		super.run();
 	}
 }

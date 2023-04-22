@@ -73,7 +73,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 
 	@Override
 	public int compareTo(Anyell<TimeMaster, Aaron> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new TimeMaster(Aaron.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hiperespai,Espaitemps> anyell = obtenirClau().comparador().font();
 		comparador((TimeMaster) anyell, (Aaron) anyell.obtenirFill());
 		return 0;
@@ -98,7 +98,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 			TimeMaster timeMaster = (TimeMaster) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				timeMaster.comparador(timeMaster.obtenirValor(), timeMaster.obtenirClau()).compara(timeMaster, obtenirClau());
+				timeMaster.comparador(new Aaron(TimeMaster.class, Paritat.aleatòria())).compara(timeMaster, obtenirClau());
 				Aaron aaron = (Aaron) timeMaster.comparador().font();
 				obtenirMareDeDéu().establirClau(aaron, (TimeMaster) aaron.obtenirFill());
 				break;

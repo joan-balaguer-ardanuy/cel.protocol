@@ -73,7 +73,7 @@ public class Sol extends Home<Terra,Mar> {
 
 	@Override
 	public int compareTo(Anyell<Mar, Terra> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Mar(Terra.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Poliploide,Operó> anyell = obtenirClau().comparador().font();
 		comparador((Mar) anyell, (Terra) anyell.obtenirFill());
 		return 0;
@@ -89,7 +89,7 @@ public class Sol extends Home<Terra,Mar> {
 				break;
 			case Manament.MOR:
 				sol.alliberar();
-				establirValor(sol.obtenirClau(), sol.obtenirValor());
+//				obtenirMareDeDéu().recórrerPare(sol, (AlfaCentauri) sol.obtenirFill());
 				break;
 			default:
 				return;

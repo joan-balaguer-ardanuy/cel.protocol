@@ -75,7 +75,7 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	}
 	@Override
 	public int compareTo(Anyell<Cromosoma, Diploide> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Cromosoma(Diploide.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Genomapa,Haploide> anyell = obtenirClau().comparador().font();
 		comparador((Cromosoma) anyell, (Diploide) anyell.obtenirFill());
 		return 0;
@@ -91,13 +91,12 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 				break;
 			case Manament.MOR:
 				tetraploide.alliberar();
-				establirClau(tetraploide.obtenirValor(), tetraploide.obtenirClau());
+//				obtenirMareDeDéu().recórrerPare(tetraploide, (Ribosoma) tetraploide.obtenirFill());
 				break;
 			default:
 				return;
 			}
 		}
-		
 	}
 	@Override
 	public void run() {

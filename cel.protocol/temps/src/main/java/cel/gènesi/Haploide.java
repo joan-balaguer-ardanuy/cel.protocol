@@ -77,7 +77,7 @@ public class Haploide
 	}
 	@Override
 	public int compareTo(Anyell<Hipercub, Hipercadena> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Hipercub(Hipercadena.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Character,Integer> anyell = obtenirClau().comparador().font();
 		comparador((Hipercub) anyell, (Hipercadena) anyell.obtenirFill());
 		return 0;
@@ -93,12 +93,12 @@ public class Haploide
 				break;
 			case Manament.MOR:
 				haploide.alliberar();
-				establirClau(haploide.obtenirValor(), haploide.obtenirClau());
+//				obtenirMareDeDéu().recórrerPare(haploide, (Genomapa) haploide.obtenirFill());
 				break;
 			default:
 				return;
 			}
-		} 
+		}
 	}
 	@Override
 	public void run() {

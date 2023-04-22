@@ -73,7 +73,7 @@ public class Genomapa
 	}
 	@Override
 	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
-		obtenirClau().comparador(o.obtenirClau().obtenirClau(), o.obtenirClau().obtenirValor()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Hipercadena(Hipercub.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
 		comparador((Hipercadena) anyell, (Hipercub) anyell.obtenirFill());
 		return 0;
@@ -86,7 +86,7 @@ public class Genomapa
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					hipercadena.comparador(hipercadena.obtenirValor(), hipercadena.obtenirClau()).compara(hipercadena, obtenirClau());
+					hipercadena.comparador(new Hipercub(Hipercadena.class, Paritat.aleatòria())).compara(hipercadena, obtenirClau());
 					donarManament(new Ordre(hipercadena.comparador().font()));
 				}
 				break;

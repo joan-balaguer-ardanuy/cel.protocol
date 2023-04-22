@@ -73,7 +73,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 
 	@Override
 	public int compareTo(Anyell<Espaitemps, Hiperespai> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Espaitemps(Hiperespai.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Supercúmul,Interestellar> anyell = obtenirClau().comparador().font();
 		comparador((Espaitemps) anyell, (Hiperespai) anyell.obtenirFill());
 		return 0;
@@ -98,7 +98,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				espaitemps.comparador(espaitemps.obtenirValor(), espaitemps.obtenirClau()).compara(espaitemps, obtenirClau());
+				espaitemps.comparador(new Hiperespai(Espaitemps.class, Paritat.aleatòria())).compara(espaitemps, obtenirClau());
 				Hiperespai hiperespai = (Hiperespai) espaitemps.comparador().font();
 				obtenirMareDeDéu().establirClau(hiperespai, (Espaitemps) hiperespai.obtenirFill());
 				break;

@@ -73,7 +73,7 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 
 	@Override
 	public int compareTo(Anyell<Interestellar, Supercúmul> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Interestellar(Supercúmul.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Andròmeda,ViaLàctia> anyell = obtenirClau().comparador().font();
 		comparador((Interestellar) anyell, (Supercúmul) anyell.obtenirFill());
 		return 0;
@@ -98,7 +98,7 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 			Interestellar interestellar = (Interestellar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				interestellar.comparador(interestellar.obtenirValor(), interestellar.obtenirClau()).compara(interestellar, obtenirClau());
+				interestellar.comparador(new Supercúmul(Interestellar.class, Paritat.aleatòria())).compara(interestellar, obtenirClau());
 				Supercúmul supercúmul = (Supercúmul) interestellar.comparador().font();
 				obtenirMareDeDéu().establirClau(supercúmul, (Interestellar) supercúmul.obtenirFill());
 				break;

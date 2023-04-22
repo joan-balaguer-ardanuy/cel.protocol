@@ -73,7 +73,7 @@ public class Terra extends Home<Operó,Poliploide> {
 
 	@Override
 	public int compareTo(Anyell<Poliploide, Operó> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Poliploide(Operó.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Tetraploide,Ribosoma> anyell = obtenirClau().comparador().font();
 		comparador((Poliploide) anyell, (Operó) anyell.obtenirFill());
 		return 0;
@@ -99,7 +99,7 @@ public class Terra extends Home<Operó,Poliploide> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					poliploide.comparador(poliploide.obtenirValor(), poliploide.obtenirClau()).compara(poliploide, obtenirClau());
+					poliploide.comparador(new Operó(Poliploide.class, Paritat.aleatòria())).compara(poliploide, obtenirClau());
 					Operó operó = (Operó) poliploide.comparador().font();
 					obtenirMareDeDéu().establirClau(operó, (Poliploide) operó.obtenirFill());
 				}

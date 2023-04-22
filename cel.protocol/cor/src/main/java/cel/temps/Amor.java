@@ -146,9 +146,17 @@ public abstract class Amor
 			return font;
 		}
 		
-		public abstract void establirPare(K clau);
+		public void establirPare(K clau) {
+			clau.establirMareDeDéu(font);
+			clau.establirDéu(font.obtenirMareDeDéu());
+			font.establirPare(clau, clau.obtenirFill());
+		}
 		
-		public abstract void establirFill(V fill);
+		public void establirFill(V valor) {
+			valor.establirDéu(font);
+			valor.establirMareDeDéu(font.obtenirMareDeDéu());
+			font.establirFill(valor, valor.obtenirFill());
+		}
 
 		@Override
 		public synchronized void compara(K pare, V fill) {

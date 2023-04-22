@@ -73,7 +73,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 
 	@Override
 	public int compareTo(Anyell<ViaLàctia, Andròmeda> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new ViaLàctia(Andròmeda.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Sol,AlfaCentauri> anyell = obtenirClau().comparador().font();
 		comparador((ViaLàctia) anyell, (Andròmeda) anyell.obtenirFill());
 		return 0;
@@ -98,7 +98,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				viaLàctia.comparador(viaLàctia.obtenirValor(), viaLàctia.obtenirClau()).compara(viaLàctia, obtenirClau());
+				viaLàctia.comparador(new Andròmeda(ViaLàctia.class, Paritat.aleatòria())).compara(viaLàctia, obtenirClau());
 				Andròmeda andròmeda = (Andròmeda) viaLàctia.comparador().font();
 				obtenirMareDeDéu().establirClau(andròmeda, (ViaLàctia) andròmeda.obtenirFill());
 				break;

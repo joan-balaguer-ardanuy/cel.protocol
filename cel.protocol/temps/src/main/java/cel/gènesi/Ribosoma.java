@@ -76,7 +76,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 
 	@Override
 	public int compareTo(Anyell<Diploide, Cromosoma> o) {
-		obtenirClau().comparador(obtenirClau().obtenirValor(), obtenirClau().obtenirClau()).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Diploide(Cromosoma.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Haploide,Genomapa> anyell = obtenirClau().comparador().font();
 		comparador((Diploide) anyell, (Cromosoma) anyell.obtenirFill());
 		return 0;
@@ -102,10 +102,9 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					diploide.comparador(diploide.obtenirValor(), diploide.obtenirClau()).compara(diploide, obtenirClau());
+					diploide.comparador(new Cromosoma(Diploide.class, Paritat.aleatòria())).compara(diploide, obtenirClau());
 					Cromosoma cromosoma = (Cromosoma) diploide.comparador().font();
 					obtenirMareDeDéu().establirClau(cromosoma, (Diploide) cromosoma.obtenirFill());
-					donarManament(new Ordre(cromosoma.obtenirFill()));
 				}
 				break;
 			default:
