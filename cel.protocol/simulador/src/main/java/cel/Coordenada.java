@@ -1,5 +1,9 @@
 package cel;
 
+import cel.gènesi.Cromosoma;
+import cel.gènesi.Diploide;
+import cel.gènesi.Genomapa;
+import cel.gènesi.Haploide;
 import cel.gènesi.Hipercadena;
 import cel.gènesi.Hipercub;
 
@@ -127,6 +131,7 @@ public class Coordenada {
 	
 	public Coordenada(Hipercub hipercub, int dilatació) {
 		esperit = hipercub;
+		paritat = hipercub.obtenirParitat();
 		for(Anyell<Character,Integer> anyell : hipercub) {
 			switch (obtenirDimensió(anyell.obtenirClau())) {
 			case XX:
@@ -156,24 +161,14 @@ public class Coordenada {
 		x3 = x;
 		y3 = y;
 		z3 = z;
-		angleX = PI / (x);
-		angleY = PI / (y);
-		angleZ = PI / (z);
+		angleX = 0;
+		angleY = 0;
+		angleZ = 0;
 //		angleY = PI / (y % 200);
-//		switch (hipercub.obtenirParitat()) {
-//		case XX:
-//			angleX = PI / (x % 200);
-//			break;
-//		case XY:
-//			angleY = PI / (y % 200);
-//			break;
-//		default:
-//			angleZ = PI / (z % 200);
-//			break;
-//		}
 	}
 	public Coordenada(Hipercadena hipercadena, int dilatació) {
 		esperit = hipercadena;
+		paritat = hipercadena.obtenirParitat();
 		for(Anyell<Integer,Character> anyell : hipercadena) {
 			switch (obtenirDimensió(anyell.obtenirValor())) {
 			case XX:
@@ -203,20 +198,87 @@ public class Coordenada {
 		x3 = x;
 		y3 = y;
 		z3 = z;
-		angleX = PI / (x);
-		angleY = PI / (y);
-		angleZ = PI / (z);
-//		switch (hipercadena.obtenirParitat()) {
-//		case XX:
-//			angleX = PI / (x % 200);
-//			break;
-//		case XY:
-//			angleY = PI / (y % 200);
-//			break;
-//		default:
-//			angleZ = PI / (z % 200);
-//			break;
-//		}
+		angleX = 0;
+		angleY = 0;
+		angleZ = 0;
+	}
+	public Coordenada(Diploide diploide, int dilatació) {
+		esperit = diploide;
+		paritat = diploide.obtenirParitat();
+		
+		for(Anyell<Haploide,Genomapa> mare : diploide) {
+			for(Anyell<Integer,Character> hipercadena : mare.obtenirClau().obtenirClau()) {
+				switch (obtenirDimensió(hipercadena.obtenirValor())) {
+				case XX:
+					x += hipercadena.obtenirClau() / dilatació;
+					break;
+				case XY:
+					y += hipercadena.obtenirClau() / dilatació;
+					break;
+				default:
+					z += hipercadena.obtenirClau() / dilatació;
+					break;
+				}	
+			}
+		}
+		total = x + y + z;
+		minX = x/1.1f;
+		minY = y/1.1f;
+		minZ = z/1.1f;
+		maxX = x*1.1f;
+		maxY = y*1.1f;
+		maxZ = z*1.1f;
+		initialX = x;
+		initialY = y;
+		initialZ = z;
+		x2 = x;
+		y2 = y;
+		z2 = z;
+		x3 = x;
+		y3 = y;
+		z3 = z;
+		angleX = 0;
+		angleY = 0;
+		angleZ = 0;
+	}
+	public Coordenada(Cromosoma cromosoma, int dilatació) {
+		esperit = cromosoma;
+		paritat = cromosoma.obtenirParitat();
+		
+		for(Anyell<Genomapa,Haploide> mare : cromosoma) {
+			for(Anyell<Character,Integer> hipercadena : mare.obtenirClau().obtenirClau()) {
+				switch (obtenirDimensió(hipercadena.obtenirClau())) {
+				case XX:
+					x += hipercadena.obtenirValor() / dilatació;
+					break;
+				case XY:
+					y += hipercadena.obtenirValor() / dilatació;
+					break;
+				default:
+					z += hipercadena.obtenirValor() / dilatació;
+					break;
+				}	
+			}
+		}
+		total = x + y + z;
+		minX = x/1.1f;
+		minY = y/1.1f;
+		minZ = z/1.1f;
+		maxX = x*1.1f;
+		maxY = y*1.1f;
+		maxZ = z*1.1f;
+		initialX = x;
+		initialY = y;
+		initialZ = z;
+		x2 = x;
+		y2 = y;
+		z2 = z;
+		x3 = x;
+		y3 = y;
+		z3 = z;
+		angleX = 0;
+		angleY = 0;
+		angleZ = 0;
 	}
 	public Coordenada(Esperit esperit) {
 		this.esperit = esperit;

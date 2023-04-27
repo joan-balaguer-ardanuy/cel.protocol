@@ -99,9 +99,8 @@ public class Diploide
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					genomapa.comparador(new Haploide(Genomapa.class, Paritat.aleatòria())).compara(genomapa, obtenirClau());
-					Haploide haploide = (Haploide) genomapa.comparador().font();
-					obtenirMareDeDéu().establirClau(haploide, (Genomapa) haploide.obtenirFill()).obtenirFill();
+					obtenirClau().comparador(new Genomapa(Haploide.class, Paritat.aleatòria())).compara(obtenirClau(), genomapa);
+					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
 			default:
@@ -111,7 +110,7 @@ public class Diploide
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

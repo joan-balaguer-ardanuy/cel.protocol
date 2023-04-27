@@ -93,16 +93,28 @@ public class Haploide
 				break;
 			case Manament.MOR:
 				haploide.alliberar();
-//				obtenirMareDeDéu().recórrerPare(haploide, (Genomapa) haploide.obtenirFill());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Hipercub) {
+			Hipercub hipercub = (Hipercub) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && hipercub.sócDéu()) {
+					obtenirValor().comparador(new Hipercadena(Hipercub.class, Paritat.aleatòria())).compara(hipercub, obtenirClau());
+					Hipercadena hipercadena = (Hipercadena) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(hipercadena, (Hipercub) hipercadena.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

@@ -173,8 +173,21 @@ public abstract class Amor
 					p = p.obtenirPare();
 					f = f.obtenirPare();
 				}
-
 			} while (p != pare && f != fill);
+//			K p = fill.obtenirFill();
+//			V f = pare.obtenirFill();
+//			do {
+//				p.compareTo(f);
+//				establirFill(p.comparador().font());
+//				p = f.obtenirFill();
+//				f = p.obtenirFill();
+//				if ((p != pare && f != fill)) {
+//					f.compareTo(p);
+//					establirPare(f.comparador().font());
+//					p = f.obtenirFill();
+//					f = p.obtenirFill();
+//				}
+//			} while (p != pare && f != fill);
 		}
 	}
 }

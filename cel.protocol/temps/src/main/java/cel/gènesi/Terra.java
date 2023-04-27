@@ -99,9 +99,8 @@ public class Terra extends Home<Operó,Poliploide> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					poliploide.comparador(new Operó(Poliploide.class, Paritat.aleatòria())).compara(poliploide, obtenirClau());
-					Operó operó = (Operó) poliploide.comparador().font();
-					obtenirMareDeDéu().establirClau(operó, (Poliploide) operó.obtenirFill());
+					obtenirValor().comparador(new Operó(Poliploide.class, Paritat.aleatòria())).compara(poliploide, obtenirClau());
+					donarManament(new Ordre(obtenirValor().comparador().font()));
 				}
 				break;
 			default:
@@ -111,7 +110,7 @@ public class Terra extends Home<Operó,Poliploide> {
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

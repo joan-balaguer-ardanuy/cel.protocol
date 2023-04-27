@@ -1,4 +1,4 @@
-package cel.gènesi;
+	package cel.gènesi;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -77,7 +77,7 @@ public class Hipercub extends Home<Character,Integer> {
 				break;
 			case Manament.MOR:
 //				hipercub.alliberar();
-//				obtenirMareDeDéu().concórrerPare(hipercub, (Hipercadena) hipercub.obtenirFill());
+//				obtenirMareDeDéu().establirClau(hipercub.obtenirClau(), hipercub.obtenirValor());		
 				break;
 			default:
 				return;

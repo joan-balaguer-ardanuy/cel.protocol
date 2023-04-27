@@ -81,7 +81,19 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof MareDeDéu) {
+		if(manament.getSource() instanceof Hiperespai) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Hiperespai hiperespai = (Hiperespai) manament.getSource();
+				TimeMaster timeMaster = new TimeMaster(Aaron.class, Paritat.aleatòria());
+				timeMaster.establirValor(hiperespai, (Espaitemps) hiperespai.obtenirFill());
+				donarManament(new Ordre(timeMaster));
+				break;
+			default:
+				break;
+			}
+		}
+		else if(manament.getSource() instanceof MareDeDéu) {
 			MareDeDéu mareDeDéu = (MareDeDéu) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 				break;
 			case Manament.MOR:
 				mareDeDéu.alliberar();
-				establirValor(mareDeDéu.obtenirClau(), mareDeDéu.obtenirValor());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Aaron) {
+			Aaron aaron = (Aaron) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && aaron.sócDéu()) {
+					obtenirValor().comparador(new TimeMaster(Aaron.class, Paritat.aleatòria())).compara(aaron, obtenirClau());
+					TimeMaster timeMaster = (TimeMaster) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(timeMaster, (Aaron) timeMaster.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

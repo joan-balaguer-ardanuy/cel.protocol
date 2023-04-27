@@ -102,9 +102,8 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					diploide.comparador(new Cromosoma(Diploide.class, Paritat.aleatòria())).compara(diploide, obtenirClau());
-					Cromosoma cromosoma = (Cromosoma) diploide.comparador().font();
-					obtenirMareDeDéu().establirClau(cromosoma, (Diploide) cromosoma.obtenirFill());
+					obtenirValor().comparador(new Cromosoma(Diploide.class, Paritat.aleatòria())).compara(diploide, obtenirClau());
+					donarManament(new Ordre(obtenirValor().comparador().font()));
 				}
 				break;
 			default:
@@ -114,7 +113,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

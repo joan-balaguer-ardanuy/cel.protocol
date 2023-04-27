@@ -86,8 +86,8 @@ public class Genomapa
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					hipercadena.comparador(new Hipercub(Hipercadena.class, Paritat.aleatòria())).compara(hipercadena, obtenirClau());
-					donarManament(new Ordre(hipercadena.comparador().font()));
+					obtenirValor().comparador(new Hipercub(Hipercadena.class, Paritat.aleatòria())).compara(hipercadena, obtenirClau());
+					donarManament(new Ordre(obtenirValor().comparador().font()));
 				}
 				break;
 			default:
@@ -97,7 +97,7 @@ public class Genomapa
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

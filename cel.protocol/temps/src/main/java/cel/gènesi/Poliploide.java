@@ -99,9 +99,8 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				if(!sócDéu()) {
-					ribosoma.comparador(new Tetraploide(Ribosoma.class, Paritat.aleatòria())).compara(ribosoma, obtenirClau());
-					Tetraploide tetraploide = (Tetraploide) ribosoma.comparador().font();
-					obtenirMareDeDéu().establirClau(tetraploide, (Ribosoma) tetraploide.obtenirFill());
+					obtenirClau().comparador(new Ribosoma(Tetraploide.class, Paritat.aleatòria())).compara(obtenirClau(), ribosoma);
+					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
 			default:
@@ -111,7 +110,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

@@ -81,7 +81,19 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Andròmeda) {
+		if(manament.getSource() instanceof Mar) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Mar mar = (Mar) manament.getSource();
+				AlfaCentauri alfaCentauri = new AlfaCentauri(Sol.class, Paritat.aleatòria());
+				alfaCentauri.establirValor(mar, (Terra) mar.obtenirFill());
+				donarManament(new Ordre(alfaCentauri));
+				break;
+			default:
+				break;
+			}
+		}
+		else if(manament.getSource() instanceof Andròmeda) {
 			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 				break;
 			case Manament.MOR:
 				andròmeda.alliberar();
-				establirValor(andròmeda.obtenirClau(), andròmeda.obtenirValor());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Sol) {
+			Sol sol = (Sol) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && sol.sócDéu()) {
+					obtenirValor().comparador(new AlfaCentauri(Sol.class, Paritat.aleatòria())).compara(sol, obtenirClau());
+					AlfaCentauri alfaCentauri = (AlfaCentauri) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(alfaCentauri, (Sol) alfaCentauri.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run(); 
+		obtenirClau().run();
 		super.run();
 	}
 }

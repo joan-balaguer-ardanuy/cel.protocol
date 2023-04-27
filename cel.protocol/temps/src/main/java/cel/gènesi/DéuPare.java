@@ -98,9 +98,8 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 			TimeMaster timeMaster = (TimeMaster) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				timeMaster.comparador(new Aaron(TimeMaster.class, Paritat.aleatòria())).compara(timeMaster, obtenirClau());
-				Aaron aaron = (Aaron) timeMaster.comparador().font();
-				obtenirMareDeDéu().establirClau(aaron, (TimeMaster) aaron.obtenirFill());
+				obtenirValor().comparador(new Aaron(TimeMaster.class, Paritat.aleatòria())).compara(timeMaster, obtenirClau());
+				donarManament(new Ordre(obtenirValor().comparador().font()));
 				break;
 			default:
 				break;
@@ -109,7 +108,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	}
 	@Override
 	public void run() {
-		getValue().run(); 
+		obtenirValor().run();
 		super.run();
 	}
 }

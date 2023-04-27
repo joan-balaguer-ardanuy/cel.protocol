@@ -83,7 +83,19 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Tetraploide) {
+		if(manament.getSource() instanceof Haploide) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Haploide haploide = (Haploide) manament.getSource();
+				Diploide diploide = new Diploide(Cromosoma.class, Paritat.aleatòria());
+				diploide.establirValor(haploide, (Genomapa) haploide.obtenirFill());
+				donarManament(new Ordre(diploide));
+				break;
+			default:
+				break;
+			}
+		} 
+		else if(manament.getSource() instanceof Tetraploide) {
 			Tetraploide tetraploide = (Tetraploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -91,16 +103,28 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 				break;
 			case Manament.MOR:
 				tetraploide.alliberar();
-//				obtenirMareDeDéu().recórrerPare(tetraploide, (Ribosoma) tetraploide.obtenirFill());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Cromosoma) {
+			Cromosoma cromosoma = (Cromosoma) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && cromosoma.sócDéu()) {
+					obtenirValor().comparador(new Diploide(Cromosoma.class, Paritat.aleatòria())).compara(cromosoma, obtenirClau());
+					Diploide diploide = (Diploide) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(diploide, (Cromosoma) diploide.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

@@ -98,9 +98,8 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				alfaCentauri.comparador(new Sol(AlfaCentauri.class, Paritat.aleatòria())).compara(alfaCentauri, obtenirClau());
-				Sol sol = (Sol) alfaCentauri.comparador().font();
-				obtenirMareDeDéu().establirClau(sol, (AlfaCentauri) sol.obtenirFill());
+				obtenirValor().comparador(new Sol(AlfaCentauri.class, Paritat.aleatòria())).compara(alfaCentauri, obtenirClau());
+				donarManament(new Ordre(obtenirValor().comparador().font()));
 				break;
 			default:
 				break;
@@ -109,7 +108,7 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

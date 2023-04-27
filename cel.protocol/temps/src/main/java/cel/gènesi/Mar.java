@@ -81,7 +81,19 @@ public class Mar extends Dona<Poliploide,Operó> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Mar) {
+		if(manament.getSource() instanceof Tetraploide) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Tetraploide tetraploide = (Tetraploide) manament.getSource();
+				Poliploide poliploide = new Poliploide(Operó.class, Paritat.aleatòria());
+				poliploide.establirValor(tetraploide, (Ribosoma) tetraploide.obtenirFill());
+				donarManament(new Ordre(poliploide));
+				break;
+			default:
+				break;
+			}
+		}
+		else if(manament.getSource() instanceof Mar) {
 			Mar mar = (Mar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class Mar extends Dona<Poliploide,Operó> {
 				break;
 			case Manament.MOR:
 				mar.alliberar();
-//				obtenirMareDeDéu().recórrerPare(mar, (Terra) mar.obtenirFill());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Operó) {
+			Operó operó = (Operó) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && operó.sócDéu()) {
+					obtenirValor().comparador(new Poliploide(Operó.class, Paritat.aleatòria())).compara(operó, obtenirClau());
+					Poliploide poliploide = (Poliploide) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(poliploide, (Operó) poliploide.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

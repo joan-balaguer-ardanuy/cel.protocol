@@ -84,7 +84,19 @@ public class Cromosoma
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Cromosoma) {
+		if(manament.getSource() instanceof Hipercadena) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Hipercadena hipercadena = (Hipercadena) manament.getSource();
+				Haploide haploide = new Haploide(Genomapa.class, Paritat.aleatòria());
+				haploide.establirValor(hipercadena, (Hipercub) hipercadena.obtenirFill());
+				donarManament(new Ordre(haploide));
+				break;
+			default:
+				break;
+			}
+		} 
+		else if(manament.getSource() instanceof Cromosoma) {
 			Cromosoma cromosoma = (Cromosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -92,16 +104,28 @@ public class Cromosoma
 				break;
 			case Manament.MOR:
 				cromosoma.alliberar();
-//				obtenirMareDeDéu().recórrerPare(cromosoma, (Diploide) cromosoma.obtenirFill());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Haploide) {
+			Haploide haploide = (Haploide) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && haploide.sócDéu()) {
+					obtenirValor().comparador(new Genomapa(Haploide.class, Paritat.aleatòria())).compara(haploide, obtenirClau());
+					Genomapa genomapa = (Genomapa) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(genomapa, (Haploide) genomapa.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

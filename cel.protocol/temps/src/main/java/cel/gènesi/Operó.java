@@ -81,7 +81,19 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Operó) {
+		if(manament.getSource() instanceof Diploide) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Diploide diploide = (Diploide) manament.getSource();
+				Tetraploide tetraploide = new Tetraploide(Ribosoma.class, Paritat.aleatòria());
+				tetraploide.establirValor(diploide, (Cromosoma) diploide.obtenirFill());
+				donarManament(new Ordre(tetraploide));
+				break;
+			default:
+				break;
+			}
+		} 
+		else if(manament.getSource() instanceof Operó) {
 			Operó operó = (Operó) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 				break;
 			case Manament.MOR:
 				operó.alliberar();
-//				obtenirMareDeDéu().recórrerPare(operó, (Poliploide) operó.obtenirFill());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Tetraploide) {
+			Tetraploide tetraploide = (Tetraploide) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && tetraploide.sócDéu()) {
+					obtenirValor().comparador(new Ribosoma(Tetraploide.class, Paritat.aleatòria())).compara(tetraploide, obtenirClau());
+					Ribosoma ribosoma = (Ribosoma) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(ribosoma, (Tetraploide) ribosoma.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

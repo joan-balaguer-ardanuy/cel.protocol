@@ -98,9 +98,10 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			Terra terra = (Terra) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				terra.comparador(new Mar(Terra.class, Paritat.aleatòria())).compara(terra, obtenirClau());
-				Mar mar = (Mar) terra.comparador().font();
-				obtenirMareDeDéu().establirClau(mar, (Terra) mar.obtenirFill());
+				if(!sócDéu()) {
+					obtenirClau().comparador(new Terra(Mar.class, Paritat.aleatòria())).compara(obtenirClau(), terra);
+					donarManament(new Ordre(obtenirClau().comparador().font()));
+				}
 				break;
 			default:
 				break;
@@ -109,7 +110,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

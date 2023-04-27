@@ -81,7 +81,19 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Aaron) {
+		if(manament.getSource() instanceof Interestellar) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Interestellar interestellar = (Interestellar) manament.getSource();
+				Hiperespai hiperespai = new Hiperespai(Espaitemps.class, Paritat.aleatòria());
+				hiperespai.establirValor(interestellar, (Supercúmul) interestellar.obtenirFill());
+				donarManament(new Ordre(hiperespai));
+				break;
+			default:
+				break;
+			}
+		}
+		else if(manament.getSource() instanceof Aaron) {
 			Aaron aaron = (Aaron) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 				break;
 			case Manament.MOR:
 				aaron.alliberar();
-				establirValor(aaron.obtenirClau(), aaron.obtenirValor());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Hiperespai) {
+			Hiperespai hiperespai = (Hiperespai) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && hiperespai.sócDéu()) {
+					obtenirValor().comparador(new Espaitemps(Hiperespai.class, Paritat.aleatòria())).compara(hiperespai, obtenirClau());
+					Espaitemps espaitemps = (Espaitemps) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(espaitemps, (Hiperespai) espaitemps.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

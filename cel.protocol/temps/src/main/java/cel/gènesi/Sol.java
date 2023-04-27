@@ -81,7 +81,19 @@ public class Sol extends Home<Terra,Mar> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Sol) {
+		if(manament.getSource() instanceof Poliploide) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				Poliploide poliploide = (Poliploide) manament.getSource();
+				Mar mar = new Mar(Terra.class, Paritat.aleatòria());
+				mar.establirValor(poliploide, (Operó) poliploide.obtenirFill());
+				donarManament(new Ordre(mar));
+				break;
+			default:
+				break;
+			}
+		}
+		else if(manament.getSource() instanceof Sol) {
 			Sol sol = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class Sol extends Home<Terra,Mar> {
 				break;
 			case Manament.MOR:
 				sol.alliberar();
-//				obtenirMareDeDéu().recórrerPare(sol, (AlfaCentauri) sol.obtenirFill());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Mar) {
+			Mar mar = (Mar) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && mar.sócDéu()) {
+					obtenirValor().comparador(new Terra(Mar.class, Paritat.aleatòria())).compara(mar, obtenirClau());
+					Terra terra = (Terra) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(terra, (Mar) terra.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

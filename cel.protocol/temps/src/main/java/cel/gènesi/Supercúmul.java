@@ -81,7 +81,19 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Supercúmul) {
+		if(manament.getSource() instanceof AlfaCentauri) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
+				Andròmeda andròmeda = new Andròmeda(ViaLàctia.class, Paritat.aleatòria());
+				andròmeda.establirValor(alfaCentauri, (Sol) alfaCentauri.obtenirFill());
+				donarManament(new Ordre(andròmeda));
+				break;
+			default:
+				break;
+			}
+		}
+		else if(manament.getSource() instanceof Supercúmul) {
 			Supercúmul supercúmul = (Supercúmul) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -89,16 +101,28 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 				break;
 			case Manament.MOR:
 				supercúmul.alliberar();
-				establirValor(supercúmul.obtenirClau(), supercúmul.obtenirValor());
 				break;
 			default:
 				return;
+			}
+		} else if(manament.getSource() instanceof Andròmeda) {
+			Andròmeda andròmeda = (Andròmeda) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && andròmeda.sócDéu()) {
+					obtenirValor().comparador(new ViaLàctia(Andròmeda.class, Paritat.aleatòria())).compara(andròmeda, obtenirClau());
+					ViaLàctia viaLàctia = (ViaLàctia) obtenirValor().comparador().font();
+					obtenirMareDeDéu().establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+				}
+				break;
+			default:
+				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

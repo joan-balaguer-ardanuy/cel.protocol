@@ -98,9 +98,8 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				espaitemps.comparador(new Hiperespai(Espaitemps.class, Paritat.aleatòria())).compara(espaitemps, obtenirClau());
-				Hiperespai hiperespai = (Hiperespai) espaitemps.comparador().font();
-				obtenirMareDeDéu().establirClau(hiperespai, (Espaitemps) hiperespai.obtenirFill());
+				obtenirClau().comparador(new Espaitemps(Hiperespai.class, Paritat.aleatòria())).compara(obtenirClau(), espaitemps);
+				donarManament(new Ordre(obtenirClau().comparador().font()));
 				break;
 			default:
 				break;
@@ -109,7 +108,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	}
 	@Override
 	public void run() {
-		getValue().run();
+		obtenirClau().run();
 		super.run();
 	}
 }
