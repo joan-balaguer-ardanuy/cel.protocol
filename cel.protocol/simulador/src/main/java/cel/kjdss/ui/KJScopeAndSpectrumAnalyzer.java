@@ -35,6 +35,11 @@ import cel.kjdss.KJFFT;
  */
 public class KJScopeAndSpectrumAnalyzer extends Component implements KJDigitalSignalProcessor {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6363967781463638849L;
+
 	protected static final Font SMALL_FONT = new Font( "fixed", Font.PLAIN, 9 );
 	
 	public static final BandDistribution BAND_DISTRIBUTION_LINEAR = new LinearBandDistribution();

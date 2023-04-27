@@ -32,6 +32,11 @@ import cel.kjdss.KJDigitalSignalSynchronizer;
  */
 public class KJDSSSample extends JFrame implements KJDSS_Saturation_Listener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1863833558895428247L;
+
 	private static final int READ_BUFFER_SIZE = 1024 * 4;
 	
 	private KJDigitalSignalSynchronizer dss;

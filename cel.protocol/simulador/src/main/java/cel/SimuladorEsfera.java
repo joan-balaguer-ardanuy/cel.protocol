@@ -3,9 +3,6 @@ package cel;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.Iterator;
-
-import cel.arca.Ramat;
 import cel.coordenada.CoordenadaString;
 import cel.coordenada.StringCoordenada;
 import cel.gènesi.Aaron;

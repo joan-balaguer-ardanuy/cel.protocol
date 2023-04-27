@@ -14,7 +14,6 @@ import java.util.Map;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.AudioFormat.Encoding;
 
 /**
  * @author Kris

@@ -3,10 +3,7 @@ package cel.coordenada;
 import cel.Anyell;
 import cel.Coordenada;
 import cel.Document;
-import cel.Esperit;
 import cel.Paritat;
-import cel.arca.Animal;
-import cel.gènesi.Hipercub;
 
 public class StringCoordenada extends Document<String, Coordenada> {
 
