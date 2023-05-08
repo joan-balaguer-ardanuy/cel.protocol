@@ -47,7 +47,7 @@ public class Diploide
 	}
 	
 	public Diploide() {
-		super();
+		this(Cromosoma.class, Paritat.aleatòria());
 	}
 	public Diploide(Paritat paritat) {
 		super(paritat);
@@ -60,20 +60,20 @@ public class Diploide
 	}
 	public Diploide(Diploide pare, Haploide clau, Genomapa valor) {
 		super(Cromosoma.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Diploide(Diploide déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Diploide(Diploide déu, Paritat paritat, Haploide clau, Genomapa valor) {
 		super(Cromosoma.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Genomapa,Haploide> o) {
-		obtenirClau().comparador(new Genomapa(Haploide.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Genomapa()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hipercub,Hipercadena> anyell = obtenirClau().comparador().font();
 		comparador((Genomapa) anyell, (Haploide) anyell.obtenirFill());
 		return 0;
@@ -86,7 +86,7 @@ public class Diploide
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Genomapa genomapa = new Genomapa(Haploide.class, hipercub.obtenirParitat());
+					Genomapa genomapa = new Genomapa();
 					genomapa.establirValor(hipercub, (Hipercadena) hipercub.obtenirFill());
 					donarManament(new Ordre(genomapa));
 				}
@@ -94,12 +94,13 @@ public class Diploide
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Genomapa) {
-			Genomapa genomapa = (Genomapa) manament.getSource();
+		} 
+		else if(manament.getSource() instanceof Haploide) {
+			Haploide haploide = (Haploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Genomapa(Haploide.class, Paritat.aleatòria())).compara(obtenirClau(), genomapa);
+				if (!sócDéu() && haploide.sócDéu()) {
+					obtenirClau().comparador(new Genomapa()).compara(haploide, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
@@ -110,7 +111,7 @@ public class Diploide
 	}
 	@Override
 	public void run() {
-		obtenirClau().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

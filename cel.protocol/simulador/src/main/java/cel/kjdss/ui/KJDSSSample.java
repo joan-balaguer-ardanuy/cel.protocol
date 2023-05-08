@@ -14,7 +14,6 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.util.Vector;
 
-import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
@@ -41,9 +40,7 @@ public class KJDSSSample extends JFrame implements KJDSS_Saturation_Listener{
 	
 	private KJDigitalSignalSynchronizer dss;
 	
-	private int i = 0;
-	
-private Vector<KJDSS_Saturation_Listener> listeners = null;
+	private Vector<KJDSS_Saturation_Listener> listeners = null;
 	
 	public synchronized void add_KJDSS_Saturation_Listener(KJDSS_Saturation_Listener listener)
 	{

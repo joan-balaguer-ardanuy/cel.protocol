@@ -133,7 +133,13 @@ public abstract class Tenebres
 	@Override
 	public void run() {
 		if((sócDéu() && !ésBuit()) || !sócFinal()) {
-			obtenirFill().run();
+			Thread t = newThread(obtenirFill());
+			t.start();
+			try {
+				t.join();
+			} catch (InterruptedException e ) {
+				
+			}
 		}
 		super.run();
 	}

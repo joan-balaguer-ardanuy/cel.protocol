@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
+import cel.Manament;
 import cel.Paritat;
 
 @XmlRootElement
@@ -44,7 +45,7 @@ public class Hipercadena extends Dona<Integer,Character> {
 	}
 
 	public Hipercadena() {
-		super();
+		this(Hipercub.class, Paritat.aleatòria());
 	}
 	public Hipercadena(Paritat paritat) {
 		super(paritat); 
@@ -92,6 +93,16 @@ public class Hipercadena extends Dona<Integer,Character> {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		super.run();
+		if((sócDéu() && !ésBuit()) || !sócFinal()) {
+			obtenirFill().run();
+		}
+		switch (obtenirOrdre()) {
+		case Manament.VIU:
+			establirOrdre(Manament.MOR);
+			break;
+		default:
+			establirOrdre(Manament.VIU);
+			break;
+		}
 	}
 }

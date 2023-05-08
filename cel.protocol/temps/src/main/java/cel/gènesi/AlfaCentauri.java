@@ -46,7 +46,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	}
 
 	public AlfaCentauri() {
-		super();
+		this(Sol.class, Paritat.aleatòria());
 	}
 	public AlfaCentauri(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	}
 	public AlfaCentauri(AlfaCentauri pare, Mar clau, Terra valor) {
 		super(Sol.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public AlfaCentauri(AlfaCentauri déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public AlfaCentauri(AlfaCentauri déu, Paritat paritat, Mar clau, Terra valor) {
 		super(Sol.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Terra, Mar> o) {
-		obtenirClau().comparador(new Terra(Mar.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Terra()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Operó,Poliploide> anyell = obtenirClau().comparador().font();
 		comparador((Terra) anyell, (Mar) anyell.obtenirFill());
 		return 0;
@@ -86,7 +86,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Terra terra = new Terra(Mar.class, operó.obtenirParitat());
+					Terra terra = new Terra();
 					terra.establirValor(operó, (Poliploide) operó.obtenirFill());
 					donarManament(new Ordre(terra));
 				}
@@ -94,12 +94,12 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Terra) {
-			Terra terra = (Terra) manament.getSource();
+		} else if(manament.getSource() instanceof Mar) {
+			Mar mar = (Mar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Terra(Mar.class, Paritat.aleatòria())).compara(obtenirClau(), terra);
+				if (!sócDéu() && mar.sócDéu()) {
+					obtenirClau().comparador(new Terra()).compara(mar, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
@@ -110,7 +110,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	}
 	@Override
 	public void run() {
-		obtenirClau().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

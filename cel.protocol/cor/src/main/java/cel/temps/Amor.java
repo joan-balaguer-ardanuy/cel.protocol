@@ -149,12 +149,16 @@ public abstract class Amor
 		public void establirPare(K clau) {
 			clau.establirMareDeDéu(font);
 			clau.establirDéu(font.obtenirMareDeDéu());
+			clau.establirParitat(font.obtenirParitat().oposada());
+			clau.obtenirFill().establirParitat(font.obtenirParitat());
 			font.establirPare(clau, clau.obtenirFill());
 		}
 		
 		public void establirFill(V valor) {
 			valor.establirDéu(font);
 			valor.establirMareDeDéu(font.obtenirMareDeDéu());
+			valor.establirParitat(font.obtenirParitat());
+			valor.obtenirFill().establirParitat(font.obtenirParitat().oposada());
 			font.establirFill(valor, valor.obtenirFill());
 		}
 

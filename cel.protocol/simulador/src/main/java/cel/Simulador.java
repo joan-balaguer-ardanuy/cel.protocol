@@ -1,5 +1,7 @@
 package cel;
 
+import java.util.Iterator;
+
 import cel.coordenada.CoordenadaString;
 import cel.coordenada.StringCoordenada;
 import cel.gènesi.Cromosoma;
@@ -34,6 +36,8 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 
 	int dilatació = 20;
 	float tamany = 200;
+	
+	boolean clear = false;
 	
 	public void setup() {
 		background(0);
@@ -144,7 +148,14 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 			lights();
 			spotLight(255, 0, 0, width / 2, height / 2, 5000, 0, 0, -1, PI / 4, 2);
 			noStroke();
-
+			if (clear) {
+				Iterator<Anyell<String, Coordenada>> it = coordenades.iterator();
+				while (it.hasNext()) {
+					if (it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
+						it.remove();
+					}
+				}
+			}
 			for (Anyell<String, Coordenada> anyell : coordenades) {
 				Coordenada coordenada = anyell.obtenirValor();
 				switch (coordenada.getParitat()) {
@@ -236,6 +247,7 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 			}
 			break;
 		case Manament.VIU:
+			clear = true;
 			synchronized (this) {
 				if(esperit instanceof Hipercub) {
 					System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
@@ -278,6 +290,7 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 			}
 			break;
 		case Manament.MOR:
+			clear = false;
 			break;
 		default:
 			break;

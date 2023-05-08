@@ -46,7 +46,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	}
 
 	public Interestellar() {
-		super();
+		super(Supercúmul.class, Paritat.aleatòria());
 	}
 	public Interestellar(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	}
 	public Interestellar(Interestellar pare, Andròmeda clau, ViaLàctia valor) {
 		super(Supercúmul.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Interestellar(Interestellar déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Interestellar(Interestellar déu,	Paritat paritat, Andròmeda clau, ViaLàctia valor) {
 		super(Supercúmul.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<ViaLàctia, Andròmeda> o) {
-		obtenirClau().comparador(new ViaLàctia(Andròmeda.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new ViaLàctia()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Sol,AlfaCentauri> anyell = obtenirClau().comparador().font();
 		comparador((ViaLàctia) anyell, (Andròmeda) anyell.obtenirFill());
 		return 0;
@@ -86,7 +86,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					ViaLàctia viaLàctia = new ViaLàctia(Andròmeda.class, sol.obtenirParitat());
+					ViaLàctia viaLàctia = new ViaLàctia();
 					viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
 					donarManament(new Ordre(viaLàctia));
 				}
@@ -94,12 +94,12 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof ViaLàctia) {
-			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
+		} else if(manament.getSource() instanceof Andròmeda) {
+			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new ViaLàctia(Andròmeda.class, Paritat.aleatòria())).compara(obtenirClau(), viaLàctia);
+				if (!sócDéu() && andròmeda.sócDéu()) {
+					obtenirClau().comparador(new ViaLàctia()).compara(andròmeda, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
@@ -107,10 +107,11 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 				break;
 			}
 		}
+		
 	}
 	@Override
 	public void run() {
-		obtenirClau().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

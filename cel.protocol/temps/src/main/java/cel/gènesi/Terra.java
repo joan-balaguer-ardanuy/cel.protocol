@@ -46,7 +46,7 @@ public class Terra extends Home<Operó,Poliploide> {
 	}
 	
 	public Terra() {
-		super();
+		super(Mar.class, Paritat.aleatòria());
 	}
 	public Terra(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Terra extends Home<Operó,Poliploide> {
 	}
 	public Terra(Terra pare, Operó clau, Poliploide valor) {
 		super(Mar.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Terra(Terra déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Terra(Terra déu, Paritat paritat, Operó clau, Poliploide valor) {
 		super(Mar.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Poliploide, Operó> o) {
-		obtenirClau().comparador(new Poliploide(Operó.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Poliploide()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Tetraploide,Ribosoma> anyell = obtenirClau().comparador().font();
 		comparador((Poliploide) anyell, (Operó) anyell.obtenirFill());
 		return 0;
@@ -81,26 +81,26 @@ public class Terra extends Home<Operó,Poliploide> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Operó operó = new Operó(Poliploide.class, ribosoma.obtenirParitat());
-					operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
-					donarManament(new Ordre(operó));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof Poliploide) {
-			Poliploide poliploide = (Poliploide) manament.getSource();
+		if(manament.getSource() instanceof Terra) {
+			Terra terra = (Terra) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirValor().comparador(new Operó(Poliploide.class, Paritat.aleatòria())).compara(poliploide, obtenirClau());
-					donarManament(new Ordre(obtenirValor().comparador().font()));
+				terra.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				terra.alliberar();
+				break;
+			default:
+				return;
+			}
+		} else if(manament.getSource() instanceof Operó) {
+			Operó operó = (Operó) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if(!sócDéu() && operó.sócDéu()) {
+					obtenirClau().comparador(new Poliploide()).compara(operó, obtenirValor());
+					Poliploide poliploide = (Poliploide) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(poliploide, (Operó) poliploide.obtenirFill());
 				}
 				break;
 			default:

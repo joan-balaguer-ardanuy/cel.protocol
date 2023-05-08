@@ -47,7 +47,7 @@ public class Genomapa
 	}
 		
 	public Genomapa() {
-		super();
+		this(Haploide.class, Paritat.aleatòria());
 	}
 	public Genomapa(Paritat paritat) {
 		super(paritat);
@@ -60,20 +60,20 @@ public class Genomapa
 	}
 	public Genomapa(Genomapa pare, Hipercub clau, Hipercadena valor) {
 		super(Haploide.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Genomapa(Genomapa déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Genomapa(Genomapa déu, Paritat paritat, Hipercub clau, Hipercadena valor) {
 		super(Haploide.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Hipercadena, Hipercub> o) {
-		obtenirClau().comparador(new Hipercadena(Hipercub.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Hipercadena()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Integer,Character> anyell = obtenirClau().comparador().font();
 		comparador((Hipercadena) anyell, (Hipercub) anyell.obtenirFill());
 		return 0;
@@ -81,13 +81,26 @@ public class Genomapa
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercadena) {
-			Hipercadena hipercadena = (Hipercadena) manament.getSource();
+		if(manament.getSource() instanceof Genomapa) {
+			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirValor().comparador(new Hipercub(Hipercadena.class, Paritat.aleatòria())).compara(hipercadena, obtenirClau());
-					donarManament(new Ordre(obtenirValor().comparador().font()));
+				genomapa.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				genomapa.alliberar();
+				break;
+			default:
+				return;
+			}
+		} else if(manament.getSource() instanceof Hipercub) {
+			Hipercub hipercub = (Hipercub) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if (!sócDéu() && hipercub.sócDéu()) {
+					obtenirClau().comparador(new Hipercadena()).compara(hipercub, obtenirValor());
+					Hipercadena anyell = (Hipercadena) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(anyell, (Hipercub) anyell.obtenirFill());
 				}
 				break;
 			default:

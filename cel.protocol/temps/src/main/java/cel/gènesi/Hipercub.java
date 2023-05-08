@@ -1,4 +1,4 @@
-	package cel.gènesi;
+package cel.gènesi;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -46,7 +46,7 @@ public class Hipercub extends Home<Character,Integer> {
 	}
 	
 	public Hipercub() {
-		super();
+		this(Hipercadena.class, Paritat.aleatòria());
 	}
 	public Hipercub(Paritat paritat) {
 		super(paritat);
@@ -66,6 +66,7 @@ public class Hipercub extends Home<Character,Integer> {
 	public Hipercub(Hipercub déu, Paritat paritat, Character clau, Integer valor) {
 		super(Hipercadena.class, déu, paritat, clau, valor);
 	}
+
 	@Override
 	public synchronized void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
@@ -74,10 +75,6 @@ public class Hipercub extends Home<Character,Integer> {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
 				hipercub.permutarFill(obtenirPassat(), obtenirFutur());	
-				break;
-			case Manament.MOR:
-//				hipercub.alliberar();
-//				obtenirMareDeDéu().establirClau(hipercub.obtenirClau(), hipercub.obtenirValor());		
 				break;
 			default:
 				return;
@@ -98,7 +95,7 @@ public class Hipercub extends Home<Character,Integer> {
 		default:
 			if (obtenirValor() < o.obtenirClau()) {
 				comparador(obtenirValor(), obtenirClau());
-				return 1;
+				return 1; 
 			} else {
 				comparador(o.obtenirClau(), o.obtenirValor());
 				return -1;
@@ -112,6 +109,16 @@ public class Hipercub extends Home<Character,Integer> {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		super.run();
+		if((sócDéu() && !ésBuit()) || !sócFinal()) {
+			obtenirFill().run();
+		}
+		switch (obtenirOrdre()) {
+		case Manament.VIU:
+			establirOrdre(Manament.MOR);
+			break;
+		default:
+			establirOrdre(Manament.VIU);
+			break;
+		}
 	}
 }

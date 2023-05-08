@@ -46,7 +46,7 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	}
 
 	public Supercúmul() {
-		super();
+		this(Interestellar.class, Paritat.aleatòria());
 	}
 	public Supercúmul(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	}
 	public Supercúmul(Supercúmul pare, ViaLàctia clau, Andròmeda valor) {
 		super(Interestellar.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Supercúmul(Supercúmul déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Supercúmul(Supercúmul déu, Paritat paritat, ViaLàctia clau, Andròmeda valor) {
 		super(Interestellar.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Andròmeda, ViaLàctia> o) {
-		obtenirClau().comparador(new Andròmeda(ViaLàctia.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Andròmeda()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<AlfaCentauri,Sol> anyell = obtenirClau().comparador().font();
 		comparador((Andròmeda) anyell, (ViaLàctia) anyell.obtenirFill());
 		return 0;
@@ -81,19 +81,7 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof AlfaCentauri) {
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
-				Andròmeda andròmeda = new Andròmeda(ViaLàctia.class, Paritat.aleatòria());
-				andròmeda.establirValor(alfaCentauri, (Sol) alfaCentauri.obtenirFill());
-				donarManament(new Ordre(andròmeda));
-				break;
-			default:
-				break;
-			}
-		}
-		else if(manament.getSource() instanceof Supercúmul) {
+		if(manament.getSource() instanceof Supercúmul) {
 			Supercúmul supercúmul = (Supercúmul) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -105,14 +93,14 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 			default:
 				return;
 			}
-		} else if(manament.getSource() instanceof Andròmeda) {
-			Andròmeda andròmeda = (Andròmeda) manament.getSource();
+		} else if(manament.getSource() instanceof ViaLàctia) {
+			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if (!sócDéu() && andròmeda.sócDéu()) {
-					obtenirValor().comparador(new ViaLàctia(Andròmeda.class, Paritat.aleatòria())).compara(andròmeda, obtenirClau());
-					ViaLàctia viaLàctia = (ViaLàctia) obtenirValor().comparador().font();
-					obtenirMareDeDéu().establirClau(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+				if(!sócDéu() && viaLàctia.sócDéu()) {
+					obtenirClau().comparador(new Andròmeda()).compara(viaLàctia, obtenirValor());
+					Andròmeda anyell = (Andròmeda) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(anyell, (ViaLàctia) anyell.obtenirFill());
 				}
 				break;
 			default:

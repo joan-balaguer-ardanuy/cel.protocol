@@ -46,7 +46,7 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	}
 
 	public Hiperespai() {
-		super();
+		this(Espaitemps.class, Paritat.aleatòria());
 	}
 	public Hiperespai(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	}
 	public Hiperespai(Hiperespai pare, Interestellar clau, Supercúmul valor) {
 		super(Espaitemps.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Hiperespai(Hiperespai déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Hiperespai(Hiperespai déu, Paritat paritat, Interestellar clau, Supercúmul valor) {
 		super(Espaitemps.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Supercúmul, Interestellar> o) {
-		obtenirClau().comparador(new Supercúmul(Interestellar.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Supercúmul()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<ViaLàctia,Andròmeda> anyell = obtenirClau().comparador().font();
 		comparador((Supercúmul) anyell, (Interestellar) anyell.obtenirFill());
 		return 0;
@@ -81,38 +81,26 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Andròmeda) {
+		if(manament.getSource() instanceof ViaLàctia) {
+			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
-				Andròmeda andròmeda = (Andròmeda) manament.getSource();
-				Interestellar interestellar = new Interestellar(Supercúmul.class, Paritat.aleatòria());
-				interestellar.establirValor(andròmeda, (ViaLàctia) andròmeda.obtenirFill());
-				donarManament(new Ordre(interestellar));
+				if(sócDéu()) {
+					Supercúmul supercúmul = new Supercúmul();
+					supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+					donarManament(new Ordre(supercúmul));
+				}
 				break;
 			default:
 				break;
 			}
-		}
-		else if(manament.getSource() instanceof Hiperespai) {
-			Hiperespai hiperespai = (Hiperespai) manament.getSource();
+		} else if(manament.getSource() instanceof Interestellar) {
+			Interestellar interestellar = (Interestellar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				hiperespai.permutarFill(obtenirPassat(), obtenirFutur());
-				break;
-			case Manament.MOR:
-				hiperespai.alliberar();
-				break;
-			default:
-				return;
-			}
-		} else if(manament.getSource() instanceof Supercúmul) {
-			Supercúmul supercúmul = (Supercúmul) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if (!sócDéu() && supercúmul.sócDéu()) {
-					obtenirValor().comparador(new Interestellar(Supercúmul.class, Paritat.aleatòria())).compara(supercúmul, obtenirClau());
-					Interestellar interestellar = (Interestellar) obtenirValor().comparador().font();
-					obtenirMareDeDéu().establirClau(interestellar, (Supercúmul) interestellar.obtenirFill());
+				if (!sócDéu() && interestellar.sócDéu()) {
+					obtenirClau().comparador(new Supercúmul()).compara(interestellar, obtenirValor());
+					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
 			default:
@@ -122,7 +110,7 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 	}
 	@Override
 	public void run() {
-		obtenirClau().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

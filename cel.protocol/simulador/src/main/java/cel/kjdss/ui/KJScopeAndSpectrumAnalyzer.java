@@ -996,6 +996,7 @@ public class KJScopeAndSpectrumAnalyzer extends Component implements KJDigitalSi
     	saBandWidth = (float)( width - 32 ) / (float)saBands;
 	}
 	
+	@SuppressWarnings("unused")
 	private static void printTable( Band[] pTable ) {
 
 		int i = 0;

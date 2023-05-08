@@ -49,7 +49,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	}
 	
 	public Ribosoma() {
-		super();
+		this(Tetraploide.class, Paritat.aleatòria());
 	}
 	public Ribosoma(Paritat paritat) {
 		super(paritat);
@@ -62,21 +62,21 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	}
 	public Ribosoma(Ribosoma pare, Cromosoma clau, Diploide valor) {
 		super(Tetraploide.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Ribosoma(Ribosoma  déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Ribosoma(Ribosoma déu, Paritat paritat, Cromosoma clau, Diploide valor) {
 		super(Tetraploide.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Diploide, Cromosoma> o) {
-		obtenirClau().comparador(new Diploide(Cromosoma.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Diploide()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Haploide,Genomapa> anyell = obtenirClau().comparador().font();
 		comparador((Diploide) anyell, (Cromosoma) anyell.obtenirFill());
 		return 0;
@@ -84,26 +84,26 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Genomapa) {
-			Genomapa genomapa = (Genomapa) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Cromosoma cromosoma = new Cromosoma(Diploide.class, genomapa.obtenirParitat());
-					cromosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
-					donarManament(new Ordre(cromosoma));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof Diploide) {
-			Diploide diploide = (Diploide) manament.getSource();
+		if(manament.getSource() instanceof Ribosoma) {
+			Ribosoma ribosoma = (Ribosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirValor().comparador(new Cromosoma(Diploide.class, Paritat.aleatòria())).compara(diploide, obtenirClau());
-					donarManament(new Ordre(obtenirValor().comparador().font()));
+				ribosoma.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				ribosoma.alliberar();
+				break;
+			default:
+				return;
+			}
+		} else if(manament.getSource() instanceof Cromosoma) {
+			Cromosoma cromosoma = (Cromosoma) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if(!sócDéu() && cromosoma.sócDéu()) {
+					obtenirClau().comparador(new Diploide()).compara(cromosoma, obtenirValor());
+					Diploide anyell = (Diploide) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(anyell, (Cromosoma) anyell.obtenirFill());
 				}
 				break;
 			default:

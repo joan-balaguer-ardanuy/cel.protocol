@@ -46,7 +46,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	}
 	
 	public TimeMaster() {
-		super();
+		this(Aaron.class, Paritat.aleatòria());
 	}
 	public TimeMaster(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	}
 	public TimeMaster(TimeMaster pare, Hiperespai clau, Espaitemps valor) {
 		super(Aaron.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public TimeMaster(TimeMaster déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public TimeMaster(TimeMaster déu, Paritat paritat, Hiperespai clau, Espaitemps valor) {
 		super(Aaron.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Espaitemps, Hiperespai> o) {
-		obtenirClau().comparador(new Espaitemps(Hiperespai.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Espaitemps()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Supercúmul,Interestellar> anyell = obtenirClau().comparador().font();
 		comparador((Espaitemps) anyell, (Hiperespai) anyell.obtenirFill());
 		return 0;
@@ -86,7 +86,7 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Espaitemps espaitemps = new Espaitemps(Hiperespai.class, supercúmul.obtenirParitat());
+					Espaitemps espaitemps = new Espaitemps();
 					espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
 					donarManament(new Ordre(espaitemps));
 				}
@@ -94,21 +94,24 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
+		} else if(manament.getSource() instanceof Hiperespai) {
+			Hiperespai hiperespai = (Hiperespai) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirClau().comparador(new Espaitemps(Hiperespai.class, Paritat.aleatòria())).compara(obtenirClau(), espaitemps);
-				donarManament(new Ordre(obtenirClau().comparador().font()));
+				if (!sócDéu() && hiperespai.sócDéu()) {
+					obtenirClau().comparador(new Espaitemps()).compara(hiperespai, obtenirValor());
+					donarManament(new Ordre(obtenirClau().comparador().font()));
+				}
 				break;
 			default:
 				break;
 			}
 		}
+		
 	}
 	@Override
 	public void run() {
-		obtenirClau().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

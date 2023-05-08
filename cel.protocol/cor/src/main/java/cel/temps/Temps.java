@@ -149,7 +149,7 @@ public abstract class Temps
 	
 	@Override
 	public Iterator<K> iterator() {
-		return new Iterador(obtenirPare());
+		return new Iterador(obtenirPassat());
 	}
 	private final class Iterador implements Iterator<K> {
 
@@ -184,8 +184,8 @@ public abstract class Temps
 			synchronized (e) {
 				synchronized (this) {
 					actual = e;
-					següent = e.obtenirPare();
-					if(e == Temps.this || e == següent)
+					següent = e.obtenirPassat();
+					if(e == Temps.this.obtenirPare() || e == següent)
 						téMés = false;
 					else téMés = true;
 					return e;	

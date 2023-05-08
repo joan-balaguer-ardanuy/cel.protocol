@@ -50,7 +50,7 @@ public class Cromosoma
 	}
 	
 	public Cromosoma() {
-		super();
+		this(Diploide.class, Paritat.aleatòria());
 	}
 	public Cromosoma(Paritat paritat) {
 		super(paritat);
@@ -63,20 +63,20 @@ public class Cromosoma
 	}
 	public Cromosoma(Cromosoma pare, Genomapa clau, Haploide valor) {
 		super(Diploide.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Cromosoma(Cromosoma déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Cromosoma(Cromosoma déu, Paritat paritat, Genomapa clau, Haploide valor) {
 		super(Diploide.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	@Override
 	public int compareTo(Anyell<Haploide,Genomapa> o) {
-		obtenirClau().comparador(new Haploide(Genomapa.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Haploide()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Hipercadena,Hipercub> anyell = obtenirClau().comparador().font();
 		comparador((Haploide) anyell, (Genomapa) anyell.obtenirFill());
 		return 0;
@@ -84,19 +84,7 @@ public class Cromosoma
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercadena) {
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				Hipercadena hipercadena = (Hipercadena) manament.getSource();
-				Haploide haploide = new Haploide(Genomapa.class, Paritat.aleatòria());
-				haploide.establirValor(hipercadena, (Hipercub) hipercadena.obtenirFill());
-				donarManament(new Ordre(haploide));
-				break;
-			default:
-				break;
-			}
-		} 
-		else if(manament.getSource() instanceof Cromosoma) {
+		if(manament.getSource() instanceof Cromosoma) {
 			Cromosoma cromosoma = (Cromosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -108,14 +96,14 @@ public class Cromosoma
 			default:
 				return;
 			}
-		} else if(manament.getSource() instanceof Haploide) {
-			Haploide haploide = (Haploide) manament.getSource();
+		} else if(manament.getSource() instanceof Genomapa) {
+			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if (!sócDéu() && haploide.sócDéu()) {
-					obtenirValor().comparador(new Genomapa(Haploide.class, Paritat.aleatòria())).compara(haploide, obtenirClau());
-					Genomapa genomapa = (Genomapa) obtenirValor().comparador().font();
-					obtenirMareDeDéu().establirClau(genomapa, (Haploide) genomapa.obtenirFill());
+				if(!sócDéu() && genomapa.sócDéu()) {
+					obtenirClau().comparador(new Haploide()).compara(genomapa, obtenirValor());
+					Haploide haploide = (Haploide) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(haploide, (Genomapa) haploide.obtenirFill());
 				}
 				break;
 			default:

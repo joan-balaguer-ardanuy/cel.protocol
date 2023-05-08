@@ -46,7 +46,7 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	}
 
 	public ViaLàctia() {
-		super();
+		this(Andròmeda.class, Paritat.aleatòria());
 	}
 	public ViaLàctia(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	}
 	public ViaLàctia(ViaLàctia pare, Sol clau, AlfaCentauri valor) {
 		super(Andròmeda.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public ViaLàctia(ViaLàctia déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public ViaLàctia(ViaLàctia déu, Paritat paritat, Sol clau, AlfaCentauri valor) {
 		super(Andròmeda.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<AlfaCentauri, Sol> o) {
-		obtenirClau().comparador(new AlfaCentauri(Sol.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new AlfaCentauri()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Mar,Terra> anyell = obtenirClau().comparador().font();
 		comparador((AlfaCentauri) anyell, (Sol) anyell.obtenirFill());
 		return 0;
@@ -81,25 +81,27 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Terra) {
-			Terra terra = (Terra) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
-					sol.establirValor(terra, (Mar) terra.obtenirFill());
-					donarManament(new Ordre(sol));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof AlfaCentauri) {
-			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
+		if(manament.getSource() instanceof ViaLàctia) {
+			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirValor().comparador(new Sol(AlfaCentauri.class, Paritat.aleatòria())).compara(alfaCentauri, obtenirClau());
-				donarManament(new Ordre(obtenirValor().comparador().font()));
+				viaLàctia.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				viaLàctia.alliberar();
+				break;
+			default:
+				return;
+			}
+		} else if(manament.getSource() instanceof Sol) {
+			Sol sol = (Sol) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if(!sócDéu() && sol.sócDéu()) {
+					obtenirClau().comparador(new AlfaCentauri()).compara(sol, obtenirValor());
+					AlfaCentauri alfaCentauri = (AlfaCentauri) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(alfaCentauri, (Sol) alfaCentauri.obtenirFill());
+				}
 				break;
 			default:
 				break;

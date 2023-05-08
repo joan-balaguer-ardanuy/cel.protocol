@@ -46,7 +46,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	}
 
 	public Poliploide() {
-		super();
+		super(Operó.class, Paritat.aleatòria());
 	}
 	public Poliploide(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	}
 	public Poliploide(Poliploide pare, Tetraploide clau, Ribosoma valor) {
 		super(Operó.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Poliploide(Poliploide déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Poliploide(Poliploide déu, Paritat paritat, Tetraploide clau, Ribosoma valor) {
 		super(Operó.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Ribosoma, Tetraploide> o) {
-		obtenirClau().comparador(new Ribosoma(Tetraploide.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Ribosoma()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Cromosoma,Diploide> anyell = obtenirClau().comparador().font();
 		comparador((Ribosoma) anyell, (Tetraploide) anyell.obtenirFill());
 		return 0;
@@ -86,7 +86,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Ribosoma ribosoma = new Ribosoma(Tetraploide.class, cromosoma.obtenirParitat());
+					Ribosoma ribosoma = new Ribosoma();
 					ribosoma.establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
 					donarManament(new Ordre(ribosoma));
 				}
@@ -94,12 +94,12 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
+		} else if(manament.getSource() instanceof Tetraploide) {
+			Tetraploide tetraploide = (Tetraploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Ribosoma(Tetraploide.class, Paritat.aleatòria())).compara(obtenirClau(), ribosoma);
+				if (!sócDéu() && tetraploide.sócDéu()) {
+					obtenirClau().comparador(new Ribosoma()).compara(tetraploide, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
 				break;
@@ -107,10 +107,11 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 				break;
 			}
 		}
+		
 	}
 	@Override
 	public void run() {
-		obtenirClau().run();
+		obtenirValor().run();
 		super.run();
 	}
 }

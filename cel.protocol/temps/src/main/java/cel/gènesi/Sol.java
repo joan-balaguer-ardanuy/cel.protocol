@@ -46,7 +46,7 @@ public class Sol extends Home<Terra,Mar> {
 	}
 
 	public Sol() {
-		super();
+		this(AlfaCentauri.class, Paritat.aleatòria());
 	}
 	public Sol(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Sol extends Home<Terra,Mar> {
 	}
 	public Sol(Sol pare, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Sol(Sol déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Sol(Sol déu, Paritat paritat, Terra clau, Mar valor) {
 		super(AlfaCentauri.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Mar, Terra> o) {
-		obtenirClau().comparador(new Mar(Terra.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Mar()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Poliploide,Operó> anyell = obtenirClau().comparador().font();
 		comparador((Mar) anyell, (Terra) anyell.obtenirFill());
 		return 0;
@@ -81,19 +81,7 @@ public class Sol extends Home<Terra,Mar> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Poliploide) {
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				Poliploide poliploide = (Poliploide) manament.getSource();
-				Mar mar = new Mar(Terra.class, Paritat.aleatòria());
-				mar.establirValor(poliploide, (Operó) poliploide.obtenirFill());
-				donarManament(new Ordre(mar));
-				break;
-			default:
-				break;
-			}
-		}
-		else if(manament.getSource() instanceof Sol) {
+		if(manament.getSource() instanceof Sol) {
 			Sol sol = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
@@ -105,14 +93,14 @@ public class Sol extends Home<Terra,Mar> {
 			default:
 				return;
 			}
-		} else if(manament.getSource() instanceof Mar) {
-			Mar mar = (Mar) manament.getSource();
+		} else if(manament.getSource() instanceof Terra) {
+			Terra terra = (Terra) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if (!sócDéu() && mar.sócDéu()) {
-					obtenirValor().comparador(new Terra(Mar.class, Paritat.aleatòria())).compara(mar, obtenirClau());
-					Terra terra = (Terra) obtenirValor().comparador().font();
-					obtenirMareDeDéu().establirClau(terra, (Mar) terra.obtenirFill());
+				if(!sócDéu() && terra.sócDéu()) {
+					obtenirClau().comparador(new Mar()).compara(terra, obtenirValor());
+					Mar mar = (Mar) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(mar, (Terra) mar.obtenirFill());
 				}
 				break;
 			default:

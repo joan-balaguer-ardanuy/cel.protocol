@@ -46,7 +46,7 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	}
 
 	public Espaitemps() {
-		super();
+		this(Hiperespai.class, Paritat.aleatòria());
 	}
 	public Espaitemps(Paritat paritat) {
 		super(paritat);
@@ -59,21 +59,21 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	}
 	public Espaitemps(Espaitemps pare, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public Espaitemps(Espaitemps déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public Espaitemps(Espaitemps déu, Paritat paritat, Supercúmul clau, Interestellar valor) {
 		super(Hiperespai.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<Interestellar, Supercúmul> o) {
-		obtenirClau().comparador(new Interestellar(Supercúmul.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
+		obtenirClau().comparador(new Interestellar()).compara(obtenirClau(), o.obtenirClau());
 		Anyell<Andròmeda,ViaLàctia> anyell = obtenirClau().comparador().font();
 		comparador((Interestellar) anyell, (Supercúmul) anyell.obtenirFill());
 		return 0;
@@ -81,25 +81,27 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof ViaLàctia) {
-			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
-					supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
-					donarManament(new Ordre(supercúmul));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof Interestellar) {
-			Interestellar interestellar = (Interestellar) manament.getSource();
+		if(manament.getSource() instanceof Espaitemps) {
+			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirValor().comparador(new Supercúmul(Interestellar.class, Paritat.aleatòria())).compara(interestellar, obtenirClau());
-				donarManament(new Ordre(obtenirValor().comparador().font()));
+				espaitemps.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				espaitemps.alliberar();
+				break;
+			default:
+				return;
+			}
+		} else if(manament.getSource() instanceof Supercúmul) {
+			Supercúmul supercúmul = (Supercúmul) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if(!sócDéu() && supercúmul.sócDéu()) {
+					obtenirClau().comparador(new Interestellar()).compara(supercúmul, obtenirValor());
+					Interestellar interestellar = (Interestellar) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(interestellar, (Supercúmul) interestellar.obtenirFill());
+				}
 				break;
 			default:
 				break;

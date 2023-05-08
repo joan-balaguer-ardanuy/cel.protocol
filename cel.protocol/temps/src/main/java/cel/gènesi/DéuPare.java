@@ -46,7 +46,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	}
 	
 	public DéuPare() {
-		super();
+		super(MareDeDéu.class, Paritat.aleatòria());
 	}
 	public DéuPare(Paritat paritat) {
 		super(paritat);
@@ -59,47 +59,49 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 	}
 	public DéuPare(DéuPare pare, Aaron clau, TimeMaster valor) {
 		super(MareDeDéu.class, pare, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 	public DéuPare(DéuPare déu, Paritat paritat) {
 		super(déu, paritat);
 	}
 	public DéuPare(DéuPare déu, Paritat paritat, Aaron clau, TimeMaster valor) {
 		super(MareDeDéu.class, déu, paritat, clau, valor);
-		valor.afegirTestimoni(this);
-		clau.afegirTestimoni(obtenirFill());
+		clau.afegirTestimoni(this);
+		valor.afegirTestimoni(obtenirFill());
 	}
 
 	@Override
 	public int compareTo(Anyell<TimeMaster, Aaron> o) {
-		obtenirClau().comparador(new TimeMaster(Aaron.class, o.obtenirParitat().oposada())).compara(obtenirClau(), o.obtenirClau());
-		Anyell<Hiperespai,Espaitemps> anyell = obtenirClau().comparador().font();
+			obtenirClau().comparador(new TimeMaster()).compara(obtenirClau(), o.obtenirClau());
+			Anyell<Hiperespai,Espaitemps> anyell = obtenirClau().comparador().font();
 		comparador((TimeMaster) anyell, (Aaron) anyell.obtenirFill());
 		return 0;
 	}
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.GÈNESI:
-				if(sócDéu()) {
-					Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
-					aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
-					donarManament(new Ordre(aaron));
-				}
-				break;
-			default:
-				break;
-			}
-		} else if(manament.getSource() instanceof TimeMaster) {
-			TimeMaster timeMaster = (TimeMaster) manament.getSource();
+		if(manament.getSource() instanceof DéuPare) {
+			DéuPare déuPare = (DéuPare) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				obtenirValor().comparador(new Aaron(TimeMaster.class, Paritat.aleatòria())).compara(timeMaster, obtenirClau());
-				donarManament(new Ordre(obtenirValor().comparador().font()));
+				déuPare.permutarFill(obtenirPassat(), obtenirFutur());
+				break;
+			case Manament.MOR:
+				déuPare.alliberar();
+				break;
+			default:
+				return;
+			}
+		} else if(manament.getSource() instanceof Aaron) {
+			Aaron aaron = (Aaron) manament.getSource();
+			switch (manament.obtenirManament()) {
+			case Manament.MOR:
+				if(!sócDéu() && aaron.sócDéu()) {
+					obtenirClau().comparador(new TimeMaster()).compara(aaron, obtenirValor());
+					TimeMaster timeMaster = (TimeMaster) obtenirClau().comparador().font();
+					obtenirMareDeDéu().establirValor(timeMaster, (Aaron) timeMaster.obtenirFill());
+				}
 				break;
 			default:
 				break;
