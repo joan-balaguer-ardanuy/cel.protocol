@@ -98,7 +98,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 			Poliploide poliploide = (Poliploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && poliploide.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Operó()).compara(poliploide, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

@@ -97,7 +97,7 @@ public class Sol extends Home<Terra,Mar> {
 			Terra terra = (Terra) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && terra.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Mar()).compara(terra, obtenirValor());
 					Mar mar = (Mar) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(mar, (Terra) mar.obtenirFill());

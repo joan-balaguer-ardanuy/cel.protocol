@@ -26,15 +26,13 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 	Operó operó;
 
 	Anyell<String,Coordenada> coordenades;
-	
-	Testimonis testimonis;
 
 	KJDSSSample sample = new KJDSSSample();
 	
 	float constant = 400;
 	float cameraZ = 4000;
 
-	int dilatació = 20;
+	int dilatació = 1;
 	float tamany = 200;
 	
 	boolean clear = false;
@@ -143,41 +141,46 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 
 	public void draw() {
 		synchronized (this) {
-			background(0);
+			background(100);
 			camera(0, 0, -cameraZ, 0, 0, 0, 0, 1, 0);
 			lights();
 			spotLight(255, 0, 0, width / 2, height / 2, 5000, 0, 0, -1, PI / 4, 2);
 			noStroke();
-			if (clear) {
-				Iterator<Anyell<String, Coordenada>> it = coordenades.iterator();
-				while (it.hasNext()) {
-					if (it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
-						it.remove();
-					}
-				}
-			}
+//			if (clear) {
+//				Iterator<Anyell<String, Coordenada>> it = coordenades.iterator();
+//				while (it.hasNext()) {
+//					if (it.next().obtenirValor().getEsperit().obtenirOrdre() == Manament.MOR) {
+//						it.remove();
+//					}
+//				}
+//			}
+			beginShape();
 			for (Anyell<String, Coordenada> anyell : coordenades) {
 				Coordenada coordenada = anyell.obtenirValor();
 				switch (coordenada.getParitat()) {
 				case XX:
 					fill((coordenada.getX3()) % 255, coordenada.getY3() , (coordenada.getZ3()));
+					rotateX(coordenada.getAngleX());
+					coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX2());
 					break;
 				case XY:
 					fill((coordenada.getX3()), coordenada.getY3() % 255, (coordenada.getZ3()));
+					rotateY(coordenada.getAngleY());
+					coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY2());
 					break;
 				default:
 					fill((coordenada.getX3()) % 255, coordenada.getY3() % 255, coordenada.getZ3() % 255);
+					rotateZ(coordenada.getAngleZ());
+					coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ2());
 					break;
 				}
-				rotateX(coordenada.getAngleX());
-				coordenada.setAngleX(coordenada.getAngleX() + PI / coordenada.getX2());
-				rotateY(coordenada.getAngleY());
-				coordenada.setAngleY(coordenada.getAngleY() + PI / coordenada.getY2());
-				rotateZ(coordenada.getAngleZ());
-				coordenada.setAngleZ(coordenada.getAngleZ() + PI / coordenada.getZ2());
-				translate(coordenada.getX() % constant, coordenada.getY() % constant, -coordenada.getZ() % constant);
-				sphere(coordenada.getTotal() % 40 + 30);
+				vertex(coordenada.initialX, coordenada.initialY, coordenada.initialZ);
+				
+//				translate(coordenada.initialX % constant, coordenada.initialY % constant, -coordenada.initialZ % constant);
+			
+//				sphere(coordenada.getTotal() % 40 + 30);
 			}
+			endShape();
 		}
 	}
 	
@@ -239,15 +242,13 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 		Esperit esperit = (Esperit) manament.getSource();
 		switch (manament.obtenirManament()) {
 		case Manament.GÈNESI:
-			if(esperit instanceof Ribosoma) {
-				Ribosoma genomapa = (Ribosoma) esperit;
-				genomapa.afegirTestimoni(this);
-				genomapa.obtenirFill().afegirTestimoni(this);
-//				execute(genomapa);
-			}
-			break;
-		case Manament.VIU:
-			clear = true;
+//			if(esperit instanceof Ribosoma) {
+//				Ribosoma genomapa = (Ribosoma) esperit;
+//				genomapa.afegirTestimoni(this);
+//				genomapa.obtenirFill().afegirTestimoni(this);
+////				execute(genomapa);
+//			}
+
 			synchronized (this) {
 				if(esperit instanceof Hipercub) {
 					System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
@@ -258,36 +259,11 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 					System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
 					Coordenada coordenada = new Coordenada((Hipercadena) esperit, dilatació);
 					coordenades.establirValor(esperit.obtenirNom(), coordenada);
-				} 
-//				if(esperit instanceof Haploide) {
-//					Coordenada coordenada = new Coordenada(esperit);
-//					System.out.println(esperit.getClass() + " " + esperit.obtenirNom());
-//					coordenades.establirValor(esperit.obtenirNom(), coordenada);
-//					for(Anyell<Hipercadena,Hipercub> anyell : (Haploide) esperit) {
-//						coordenada = new Coordenada(anyell.obtenirClau(), dilatació);
-//						coordenades.establirValor(anyell.obtenirClau().obtenirNom(), coordenada);
-//						coordenada = new Coordenada(anyell.obtenirValor(), dilatació);
-//						coordenades.establirValor(anyell.obtenirValor().obtenirNom(), coordenada);
-//					}
-//				}
-//				System.out.println("VIU: " + esperit.getClass() + " " + esperit.obtenirNom());
-//				if (esperit instanceof Cromosoma) {
-////					if (!blocked) {
-//						blocked = true;
-//						Cromosoma pare = (Cromosoma) esperit;
-//						for (Anyell<Genomapa, Haploide> cromosoma : pare) {
-//							for (Anyell<Character, Integer> hipercub : cromosoma.obtenirClau().obtenirClau()) {
-//								Coordenada coordenada = new Coordenada((Hipercub) hipercub, dilatació, init, init, init);
-//								coordenades.establirValor(hipercub.obtenirNom(), coordenada);
-//								coordenada = new Coordenada((Hipercadena) hipercub.obtenirFill(), dilatació, init, init,
-//										init);
-//								coordenades.establirValor(hipercub.obtenirFill().obtenirNom(), coordenada);
-//							}
-////							init += 10;
-//						}
-////					}
-//				}
+				}
 			}
+			break;
+		case Manament.VIU:
+			clear = true;
 			break;
 		case Manament.MOR:
 			clear = false;
@@ -313,246 +289,256 @@ public class Simulador extends PApplet implements Esperit, KJDSS_Saturation_List
 	public void on_Saturation_Event(KJDSS_Saturation_Event event) {
 		switch (event.getEventType()) {
 		case KJDSS_Saturation_Event.Event_Types.SAT:
-			for (Anyell<String, Coordenada> anyell : coordenades) {
-				Coordenada coordenada = anyell.obtenirValor();
-				switch (coordenada.getParitat()) {
-				case XX:
-					float val = (coordenada.getX2() + (float) 1);
-//					coordenada.setX2(val);
-					if (val <= coordenada.minX) {
-						coordenada.setX2(coordenada.initialX);
-					} else if (val > coordenada.maxX) {
-						coordenada.setX2(coordenada.initialX);
-					} else {
-						coordenada.setX2(val);
+			synchronized (this) {
+				for (Anyell<String, Coordenada> anyell : coordenades) {
+					Coordenada coordenada = anyell.obtenirValor();
+					switch (coordenada.getParitat()) {
+					case XX:
+						float val = (coordenada.getX2() + (float) 1);
+//						coordenada.setX2(val);
+						if (val <= coordenada.minX) {
+							coordenada.setX2(coordenada.initialX);
+						} else if (val > coordenada.maxX) {
+							coordenada.setX2(coordenada.initialX);
+						} else {
+							coordenada.setX2(val);
+						}
+						break;
+					case XY:
+						float val2 = (coordenada.getY2() + (float) 1);
+//						coordenada.setY2(val2);
+						if (val2 <= coordenada.minY) {
+							coordenada.setY2(coordenada.initialY);
+						} else if (val2 > coordenada.maxY) {
+							coordenada.setY2(coordenada.initialY);
+						} else {
+							coordenada.setY2(val2);
+						}
+						break;
+					default:
+						
+						float val3 = (coordenada.getZ2() + (float) 1);
+//						coordenada.setZ2(val3);
+						if (val3 <= coordenada.minZ) {
+							coordenada.setZ2(coordenada.initialZ);
+						} else if (val3 > coordenada.maxZ) {
+							coordenada.setZ2(coordenada.initialZ);
+						} else {
+							coordenada.setZ2(val3);
+						}
+						break;
 					}
-					break;
-				case XY:
-					float val2 = (coordenada.getY2() + (float) 1);
-//					coordenada.setY2(val2);
-					if (val2 <= coordenada.minY) {
-						coordenada.setY2(coordenada.initialY);
-					} else if (val2 > coordenada.maxY) {
-						coordenada.setY2(coordenada.initialY);
-					} else {
-						coordenada.setY2(val2);
-					}
-					break;
-				default:
-					
-					float val3 = (coordenada.getZ2() + (float) 1);
-//					coordenada.setZ2(val3);
-					if (val3 <= coordenada.minZ) {
-						coordenada.setZ2(coordenada.initialZ);
-					} else if (val3 > coordenada.maxZ) {
-						coordenada.setZ2(coordenada.initialZ);
-					} else {
-						coordenada.setZ2(val3);
-					}
-					break;
-				}
+				}	
 			}
 			break;
 		case KJDSS_Saturation_Event.Event_Types.SAT_100:
-
-			for (Anyell<String, Coordenada> anyell : coordenades) {
-				Coordenada coordenada = anyell.obtenirValor();
-				switch (coordenada.getParitat()) {
-				case XX:
-					float val = (coordenada.getX3() + (float) 0.01);
-					if (val <= coordenada.minX) {
-						coordenada.setX3(coordenada.initialX);
-					} else if (val > coordenada.maxX) {
-						coordenada.setX3(coordenada.initialX);
-					} else {
-						coordenada.setX3(val);
+			synchronized (this) {
+				for (Anyell<String, Coordenada> anyell : coordenades) {
+					Coordenada coordenada = anyell.obtenirValor();
+					switch (coordenada.getParitat()) {
+					case XX:
+						float val = (coordenada.getX3() + (float) 0.01);
+						if (val <= coordenada.minX) {
+							coordenada.setX3(coordenada.initialX);
+						} else if (val > coordenada.maxX) {
+							coordenada.setX3(coordenada.initialX);
+						} else {
+							coordenada.setX3(val);
+						}
+						break;
+					case XY:
+						float val2 = (coordenada.getY3() + (float) 0.01);
+						if (val2 <= coordenada.minY) {
+							coordenada.setY3(coordenada.initialY);
+						} else if (val2 > coordenada.maxY){
+							coordenada.setY3(coordenada.initialY);
+						} else {
+							coordenada.setY3(val2);
+						}
+						break;
+					default:
+						float val3 = (coordenada.getZ3() + (float) 0.01);
+						if (val3 <= coordenada.minZ) {
+							coordenada.setZ3(coordenada.initialZ);
+						} else if (val3 > coordenada.maxZ) {
+							coordenada.setZ3(coordenada.initialZ);
+						} else {
+							coordenada.setZ3(val3);
+						}
+						break;
 					}
-					break;
-				case XY:
-					float val2 = (coordenada.getY3() + (float) 0.01);
-					if (val2 <= coordenada.minY) {
-						coordenada.setY3(coordenada.initialY);
-					} else if (val2 > coordenada.maxY){
-						coordenada.setY3(coordenada.initialY);
-					} else {
-						coordenada.setY3(val2);
-					}
-					break;
-				default:
-					float val3 = (coordenada.getZ3() + (float) 0.01);
-					if (val3 <= coordenada.minZ) {
-						coordenada.setZ3(coordenada.initialZ);
-					} else if (val3 > coordenada.maxZ) {
-						coordenada.setZ3(coordenada.initialZ);
-					} else {
-						coordenada.setZ3(val3);
-					}
-					break;
-				}
-				coordenada.setTotal(coordenada.getX3() + coordenada.getY3() + coordenada.getZ3());
+					coordenada.setTotal(coordenada.getX3() + coordenada.getY3() + coordenada.getZ3());
+				}	
 			}
-
+			break;
 		case KJDSS_Saturation_Event.Event_Types.SAT_6000:
-			for (Anyell<String, Coordenada> anyell : coordenades) {
-				Coordenada coordenada = anyell.obtenirValor();
-				switch (coordenada.getParitat()) {
-				case XX:
-					float val = (coordenada.getX() + (float) 0.001);
-//					coordenada.setX2(val);
-					if (val <= coordenada.minX) {
-						coordenada.setX(coordenada.initialX);
-					} else if (val > coordenada.maxX) {
-						coordenada.setX(coordenada.initialX);
-					} else {
-						coordenada.setX(val);
+			synchronized (this) {
+				for (Anyell<String, Coordenada> anyell : coordenades) {
+					Coordenada coordenada = anyell.obtenirValor();
+					switch (coordenada.getParitat()) {
+					case XX:
+						float val = (coordenada.getX() + (float) 0.001);
+//						coordenada.setX2(val);
+						if (val <= coordenada.minX) {
+							coordenada.setX(coordenada.initialX);
+						} else if (val > coordenada.maxX) {
+							coordenada.setX(coordenada.initialX);
+						} else {
+							coordenada.setX(val);
+						}
+						break;
+					case XY:
+						float val2 = (coordenada.getY() + (float) 0.001);
+//						coordenada.setY2(val2);
+						if (val2 <= coordenada.minY) {
+							coordenada.setY(coordenada.initialY);
+						} else if (val2 > coordenada.maxY) {
+							coordenada.setY(coordenada.initialY);
+						} else {
+							coordenada.setY(val2);
+						}
+						break;
+					default:
+						
+						float val3 = (coordenada.getZ() + (float) 0.001);
+//						coordenada.setZ2(val3);
+						if (val3 <= coordenada.minZ) {
+							coordenada.setZ(coordenada.initialZ);
+						} else if (val3 > coordenada.maxZ) {
+							coordenada.setZ(coordenada.initialZ);
+						} else {
+							coordenada.setZ(val3);
+						}
+						break;
 					}
-					break;
-				case XY:
-					float val2 = (coordenada.getY() + (float) 0.001);
-//					coordenada.setY2(val2);
-					if (val2 <= coordenada.minY) {
-						coordenada.setY(coordenada.initialY);
-					} else if (val2 > coordenada.maxY) {
-						coordenada.setY(coordenada.initialY);
-					} else {
-						coordenada.setY(val2);
-					}
-					break;
-				default:
-					
-					float val3 = (coordenada.getZ() + (float) 0.001);
-//					coordenada.setZ2(val3);
-					if (val3 <= coordenada.minZ) {
-						coordenada.setZ(coordenada.initialZ);
-					} else if (val3 > coordenada.maxZ) {
-						coordenada.setZ(coordenada.initialZ);
-					} else {
-						coordenada.setZ(val3);
-					}
-					break;
-				}
+				}	
 			}
 			break;
 
 		case KJDSS_Saturation_Event.Event_Types.NO_SAT:
-			for (Anyell<String, Coordenada> anyell : coordenades) {
-				Coordenada coordenada = anyell.obtenirValor();
-				switch (coordenada.getParitat()) {
-				case XX:
-					float val = (coordenada.getX2() - (float) 1);
-//					coordenada.setX2(val);
-					if (val <= coordenada.minX) {
-						coordenada.setX2(coordenada.initialX);
-					} else if (val > coordenada.maxX) {
-						coordenada.setX2(coordenada.initialX);
-					} else {
-						coordenada.setX2(val);
+			synchronized (this) {
+				for (Anyell<String, Coordenada> anyell : coordenades) {
+					Coordenada coordenada = anyell.obtenirValor();
+					switch (coordenada.getParitat()) {
+					case XX:
+						float val = (coordenada.getX2() - (float) 1);
+//						coordenada.setX2(val);
+						if (val <= coordenada.minX) {
+							coordenada.setX2(coordenada.initialX);
+						} else if (val > coordenada.maxX) {
+							coordenada.setX2(coordenada.initialX);
+						} else {
+							coordenada.setX2(val);
+						}
+						break;
+					case XY:
+						float val2 = (coordenada.getY2() - (float) 1);
+//						coordenada.setY2(val2);
+						if (val2 <= coordenada.minY) {
+							coordenada.setY2(coordenada.initialY);
+						} else if (val2 > coordenada.maxY) {
+							coordenada.setY2(coordenada.initialY);
+						} else {
+							coordenada.setY2(val2);
+						}
+						break;
+					default:
+						
+						float val3 = (coordenada.getZ2() - (float) 1);
+//						coordenada.setZ2(val3);
+						if (val3 <= coordenada.minZ) {
+							coordenada.setZ2(coordenada.initialZ);
+						} else if (val3 > coordenada.maxZ) {
+							coordenada.setZ2(coordenada.initialZ);
+						} else {
+							coordenada.setZ2(val3);
+						}
+						break;
 					}
-					break;
-				case XY:
-					float val2 = (coordenada.getY2() - (float) 1);
-//					coordenada.setY2(val2);
-					if (val2 <= coordenada.minY) {
-						coordenada.setY2(coordenada.initialY);
-					} else if (val2 > coordenada.maxY) {
-						coordenada.setY2(coordenada.initialY);
-					} else {
-						coordenada.setY2(val2);
-					}
-					break;
-				default:
-					
-					float val3 = (coordenada.getZ2() - (float) 1);
-//					coordenada.setZ2(val3);
-					if (val3 <= coordenada.minZ) {
-						coordenada.setZ2(coordenada.initialZ);
-					} else if (val3 > coordenada.maxZ) {
-						coordenada.setZ2(coordenada.initialZ);
-					} else {
-						coordenada.setZ2(val3);
-					}
-					break;
-				}
+				}	
 			}
 			break;
 		case KJDSS_Saturation_Event.Event_Types.NO_SAT_100:
-
-			for (Anyell<String, Coordenada> anyell : coordenades) {
-				Coordenada coordenada = anyell.obtenirValor();
-				switch (coordenada.getParitat()) {
-				case XX:
-					float val = (coordenada.getX3() - (float) 0.01);
-					if (val <= coordenada.minX) {
-						coordenada.setX3(coordenada.initialX);
-					} else if (val > coordenada.maxX) {
-						coordenada.setX3(coordenada.initialX);
-					} else {
-						coordenada.setX3(val);
+			synchronized (this) {
+				for (Anyell<String, Coordenada> anyell : coordenades) {
+					Coordenada coordenada = anyell.obtenirValor();
+					switch (coordenada.getParitat()) {
+					case XX:
+						float val = (coordenada.getX3() - (float) 0.01);
+						if (val <= coordenada.minX) {
+							coordenada.setX3(coordenada.initialX);
+						} else if (val > coordenada.maxX) {
+							coordenada.setX3(coordenada.initialX);
+						} else {
+							coordenada.setX3(val);
+						}
+						break;
+					case XY:
+						float val2 = (coordenada.getY3() - (float) 0.01);
+						if (val2 <= coordenada.minY) {
+							coordenada.setY3(coordenada.initialY);
+						} else if (val2 > coordenada.maxY){
+							coordenada.setY3(coordenada.initialY);
+						} else {
+							coordenada.setY3(val2);
+						}
+						break;
+					default:
+						float val3 = (coordenada.getZ3() - (float) 0.01);
+						if (val3 <= coordenada.minZ) {
+							coordenada.setZ3(coordenada.initialZ);
+						} else if (val3 > coordenada.maxZ) {
+							coordenada.setZ3(coordenada.initialZ);
+						} else {
+							coordenada.setZ3(val3);
+						}
+						break;
 					}
-					break;
-				case XY:
-					float val2 = (coordenada.getY3() - (float) 0.01);
-					if (val2 <= coordenada.minY) {
-						coordenada.setY3(coordenada.initialY);
-					} else if (val2 > coordenada.maxY){
-						coordenada.setY3(coordenada.initialY);
-					} else {
-						coordenada.setY3(val2);
-					}
-					break;
-				default:
-					float val3 = (coordenada.getZ3() - (float) 0.01);
-					if (val3 <= coordenada.minZ) {
-						coordenada.setZ3(coordenada.initialZ);
-					} else if (val3 > coordenada.maxZ) {
-						coordenada.setZ3(coordenada.initialZ);
-					} else {
-						coordenada.setZ3(val3);
-					}
-					break;
+					coordenada.setTotal(coordenada.getX3() + coordenada.getY3() + coordenada.getZ3());
 				}
-				coordenada.setTotal(coordenada.getX3() + coordenada.getY3() + coordenada.getZ3());
 			}
-
+			break;
 		case KJDSS_Saturation_Event.Event_Types.NO_SAT_6000:
-			for (Anyell<String, Coordenada> anyell : coordenades) {
-				Coordenada coordenada = anyell.obtenirValor();
-				switch (coordenada.getParitat()) {
-				case XX:
-					float val = (coordenada.getX() - (float) 0.001);
-//					coordenada.setX2(val);
-					if (val <= coordenada.minX) {
-						coordenada.setX(coordenada.initialX);
-					} else if (val > coordenada.maxX) {
-						coordenada.setX(coordenada.initialX);
-					} else {
-						coordenada.setX(val);
+			synchronized (this) {
+				for (Anyell<String, Coordenada> anyell : coordenades) {
+					Coordenada coordenada = anyell.obtenirValor();
+					switch (coordenada.getParitat()) {
+					case XX:
+						float val = (coordenada.getX() - (float) 0.001);
+//						coordenada.setX2(val);
+						if (val <= coordenada.minX) {
+							coordenada.setX(coordenada.initialX);
+						} else if (val > coordenada.maxX) {
+							coordenada.setX(coordenada.initialX);
+						} else {
+							coordenada.setX(val);
+						}
+						break;
+					case XY:
+						float val2 = (coordenada.getY() - (float) 0.001);
+//						coordenada.setY2(val2);
+						if (val2 <= coordenada.minY) {
+							coordenada.setY(coordenada.initialY);
+						} else if (val2 > coordenada.maxY) {
+							coordenada.setY(coordenada.initialY);
+						} else {
+							coordenada.setY(val2);
+						}
+						break;
+					default:
+						
+						float val3 = (coordenada.getZ() - (float) 0.001);
+//						coordenada.setZ2(val3);
+						if (val3 <= coordenada.minZ) {
+							coordenada.setZ(coordenada.initialZ);
+						} else if (val3 > coordenada.maxZ) {
+							coordenada.setZ(coordenada.initialZ);
+						} else {
+							coordenada.setZ(val3);
+						}
+						break;
 					}
-					break;
-				case XY:
-					float val2 = (coordenada.getY() - (float) 0.001);
-//					coordenada.setY2(val2);
-					if (val2 <= coordenada.minY) {
-						coordenada.setY(coordenada.initialY);
-					} else if (val2 > coordenada.maxY) {
-						coordenada.setY(coordenada.initialY);
-					} else {
-						coordenada.setY(val2);
-					}
-					break;
-				default:
-					
-					float val3 = (coordenada.getZ() - (float) 0.001);
-//					coordenada.setZ2(val3);
-					if (val3 <= coordenada.minZ) {
-						coordenada.setZ(coordenada.initialZ);
-					} else if (val3 > coordenada.maxZ) {
-						coordenada.setZ(coordenada.initialZ);
-					} else {
-						coordenada.setZ(val3);
-					}
-					break;
-				}
+				}	
 			}
 			break;
 		}

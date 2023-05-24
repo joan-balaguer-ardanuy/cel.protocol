@@ -98,7 +98,7 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 			Andròmeda andròmeda = (Andròmeda) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && andròmeda.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new ViaLàctia()).compara(andròmeda, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

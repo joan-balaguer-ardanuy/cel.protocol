@@ -97,7 +97,7 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 			Aaron aaron = (Aaron) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && aaron.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new TimeMaster()).compara(aaron, obtenirValor());
 					TimeMaster timeMaster = (TimeMaster) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(timeMaster, (Aaron) timeMaster.obtenirFill());

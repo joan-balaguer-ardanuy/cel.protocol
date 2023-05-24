@@ -98,7 +98,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 			Mar mar = (Mar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && mar.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Terra()).compara(mar, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

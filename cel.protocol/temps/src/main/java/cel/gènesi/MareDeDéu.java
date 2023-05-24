@@ -98,7 +98,7 @@ public class MareDeDéu extends Dona<TimeMaster, Aaron> {
 			TimeMaster timeMaster = (TimeMaster) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && timeMaster.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Aaron()).compara(timeMaster, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

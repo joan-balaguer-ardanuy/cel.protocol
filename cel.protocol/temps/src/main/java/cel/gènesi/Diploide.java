@@ -99,7 +99,7 @@ public class Diploide
 			Haploide haploide = (Haploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && haploide.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Genomapa()).compara(haploide, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

@@ -100,7 +100,7 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 			Cromosoma cromosoma = (Cromosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && cromosoma.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Diploide()).compara(cromosoma, obtenirValor());
 					Diploide anyell = (Diploide) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(anyell, (Cromosoma) anyell.obtenirFill());

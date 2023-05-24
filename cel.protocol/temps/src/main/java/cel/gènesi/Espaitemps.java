@@ -97,7 +97,7 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 			Supercúmul supercúmul = (Supercúmul) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && supercúmul.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Interestellar()).compara(supercúmul, obtenirValor());
 					Interestellar interestellar = (Interestellar) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(interestellar, (Supercúmul) interestellar.obtenirFill());

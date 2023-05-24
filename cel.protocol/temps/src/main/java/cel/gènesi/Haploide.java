@@ -89,7 +89,7 @@ public class Haploide
 			Hipercadena hipercadena = (Hipercadena) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu() && hipercadena.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Hipercub()).compara(hipercadena, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

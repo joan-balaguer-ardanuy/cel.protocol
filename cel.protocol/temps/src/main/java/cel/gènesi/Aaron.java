@@ -97,7 +97,7 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 			Espaitemps espaitemps = (Espaitemps) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && espaitemps.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Hiperespai()).compara(espaitemps, obtenirValor());
 					Hiperespai hiperespai = (Hiperespai) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(hiperespai, (Espaitemps) hiperespai.obtenirFill());

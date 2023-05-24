@@ -98,7 +98,7 @@ public class Hiperespai extends Dona<Interestellar,Supercúmul> {
 			Interestellar interestellar = (Interestellar) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && interestellar.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Supercúmul()).compara(interestellar, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

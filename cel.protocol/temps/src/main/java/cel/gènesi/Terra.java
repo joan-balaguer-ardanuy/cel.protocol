@@ -97,7 +97,7 @@ public class Terra extends Home<Operó,Poliploide> {
 			Operó operó = (Operó) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && operó.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Poliploide()).compara(operó, obtenirValor());
 					Poliploide poliploide = (Poliploide) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(poliploide, (Operó) poliploide.obtenirFill());

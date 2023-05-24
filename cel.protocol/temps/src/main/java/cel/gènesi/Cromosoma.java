@@ -100,7 +100,7 @@ public class Cromosoma
 			Genomapa genomapa = (Genomapa) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && genomapa.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Haploide()).compara(genomapa, obtenirValor());
 					Haploide haploide = (Haploide) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(haploide, (Genomapa) haploide.obtenirFill());

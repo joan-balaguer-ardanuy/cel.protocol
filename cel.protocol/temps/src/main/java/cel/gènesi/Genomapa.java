@@ -97,7 +97,7 @@ public class Genomapa
 			Hipercub hipercub = (Hipercub) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if (!sócDéu() && hipercub.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Hipercadena()).compara(hipercub, obtenirValor());
 					Hipercadena anyell = (Hipercadena) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(anyell, (Hipercub) anyell.obtenirFill());

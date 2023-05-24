@@ -98,7 +98,7 @@ public class Andròmeda extends Dona<AlfaCentauri,Sol> {
 			AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && alfaCentauri.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Sol()).compara(alfaCentauri, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

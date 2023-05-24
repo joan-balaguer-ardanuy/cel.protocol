@@ -97,7 +97,7 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 			Ribosoma ribosoma = (Ribosoma) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && ribosoma.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Tetraploide()).compara(ribosoma, obtenirValor());
 					Tetraploide tetraploide = (Tetraploide) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(tetraploide, (Ribosoma) tetraploide.obtenirFill());

@@ -97,7 +97,7 @@ public class ViaLàctia extends Home<Sol, AlfaCentauri> {
 			Sol sol = (Sol) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && sol.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new AlfaCentauri()).compara(sol, obtenirValor());
 					AlfaCentauri alfaCentauri = (AlfaCentauri) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(alfaCentauri, (Sol) alfaCentauri.obtenirFill());

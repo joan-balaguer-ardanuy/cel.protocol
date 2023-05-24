@@ -97,7 +97,7 @@ public class Supercúmul extends Home<ViaLàctia, Andròmeda> {
 			ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.MOR:
-				if(!sócDéu() && viaLàctia.sócDéu()) {
+				if(!sócDéu()) {
 					obtenirClau().comparador(new Andròmeda()).compara(viaLàctia, obtenirValor());
 					Andròmeda anyell = (Andròmeda) obtenirClau().comparador().font();
 					obtenirMareDeDéu().establirValor(anyell, (ViaLàctia) anyell.obtenirFill());

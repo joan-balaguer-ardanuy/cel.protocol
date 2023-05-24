@@ -76,6 +76,9 @@ public class Hipercub extends Home<Character,Integer> {
 			case Manament.VIU:
 				hipercub.permutarFill(obtenirPassat(), obtenirFutur());	
 				break;
+//			case Manament.MOR:
+//				hipercub.alliberar();
+//				break;
 			default:
 				return;
 			}

@@ -100,7 +100,7 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 			Diploide diploide = (Diploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && diploide.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Cromosoma()).compara(diploide, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}

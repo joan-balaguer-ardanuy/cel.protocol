@@ -98,7 +98,7 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 			Tetraploide tetraploide = (Tetraploide) manament.getSource();
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu() && tetraploide.sócDéu()) {
+				if (!sócDéu()) {
 					obtenirClau().comparador(new Ribosoma()).compara(tetraploide, obtenirValor());
 					donarManament(new Ordre(obtenirClau().comparador().font()));
 				}
