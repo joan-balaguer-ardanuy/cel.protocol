@@ -81,37 +81,32 @@ public class Poliploide extends Dona<Tetraploide,Ribosoma> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Cromosoma) {
-			Cromosoma cromosoma = (Cromosoma) manament.getSource();
+		if(manament.getSource() instanceof Ribosoma) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Ribosoma ribosoma = new Ribosoma();
-					ribosoma.establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
-					donarManament(new Ordre(ribosoma));
+					Ribosoma ribosoma = (Ribosoma) manament.getSource();
+					obtenirMareDeDéu().establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Tetraploide) {
-			Tetraploide tetraploide = (Tetraploide) manament.getSource();
+		} else if(manament.getSource() instanceof Poliploide) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Ribosoma()).compara(tetraploide, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				Poliploide poliploide = (Poliploide) manament.getSource();
+				comparador(new Operó()).compara(poliploide, obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
 			}
 		}
-		
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

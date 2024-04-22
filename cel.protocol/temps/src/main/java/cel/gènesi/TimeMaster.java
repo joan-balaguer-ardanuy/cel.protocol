@@ -81,37 +81,32 @@ public class TimeMaster extends Dona<Hiperespai, Espaitemps> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Supercúmul) {
-			Supercúmul supercúmul = (Supercúmul) manament.getSource();
+		if(manament.getSource() instanceof Espaitemps) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Espaitemps espaitemps = new Espaitemps();
-					espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
-					donarManament(new Ordre(espaitemps));
+					Espaitemps espaitemps = (Espaitemps) manament.getSource();
+					obtenirMareDeDéu().establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Hiperespai) {
-			Hiperespai hiperespai = (Hiperespai) manament.getSource();
+		} else if(manament.getSource() instanceof TimeMaster) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Espaitemps()).compara(hiperespai, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				TimeMaster timeMaster = (TimeMaster) manament.getSource();
+				comparador(new Aaron()).compara(timeMaster, obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
 			}
 		}
-		
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

@@ -87,30 +87,14 @@ public class Operó extends Home<Ribosoma,Tetraploide> {
 			case Manament.VIU:
 				operó.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				operó.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Tetraploide()).compara(ribosoma, obtenirValor());
-					Tetraploide tetraploide = (Tetraploide) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(tetraploide, (Ribosoma) tetraploide.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

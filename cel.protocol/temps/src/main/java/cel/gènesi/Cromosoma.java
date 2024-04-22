@@ -90,30 +90,14 @@ public class Cromosoma
 			case Manament.VIU:
 				cromosoma.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				cromosoma.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Genomapa) {
-			Genomapa genomapa = (Genomapa) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Haploide()).compara(genomapa, obtenirValor());
-					Haploide haploide = (Haploide) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(haploide, (Genomapa) haploide.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

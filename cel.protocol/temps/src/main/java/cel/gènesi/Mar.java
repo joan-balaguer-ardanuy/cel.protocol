@@ -81,27 +81,23 @@ public class Mar extends Dona<Poliploide,Operó> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Ribosoma) {
-			Ribosoma ribosoma = (Ribosoma) manament.getSource();
+		if(manament.getSource() instanceof Operó) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Operó operó = new Operó();
-					operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
-					donarManament(new Ordre(operó));
+					Operó operó = (Operó) manament.getSource();
+					obtenirMareDeDéu().establirValor(operó, (Poliploide) operó.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Poliploide) {
-			Poliploide poliploide = (Poliploide) manament.getSource();
+		} else if(manament.getSource() instanceof Mar) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Operó()).compara(poliploide, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				Mar mar = (Mar) manament.getSource();
+				comparador(new Terra()).compara(mar, obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
@@ -110,7 +106,7 @@ public class Mar extends Dona<Poliploide,Operó> {
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

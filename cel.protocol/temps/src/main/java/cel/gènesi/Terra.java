@@ -87,30 +87,14 @@ public class Terra extends Home<Operó,Poliploide> {
 			case Manament.VIU:
 				terra.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				terra.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Operó) {
-			Operó operó = (Operó) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Poliploide()).compara(operó, obtenirValor());
-					Poliploide poliploide = (Poliploide) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(poliploide, (Operó) poliploide.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

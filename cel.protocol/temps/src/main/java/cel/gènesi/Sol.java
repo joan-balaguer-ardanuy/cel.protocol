@@ -87,30 +87,14 @@ public class Sol extends Home<Terra,Mar> {
 			case Manament.VIU:
 				sol.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				sol.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Terra) {
-			Terra terra = (Terra) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Mar()).compara(terra, obtenirValor());
-					Mar mar = (Mar) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(mar, (Terra) mar.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

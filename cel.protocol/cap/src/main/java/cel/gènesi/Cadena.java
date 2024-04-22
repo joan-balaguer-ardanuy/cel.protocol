@@ -20,7 +20,7 @@ import cel.Anyell;
  * @param <K> és la CLAU
  * @param <V> és el VALOR
  */
-public interface Cadena<K,V> extends Anyell<K,V> {
+public interface Cadena<K,V> extends Anyell<K,V>, java.util.Map.Entry<K,V> {
 
 	K getKey();
 	K setKey(K key);

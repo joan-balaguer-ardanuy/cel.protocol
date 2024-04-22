@@ -81,28 +81,24 @@ public class Diploide
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercub) {
-			Hipercub hipercub = (Hipercub) manament.getSource();
+		if(manament.getSource() instanceof Genomapa) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Genomapa genomapa = new Genomapa();
-					genomapa.establirValor(hipercub, (Hipercadena) hipercub.obtenirFill());
-					donarManament(new Ordre(genomapa));
+					Genomapa genomapa = (Genomapa) manament.getSource();
+					obtenirMareDeDéu().establirValor(genomapa, (Haploide) genomapa.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} 
-		else if(manament.getSource() instanceof Haploide) {
-			Haploide haploide = (Haploide) manament.getSource();
+		} else if(manament.getSource() instanceof Diploide) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Genomapa()).compara(haploide, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				Diploide diploide = (Diploide) manament.getSource();
+				comparador(new Cromosoma()).compara(diploide, obtenirMareDeDéu());
+				System.out.println(comparador().font().obtenirNom());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
@@ -111,7 +107,7 @@ public class Diploide
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

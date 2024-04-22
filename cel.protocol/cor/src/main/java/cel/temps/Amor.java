@@ -165,17 +165,17 @@ public abstract class Amor
 		@Override
 		public synchronized void compara(K pare, V fill) {
 			K p = pare.obtenirPare();
-			V f = fill.obtenirPare();
+			V f = fill.obtenirPassat();
 			do {
 				p.compareTo(f);
 				establirFill(p.comparador().font());
 				p = p.obtenirPare();
-				f = f.obtenirPare();
+				f = f.obtenirPassat();
 				if ((p != pare && f != fill)) {
 					f.compareTo(p);
 					establirPare(f.comparador().font());
 					p = p.obtenirPare();
-					f = f.obtenirPare();
+					f = f.obtenirPassat();
 				}
 			} while (p != pare && f != fill);
 //			K p = fill.obtenirFill();

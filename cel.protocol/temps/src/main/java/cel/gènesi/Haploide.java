@@ -83,16 +83,26 @@ public class Haploide
 		return 0;
 	}
 	@Override
-	public synchronized void esdeveniment(Ordre manament) {
+	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Hipercadena) {
-			Hipercadena hipercadena = (Hipercadena) manament.getSource();
+		if(manament.getSource() instanceof Hipercub) {
+			switch (manament.obtenirManament()) {
+			case Manament.GÈNESI:
+				if(sócDéu()) {
+					Hipercub hipercub = (Hipercub) manament.getSource();
+					obtenirMareDeDéu().establirValor(hipercub, (Hipercadena) hipercub.obtenirFill());
+				}
+				break;
+			default:
+				break;
+			}
+		} else if(manament.getSource() instanceof Haploide) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Hipercub()).compara(hipercadena, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				Haploide haploide = (Haploide) manament.getSource();
+				comparador(new Genomapa()).compara(haploide, obtenirMareDeDéu());
+				System.out.println(comparador().font().obtenirNom());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
@@ -101,7 +111,7 @@ public class Haploide
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

@@ -130,17 +130,4 @@ public abstract class Tenebres
 	public boolean retenirCadaFill(V fill) {
 		return obtenirFill().retenirCadaPare(fill);
 	}
-	@Override
-	public void run() {
-		if((sócDéu() && !ésBuit()) || !sócFinal()) {
-			Thread t = newThread(obtenirFill());
-			t.start();
-			try {
-				t.join();
-			} catch (InterruptedException e ) {
-				
-			}
-		}
-		super.run();
-	}
 }

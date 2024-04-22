@@ -73,8 +73,8 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 
 	@Override
 	public int compareTo(Anyell<TimeMaster, Aaron> o) {
-			obtenirClau().comparador(new TimeMaster()).compara(obtenirClau(), o.obtenirClau());
-			Anyell<Hiperespai,Espaitemps> anyell = obtenirClau().comparador().font();
+		obtenirClau().comparador(new TimeMaster()).compara(obtenirClau(), o.obtenirClau());
+		Anyell<Hiperespai,Espaitemps> anyell = obtenirClau().comparador().font();
 		comparador((TimeMaster) anyell, (Aaron) anyell.obtenirFill());
 		return 0;
 	}
@@ -87,30 +87,14 @@ public class DéuPare extends Home<Aaron,TimeMaster> {
 			case Manament.VIU:
 				déuPare.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				déuPare.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Aaron) {
-			Aaron aaron = (Aaron) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new TimeMaster()).compara(aaron, obtenirValor());
-					TimeMaster timeMaster = (TimeMaster) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(timeMaster, (Aaron) timeMaster.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

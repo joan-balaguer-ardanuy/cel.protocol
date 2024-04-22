@@ -87,30 +87,14 @@ public class Genomapa
 			case Manament.VIU:
 				genomapa.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				genomapa.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Hipercub) {
-			Hipercub hipercub = (Hipercub) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Hipercadena()).compara(hipercub, obtenirValor());
-					Hipercadena anyell = (Hipercadena) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(anyell, (Hipercub) anyell.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

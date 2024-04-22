@@ -83,38 +83,33 @@ public class Tetraploide extends Dona<Diploide, Cromosoma> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Genomapa) {
-			Genomapa genomapa = (Genomapa) manament.getSource();
+		if(manament.getSource() instanceof Cromosoma) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Cromosoma cromosoma = new Cromosoma();
-					cromosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
-					donarManament(new Ordre(cromosoma));
+					Cromosoma cromosoma = (Cromosoma) manament.getSource();
+					obtenirMareDeDéu().establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Diploide) {
-			Diploide diploide = (Diploide) manament.getSource();
+		} else if(manament.getSource() instanceof Tetraploide) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Cromosoma()).compara(diploide, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				Tetraploide tetraploide = (Tetraploide) manament.getSource();
+				comparador(new Ribosoma()).compara(tetraploide, obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
 			}
 		}
-
-		
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		super.run();
+		obtenirClau().run();
 		super.run();
 	}
 }

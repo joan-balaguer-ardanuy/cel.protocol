@@ -90,30 +90,14 @@ public class Ribosoma extends Home<Cromosoma, Diploide> {
 			case Manament.VIU:
 				ribosoma.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				ribosoma.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Cromosoma) {
-			Cromosoma cromosoma = (Cromosoma) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Diploide()).compara(cromosoma, obtenirValor());
-					Diploide anyell = (Diploide) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(anyell, (Cromosoma) anyell.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

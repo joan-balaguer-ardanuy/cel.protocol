@@ -81,27 +81,23 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Operó) {
-			Operó operó = (Operó) manament.getSource();
+		if(manament.getSource() instanceof Terra) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					Terra terra = new Terra();
-					terra.establirValor(operó, (Poliploide) operó.obtenirFill());
-					donarManament(new Ordre(terra));
+					Terra terra = (Terra) manament.getSource();
+					obtenirMareDeDéu().establirValor(terra, (Mar) terra.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Mar) {
-			Mar mar = (Mar) manament.getSource();
+		} else if(manament.getSource() instanceof AlfaCentauri) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new Terra()).compara(mar, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				AlfaCentauri alfaCentauri = (AlfaCentauri) manament.getSource();
+				comparador(new Sol()).compara(alfaCentauri, obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
@@ -110,7 +106,7 @@ public class AlfaCentauri extends Dona<Mar, Terra> {
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

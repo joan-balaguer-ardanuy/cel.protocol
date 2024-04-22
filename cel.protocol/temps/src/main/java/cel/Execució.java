@@ -1,44 +1,13 @@
 package cel;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-
-import cel.gènesi.Aaron;
-import cel.gènesi.AlfaCentauri;
-import cel.gènesi.Andròmeda;
-import cel.gènesi.Cromosoma;
-import cel.gènesi.Diploide;
-import cel.gènesi.DéuPare;
-import cel.gènesi.Espaitemps;
-import cel.gènesi.Genomapa;
-import cel.gènesi.Haploide;
-import cel.gènesi.Hipercadena;
-import cel.gènesi.Hipercub;
-import cel.gènesi.Hiperespai;
-import cel.gènesi.Interestellar;
-import cel.gènesi.Mar;
-import cel.gènesi.MareDeDéu;
-import cel.gènesi.Operó;
-import cel.gènesi.Poliploide;
-import cel.gènesi.Ribosoma;
-import cel.gènesi.Sol;
-import cel.gènesi.Supercúmul;
-import cel.gènesi.Terra;
-import cel.gènesi.Tetraploide;
-import cel.gènesi.TimeMaster;
-import cel.gènesi.ViaLàctia;
+import cel.gènesi.*;
 
 public class Execució {                                                                                                                        
 
 	public static void main(String[] args) throws Throwable {
-				
 		
-		
-		int dilatació = 1;
-		Hipercub hipercub = new Hipercub(Hipercadena.class, Paritat.aleatòria());
+		int dilatació = 10;
+		Hipercub hipercub = new Hipercub();
 		hipercub.establirValor('A', 1*dilatació);
 		hipercub.establirValor('B', 2*dilatació);
 		hipercub.establirValor('C', 3*dilatació);
@@ -67,157 +36,39 @@ public class Execució {
 		hipercub.establirValor('Z', 26*dilatació);
 		hipercub.establirValor('Ç', 27*dilatació);
 
-		Genomapa genomapa = new Genomapa(Haploide.class, hipercub.obtenirParitat());
+		Genomapa genomapa = new Genomapa();
 		genomapa.establirValor(hipercub, (Hipercadena) hipercub.obtenirFill());
 		
-		Cromosoma cromosoma = new Cromosoma(Diploide.class, genomapa.obtenirParitat());
+		Cromosoma cromosoma = new Cromosoma();
 		cromosoma.establirValor(genomapa, (Haploide) genomapa.obtenirFill());
 
-		Ribosoma ribosoma = new Ribosoma(Tetraploide.class, cromosoma.obtenirParitat());
-		ribosoma.establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
+//		Ribosoma ribosoma = new Ribosoma();
+//		ribosoma.establirValor(cromosoma, (Diploide) cromosoma.obtenirFill());
+//		
+//		Operó operó = new Operó();
+//		operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
+//		
+//		Terra terra = new Terra();
+//		terra.establirValor(operó, (Poliploide) operó.obtenirFill());
+//		
+//		Sol sol = new Sol();
+//		sol.establirValor(terra, (Mar) terra.obtenirFill());
+//		
+//		ViaLàctia viaLàctia = new ViaLàctia();
+//		viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
+//		
+//		Supercúmul supercúmul = new Supercúmul();
+//		supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
+//		
+//		Espaitemps espaitemps = new Espaitemps();
+//		espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
+//		
+//		Aaron aaron = new Aaron();
+//		aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
+//		
+//		DéuPare déuPare = new DéuPare();
+//		déuPare.establirValor(aaron, (TimeMaster) aaron.obtenirFill());
 		
-		Operó operó = new Operó(Poliploide.class, ribosoma.obtenirParitat());
-		operó.establirValor(ribosoma, (Tetraploide) ribosoma.obtenirFill());
-		
-		Terra terra = new Terra(Mar.class, operó.obtenirParitat());
-		terra.establirValor(operó, (Poliploide) operó.obtenirFill());
-		
-		Sol sol = new Sol(AlfaCentauri.class, terra.obtenirParitat());
-		sol.establirValor(terra, (Mar) terra.obtenirFill());
-		
-		ViaLàctia viaLàctia = new ViaLàctia(Andròmeda.class, sol.obtenirParitat());
-		viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
-		
-		Supercúmul supercúmul = new Supercúmul(Interestellar.class, viaLàctia.obtenirParitat());
-		supercúmul.establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
-		
-		Espaitemps espaitemps = new Espaitemps(Hiperespai.class, supercúmul.obtenirParitat());
-		espaitemps.establirValor(supercúmul, (Interestellar) supercúmul.obtenirFill());
-		
-		Aaron aaron = new Aaron(TimeMaster.class, espaitemps.obtenirParitat());
-		aaron.establirValor(espaitemps, (Hiperespai) espaitemps.obtenirFill());
-		
-		DéuPare déuPare = new DéuPare(MareDeDéu.class, aaron.obtenirParitat());
-		déuPare.establirValor(aaron, (TimeMaster) aaron.obtenirFill());
-		
-		Esperit esperit = new Esperit() {
-			
-			private static final long serialVersionUID = 4985487628873024010L;
-
-			@Override
-			public Thread newThread(Runnable r) {
-				return new Thread(r);
-			}
-			
-			@Override
-			public void execute(Runnable command) {
-				newThread(command).start();
-			}
-			
-			@Override
-			public void run() {
-				
-			}
-			
-			@Override
-			public Paritat obtenirParitat() {
-				return null;
-			}
-			
-			@Override
-			public String obtenirOrdre() {
-				return null;
-			}
-			
-			@Override
-			public String obtenirNom() {
-				return null;
-			}
-			
-			@Override
-			public void establirParitat(Paritat paritat) {
-				
-			}
-			
-			@Override
-			public void establirOrdre(String ordre) {
-				
-			}
-			
-			@Override
-			public void esdeveniment(Ordre manament) {
-				Esperit esperit = (Esperit) manament.getSource();
-				switch (manament.obtenirManament()) {
-				case Manament.GÈNESI:
-					if(esperit instanceof Aaron) {
-						Aaron aaron = (Aaron) esperit;
-						aaron.afegirTestimoni(this);
-						aaron.obtenirFill().afegirTestimoni(this);
-//						déuPare.establirValor(aaron, (TimeMaster) aaron.obtenirFill());
-						execute(aaron);
-					} else if(esperit instanceof Hipercub) {
-						
-					}
-					break;
-				case Manament.VIU:
-					if(esperit instanceof Hipercub || esperit instanceof Hipercadena
-//							|| esperit instanceof Genomapa || esperit instanceof Haploide
-//							|| esperit instanceof Cromosoma || esperit instanceof Diploide
-//							|| esperit instanceof Ribosoma || esperit instanceof Tetraploide
-//							|| esperit instanceof Operó || esperit instanceof Poliploide
-							) {
-						
-					} else {
-						PrintStream output;
-						try {
-							output = new PrintStream(
-								     new FileOutputStream("output.txt", true));
-							output.println("VIU: " + esperit.getClass().getName()) ;
-							output.close();
-						} catch (FileNotFoundException e1) {
-							e1.printStackTrace();
-						}
-					}
-					break;
-				default:
-//					if(esperit instanceof Hipercub || esperit instanceof Hipercadena
-//							|| esperit instanceof Genomapa || esperit instanceof Haploide
-//							|| esperit instanceof Cromosoma || esperit instanceof Diploide
-//							|| esperit instanceof Ribosoma || esperit instanceof Tetraploide
-////							|| esperit instanceof Operó || esperit instanceof Poliploide
-//							) {
-//						
-//					} else {
-//						System.out.println("MOR: " + esperit.getClass());
-//					}
-
-					break;
-				}
-			}
-			
-			@Override
-			public void alliberarTestimoni(Esperit esperit) {
-				
-			}
-			
-			@Override
-			public void afegirTestimoni(Esperit esperit) {
-				
-			}
-		};
-		
-		déuPare.afegirTestimoni(esperit);
-		déuPare.obtenirFill().afegirTestimoni(esperit);
-		
-		System.setErr(new PrintStream(new OutputStream() {
-			
-			@Override
-			public void write(int b) throws IOException {
-				// TODO Auto-generated method stub
-				
-			}
-		}));
-		déuPare.execute(déuPare);
-//		déuPare.run();
+		cromosoma.execute(cromosoma);
 	}
 }

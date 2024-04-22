@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import cel.Anyell;
 import cel.Manament;
+import cel.Ordre;
 import cel.Paritat;
 
 @XmlRootElement
@@ -87,22 +88,28 @@ public class Hipercadena extends Dona<Integer,Character> {
 		}
 	}
 	@Override
+	public void esdeveniment(Ordre manament) {
+		super.esdeveniment(manament);
+		if(manament.getSource() instanceof Hipercadena) {
+			switch (manament.obtenirManament()) {
+			case Manament.VIU:
+				Hipercadena hipercadena = (Hipercadena) manament.getSource();
+				comparador(new Hipercub()).compara(hipercadena, obtenirMareDeDéu());
+				System.out.println(comparador().font().obtenirNom());
+				donarManament(new Ordre(comparador().font()));
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	@Override
 	public void run() {
 		try {
 			Thread.sleep(obtenirClau());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		if((sócDéu() && !ésBuit()) || !sócFinal()) {
-			obtenirFill().run();
-		}
-		switch (obtenirOrdre()) {
-		case Manament.VIU:
-			establirOrdre(Manament.MOR);
-			break;
-		default:
-			establirOrdre(Manament.VIU);
-			break;
-		}
+		super.run();
 	}
 }

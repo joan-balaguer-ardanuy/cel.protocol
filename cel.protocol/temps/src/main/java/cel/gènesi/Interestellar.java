@@ -81,37 +81,32 @@ public class Interestellar extends Dona<Andròmeda, ViaLàctia> {
 	@Override
 	public void esdeveniment(Ordre manament) {
 		super.esdeveniment(manament);
-		if(manament.getSource() instanceof Sol) {
-			Sol sol = (Sol) manament.getSource();
+		if(manament.getSource() instanceof ViaLàctia) {
 			switch (manament.obtenirManament()) {
 			case Manament.GÈNESI:
 				if(sócDéu()) {
-					ViaLàctia viaLàctia = new ViaLàctia();
-					viaLàctia.establirValor(sol, (AlfaCentauri) sol.obtenirFill());
-					donarManament(new Ordre(viaLàctia));
+					ViaLàctia viaLàctia = (ViaLàctia) manament.getSource();
+					obtenirMareDeDéu().establirValor(viaLàctia, (Andròmeda) viaLàctia.obtenirFill());
 				}
 				break;
 			default:
 				break;
 			}
-		} else if(manament.getSource() instanceof Andròmeda) {
-			Andròmeda andròmeda = (Andròmeda) manament.getSource();
+		} else if(manament.getSource() instanceof Interestellar) {
 			switch (manament.obtenirManament()) {
 			case Manament.VIU:
-				if (!sócDéu()) {
-					obtenirClau().comparador(new ViaLàctia()).compara(andròmeda, obtenirValor());
-					donarManament(new Ordre(obtenirClau().comparador().font()));
-				}
+				Interestellar interestellar = (Interestellar) manament.getSource();
+				comparador(new Supercúmul()).compara(interestellar, obtenirMareDeDéu());
+				donarManament(new Ordre(comparador().font()));
 				break;
 			default:
 				break;
 			}
 		}
-		
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

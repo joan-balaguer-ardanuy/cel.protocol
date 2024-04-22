@@ -40,7 +40,7 @@ public interface Vida<K,V> extends Regne<K>, Poder<V>, EsperitSant<K,V> {
     
 	boolean sócDéu();
 	boolean sócPrincipi();
-	boolean sócFinal();
+	boolean sócMareDeDéu();
 	
 	/**
 	 * Recorre el Fill heretat amb el Pare dins aquesta instància.

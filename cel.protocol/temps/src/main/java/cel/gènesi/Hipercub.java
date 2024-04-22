@@ -76,9 +76,6 @@ public class Hipercub extends Home<Character,Integer> {
 			case Manament.VIU:
 				hipercub.permutarFill(obtenirPassat(), obtenirFutur());	
 				break;
-//			case Manament.MOR:
-//				hipercub.alliberar();
-//				break;
 			default:
 				return;
 			}
@@ -112,16 +109,6 @@ public class Hipercub extends Home<Character,Integer> {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		if((sócDéu() && !ésBuit()) || !sócFinal()) {
-			obtenirFill().run();
-		}
-		switch (obtenirOrdre()) {
-		case Manament.VIU:
-			establirOrdre(Manament.MOR);
-			break;
-		default:
-			establirOrdre(Manament.VIU);
-			break;
-		}
+		super.run();
 	}
 }

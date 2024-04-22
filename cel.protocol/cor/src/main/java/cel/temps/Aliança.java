@@ -100,7 +100,7 @@ public abstract class Aliança
 		return this == obtenirDéu();
 	}
 	@Override
-	public boolean sócFinal() {
+	public boolean sócMareDeDéu() {
 		return obtenirFill() == obtenirMareDeDéu();
 	}
 	public boolean sócPrincipi()

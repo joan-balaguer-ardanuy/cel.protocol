@@ -87,31 +87,14 @@ public class Aaron extends Home<Espaitemps, Hiperespai> {
 			case Manament.VIU:
 				aaron.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				aaron.alliberar();
-				break;
 			default:
 				return;
 			}
-		} else if(manament.getSource() instanceof Espaitemps) {
-			Espaitemps espaitemps = (Espaitemps) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Hiperespai()).compara(espaitemps, obtenirValor());
-					Hiperespai hiperespai = (Hiperespai) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(hiperespai, (Espaitemps) hiperespai.obtenirFill());
-				}
-				break;
-			default:
-				break;
-			}
 		}
-		
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }

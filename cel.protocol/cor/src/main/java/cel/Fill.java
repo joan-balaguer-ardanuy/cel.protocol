@@ -63,4 +63,9 @@ public abstract class Fill
 		super(pare, fill);
 		pare.obtenirFill().establirFill((K) this);
 	}
+	@Override
+	public void run() {
+		execute(obtenirFill());
+		super.run();
+	}
 }

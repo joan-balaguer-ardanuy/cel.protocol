@@ -87,30 +87,14 @@ public class Espaitemps extends Home<Supercúmul,Interestellar> {
 			case Manament.VIU:
 				espaitemps.permutarFill(obtenirPassat(), obtenirFutur());
 				break;
-			case Manament.MOR:
-				espaitemps.alliberar();
-				break;
 			default:
 				return;
-			}
-		} else if(manament.getSource() instanceof Supercúmul) {
-			Supercúmul supercúmul = (Supercúmul) manament.getSource();
-			switch (manament.obtenirManament()) {
-			case Manament.MOR:
-				if(!sócDéu()) {
-					obtenirClau().comparador(new Interestellar()).compara(supercúmul, obtenirValor());
-					Interestellar interestellar = (Interestellar) obtenirClau().comparador().font();
-					obtenirMareDeDéu().establirValor(interestellar, (Supercúmul) interestellar.obtenirFill());
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
 	@Override
 	public void run() {
-		obtenirValor().run();
+		obtenirClau().run();
 		super.run();
 	}
 }
